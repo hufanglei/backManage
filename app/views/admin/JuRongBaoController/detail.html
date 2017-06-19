@@ -1,0 +1,43 @@
+#{extends 'backMain.html'/}
+#{set title:'聚融宝详情' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/order/index.css'}">
+
+<!--左侧栏-->
+#{financialCenter-L /}
+
+<div class="content-right">
+    <div class="container-fluid">
+        <!--面包屑-->
+        <div class="row ordertitle">
+            <strong>申请聚融宝资质</strong>
+            <i class="glyphicon glyphicon-chevron-right"></i>
+            <strong class="yellow">聚融宝详情</strong>
+        </div>
+        <!--/面包屑-->
+        <form action="@{admin.JuRongBaoController.detail()}" method="get" class="form-horizontal">
+            <div class="hp">
+                <a class="btn btn-primary" onclick="history.go(-1)" style="margin-top:20px;margin-bottom:20px;">返回</a>
+                <p></p>
+                <div><strong>用户类型：&nbsp;</strong>${applyjurongbao?.usertype}<p></p></div>
+                <div><strong>用户名：&nbsp;</strong>${applyjurongbao.name}<p></p></div>
+                <div><strong>常用料类型、数量：&nbsp;</strong>${comproList.COMMPRO}<p></p></div>
+                <div><strong>加工机械:&nbsp;</strong>${applyjurongbao.procmach} 台/套<p></p></div>
+                <div><strong>产出产品:&nbsp;</strong>${applyjurongbao.product}<p></p></div>
+                <div><strong>手机号:&nbsp;</strong>${applyjurongbao.mobphone}<p></p></div>
+                <div><strong>创建时间:&nbsp;</strong>${applyjurongbao.createtime}<p></p></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="@{'/public/javascripts/common/pageCommon.js'}" type="text/javascript"
+        charset="${_response_encoding}"></script>
+<script>
+    $(function () {
+
+        $(".nav > li > a").eq(6).css({
+            "text-decoration": "none",
+            "background-color": "#eee"
+        });
+    })
+</script>

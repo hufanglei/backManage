@@ -1,0 +1,34 @@
+#{extends 'main.html' /}
+#{set title:'新增页面' /}
+
+<div class="panel">
+    <div class="panel-heading">
+        <strong><i class="icon-plus"></i>&nbsp;新增Test信息</strong>
+    </div>
+    <div class="panel-body">
+        <form action="@{admin.TestController.save()}" method="post" class="form-horizontal">
+            <fieldset>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="name">姓名</label>
+                    <div class="col-sm-3">
+                        <input type="text"  name="test.name"   class="form-control "/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="name">公司</label>
+                    <div class="col-sm-3">
+                        <input type="text" name="test.company"  class="form-control "/>
+                    </div>
+                </div>
+
+                <div class="form-group" style="padding-top:30px">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button id="submit" type="submit"  class="btn btn-primary">新增</button>
+                        <button id="cancel" type="reset" class="btn cancel" onclick="history.go(-1)">取消</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

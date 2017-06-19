@@ -1,0 +1,235 @@
+#{extends 'backMain.html'/}
+#{set title:'用户管理首页' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/order/index.css'}">
+
+<!--左侧栏-->
+#{personalCenter-L /}
+
+<!--右侧栏  -->
+<div class="content-right">
+    <div class="container-fluid">
+        <!--面包屑-->
+        <div class="row ordertitle">
+            <strong>用户管理</strong>
+            <i class="glyphicon glyphicon-chevron-right"></i>
+            <strong class="yellow">用户列表</strong>
+        </div>
+        <!--/面包屑-->
+        <!--查询表单-->
+        <div class="container-fluid" id="querybox">
+            <div class="page-header"><span class="glyphicon glyphicon-search"></span>查询</div>
+            <form class="form" id="searchForm" action="@{admin.FrontUserController.pageIndex()}" method="get">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">登录名</label>
+                            <div class="col-md-7">
+                                <select name="searchFrontUser.login" id="login" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                        <option value="">--请选择--</option>
+                                    #{list items:searchUserData,as:'frontuser'}
+                                        <option value="${frontuser?.LOGIN}"  ${frontuser?.LOGIN?.equals( searchFrontUser?.login ) ? "selected":"" }>${frontuser?.LOGIN}</option>
+                                    #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">姓名</label>
+                            <div class="col-md-7">
+                                <select name="searchFrontUser.name" id="name" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:searchUserData,as:'frontuser'}
+                                    <option value="${frontuser?.NAME}"  ${frontuser?.NAME?.equals(searchFrontUser?.name) ? "selected":"" }>${frontuser?.NAME}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">手机号</label>
+                            <div class="col-md-7">
+                                <select name="searchFrontUser.mobphone" id="mobphone" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+
+                                    <option value="" >--请选择--</option>
+                                #{list items:searchUserData,as:'frontuser'}
+                                    <option value="${frontuser?.MOBPHONE}"  ${frontuser?.MOBPHONE?.equals(searchFrontUser?.mobphone)? "selected":"" }>${frontuser?.MOBPHONE}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <div class="row" style="margin-top: 5px;">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">认证状态</label>
+                            <div class="col-md-7">
+                                <select name="searchFrontUser.affirmregcode" class="form-control placeholder-no-fix chosen-select" autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:affirmList,as:'affirm'}
+                                    <option value="${affirm?.LEVELCODE}" ${affirm?.LEVELCODE?.equals( searchFrontUser?.affirmregcode) ? "selected":"" }>${affirm?.NAME}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">有效状态</label>
+                            <div class="col-md-7">
+                                <select name="searchFrontUser.statuscode" class="form-control placeholder-no-fix chosen-select" autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:statusList,as:'status'}
+                                    <option value="${status?.LEVELCODE}"  ${status?.LEVELCODE?.equals(searchFrontUser?.statuscode) ? "selected":"" }>${status?.NAME}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">公司名称</label>
+                            <div class="col-md-7">
+                                <select name="searchFrontUser.company" class="form-control placeholder-no-fix chosen-select" autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:searchUserData,as:'company'}
+                                    <option value="${company?.NAME}"  ${company?.NAME?.equals(searchFrontUser?.company) ? "selected":"" }>${company?.NAME}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <div class="page-header"></div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">新增用户周期</label>
+                            <div class="col-md-7">
+                                <select name="searchFrontUser.cycle" class="form-control placeholder-no-fix chosen-select" autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                    <option value="7" ${"7".equals(searchFrontUser?.cycle) ? "selected":""}>一周内</option>
+                                    <option value="30" ${"30".equals(searchFrontUser?.cycle) ? "selected":""}>一月内</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    *{<div class="col-md-8 text-right">}*
+                    <div class="text-right" style="width: 97.666667%">
+                        <button class="btn  btn-primary" type="submit">查询</button>
+                        <button class="btn  btn-warning" type="reset">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--/查询表单-->
+        <!--列表区域-->
+        <div class="row filler">
+            <span><a href="@{admin.FrontUserController.add()}"><i class="glyphicon glyphicon-plus"></i>新增</a></span>
+            <span><a href="javascript:void(0);" title="温馨提示" data-container="body" data-toggle="popover"
+                     data-placement="top"
+                     data-content="不能为空并且只能选择一条记录奥" data-action="enabled"><i
+                    class="glyphicon glyphicon-ok"></i>启用</a></span>
+            <span><a href="javascript:void(0);" title="温馨提示" data-container="body" data-toggle="popover"
+                     data-placement="top"
+                     data-content="不能为空并且只能选择一条记录奥" data-action="disable"><i
+                    class="glyphicon glyphicon-remove"></i>禁用</a></span>
+            <span><a href="javascript:void(0);" title="温馨提示" data-container="body" data-toggle="popover"
+                     data-placement="top"
+                     data-content="不能为空并且只能选择一条记录奥" data-action="edit"><i class="glyphicon glyphicon-pencil"></i>编辑</a></span>
+            <span><a href="javascript:void(0);" title="温馨提示" data-container="body" data-toggle="popover"
+                     data-placement="top"
+                     data-content="不能为空并且只能选择一条记录奥" data-action="detail"><i class="glyphicon glyphicon-book"></i>详情</a></span>
+            *{<span><a href="javascript:void(0);" title="温馨提示" data-container="body" data-toggle="popover"
+                     data-placement="top"
+                     data-content="不能为空并且只能选择一条记录奥"><i class="	glyphicon glyphicon-list"></i>权限绑定</a></span>}*
+            <span><a href="javascript:void(0);" title="温馨提示" data-container="body" data-toggle="popover"
+                     data-placement="top"
+                     data-content="不能为空并且只能选择一条记录奥" data-action="toAddCompany"><i class="glyphicon glyphicon-plus"></i>新增公司</a></span>
+        </div>
+        <!--表格-->
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr name="includeCheckbox">
+                <th>序号</th>
+                <th>登录名</th>
+                <th>注册类型</th>
+                <th>公司名称</th>
+                <th>姓名</th>
+                <th>手机号</th>
+                <th>认证状态</th>
+                <th>有效状态</th>
+                <th>创建时间</th>
+                *{<th>操作</th>}*
+            </tr>
+            </thead>
+            <tbody>
+            #{list items:pageBean.modelList , as : 'frontuser'}
+            <tr name="includeCheckbox">
+                <td class="txtValue" style="display: none;">${frontuser?.ID}</td>
+                <td>${frontuser?.RN}</td>
+                <td>${frontuser?.LOGIN}</td>
+                <td>
+                    #{if frontuser?.GUESTCODE==(" ")}#{/if}
+                    #{else }
+                        ${frontuser?.GUESTCODE?.registerCodeFormat()?.get("NAME")}
+                    #{/else}
+                </td>
+                <td>${frontuser?.COMPANY}</td>
+                <td>${frontuser?.NAME}</td>
+                <td>${frontuser?.MOBPHONE}</td>
+                <td>
+                ${frontuser?.AFFIRMREGCODE?.affirmRegFormat()?.get("NAME")}
+                </td>
+                <td>
+                ${frontuser?.STATUSCODE?.statusFormat()?.get("NAME")}
+                </td>
+                <td>${frontuser?.CREATETIME} </td>
+                *{<td><a href="@{admin.FrontUserController.detail}?Id=${frontuser?.ID}">详情</a></td>}*
+            </tr>
+            #{/list}
+            </tbody>
+        </table>
+        <!--/列表区域-->
+        <!--分页-->
+    #{include 'admin/common/page.html' /}
+        <!--/分页-->
+    </div>
+</div>
+<!--/右侧栏  -->
+
+<script src="@{'/public/javascripts/common/pageCommon.js'}" type="text/javascript"
+        charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/common/TableCheckbox.js'}" type="text/javascript"
+        charset="${_response_encoding}"></script>
+<script>
+    $(function () {
+
+        //提示框控制+ 后台提交
+        $("[data-toggle='popover']").click(function () {
+            var $this = $(this);
+            commit($this.attr("data-action"), $this);
+        });
+
+        //根据 页面相应的方法名（enabled/disable/edit/details/addCompany）提交后台
+        function commit(method, obj) {
+            var id = $(".txtValue").val();
+            var reg = /,/; //是否是多个id 根据，识别
+            if (reg.test(id) || id == "") {
+                obj.popover();
+            } else {
+                window.location.href = "/admin/frontuser/" + method + "?frontuserId=" + id;//本地
+            }
+        }
+    })
+</script>
+

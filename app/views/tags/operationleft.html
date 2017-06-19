@@ -1,0 +1,98 @@
+*{运营中心 > 订单管理  > 左侧栏}*
+<div class="sidebar" id="sidebar"> <!-- #sidebar-shortcuts -->
+    <ul class="nav nav-list">
+        <li>
+            <a href="#" class="dropdown-toggle">
+                <span class="menu-text">账户管理</span>
+                <b class="arrow icon-angle-down"> </b>
+            </a>
+            <ul class="submenu" >
+                <li><a href="#"> 平台账户管理 </a></li>
+                <li><a href="#"> 客户账户管理 </a></li>
+            </ul>
+        </li>
+
+
+        <li>
+            <a href="#" class="dropdown-toggle">
+                <span class="menu-text">订单管理</span>
+                <b class="arrow icon-angle-down"> </b>
+            </a>
+            <ul class="submenu" >
+                <li><a href="@{admin.OrderController.pageIndex()}"> 订单跟踪 </a></li>
+                <li><a href="@{admin.SeekBuyController.pageIndex()}"> APP订单中心 </a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="dropdown-toggle">
+                <span class="menu-text">合同管理</span>
+                 <b class="arrow icon-angle-down"> </b>
+            </a>
+            <ul class="submenu" >
+                <li><a href="@{admin.ContractController.index()}"> 买方合同 </a></li>
+                <li><a href="@{admin.ContractController.sellerContract()}"  > 卖方合同 </a>
+                    *{<a href="@{admin.OrderController.index()}"  class="dropdown-toggle"> 卖方合同
+                        <b class="arrow icon-angle-down"></b>
+                    </a>}*
+                    *{<ul class="submenu" style="display:none">
+                        <li><a href="#"> 卖方自己上传 </a></li>
+                        <li>
+                            <a href="#" class="dropdown-toggle"> 卖方回传
+                                <b class="arrow icon-angle-down"> </b>
+                            </a>
+                            <ul class="submenu" style="display:none">
+                                <li><a href="#"> 扫描 </a></li>
+                                <li><a href="#"> 查看商品 </a></li>
+                            </ul>
+                        </li>
+                    </ul>}*
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="">
+                <span class="menu-text">发票管理</span>
+                <b class="arrow icon-angle-down"> </b>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <span class="menu-text">收款管理</span>
+                <b class="arrow icon-angle-down"> </b>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="dropdown-toggle">
+                <span class="menu-text">付款管理</span>
+                <b class="arrow icon-angle-down"> </b>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <span class="menu-text">充值管理</span>
+                <b class="arrow icon-angle-down"> </b>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <span class="menu-text">提现管理</span>
+                <b class="arrow icon-angle-down"> </b>
+            </a>
+        </li>
+
+        <li>
+            <a href="#" class="dropdown-toggle">
+                <span class="menu-text">仓储服务</span>
+                <b class="arrow icon-angle-down"> </b>
+            </a>
+            <ul class="submenu" >
+                <li><a href="@{admin.StockController.list}"> 库存审核 </a></li>
+                <li><a href="@{admin.StockController.arrivalList}"> 上架审核 </a></li>
+                <li><a href="@{admin.FrontUserController.applySeller}"> 供应商资质审核 </a></li>
+            </ul>
+        </li>
+
+    </ul>
+    <!-- /.nav-list -->
+</div>

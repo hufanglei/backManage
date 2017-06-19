@@ -1,0 +1,85 @@
+#{extends 'backMain.html'/}
+#{set title:'原始合同' /}
+
+<link rel="stylesheet" href="@{'/public/stylesheets/admin/contract/originalContract.css'}"/>
+
+<!--左侧栏-->
+#{operationleft /}
+
+
+<!--右侧栏  -->
+<div class="content-right">
+    <div class="container-fluid">
+        <!--/标题：核对合同>原始合同 -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-7 text-left ex-htbt">
+                    <strong>核对合同</strong>
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                    <strong class="yellow">原始合同</strong>
+                </div>
+                <!--/ <div class="col-xs-9 text-left ex-htbt"><b>核对合同>协助上传合同</b></div> /-->
+                <div class="col-xs-5 text-right ex-htbt"><a href="javascript:void(0);" onclick="window.history.go(-1)">返回合同管理</a></div>
+
+                <!--/ <div class="col-xs-3 text-right ex-htbt"><a href="#">返回合同详情</a></div> /-->
+            </div>
+        </div>
+
+        <!--/功能栏（上传、提交、编辑、预览、打印） -->
+        <div class="container-fluid">
+            <div class="row text-center ex-gnl">
+                <div class="col-xs-6 text-left ex-bj">
+                    <button type="button" class="btn btn-xs btn-info"><samp class="glyphicon glyphicon-edit"></samp>编辑</button>
+                    <button type="button" class="btn btn-xs btn-success"><samp class="glyphicon glyphicon-search"></samp>预览</button>
+                </div>
+                <div class="col-xs-6 text-right ex-sc">
+                    <button type="button" class="btn btn-sm btn-info">上传</button>
+                    <button type="button" class="btn btn-sm btn-success">提交</button>
+                    <button type="button" class="btn btn-sm btn-warning">打印</button>
+                </div>
+            </div>
+        </div>
+
+
+
+
+      *{  <!--/合同图 -->
+        <div class="container-fluid">
+            <div class="row ex-tht">
+                <div class="col-xs-8 col-xs-offset-2 ex-htt">
+                    <div id="leamain">
+                        <iframe src="&{'WORD_PREVIEW_URL'}/admin/contract/showContract/${orderId}" marginheight="0" marginwidth="0" frameborder="0" scrolling="no" width="960" height=100% id="iframepage" name="iframepage" onLoad="iFrameHeight()" ></iframe>
+                    </div>
+            </div>
+        </div>
+         </div>}*
+
+        <!--/合同图 -->
+        <div class="container-fluid">
+            <div class="row text-center ex-tht">
+                <div class="col-xs-10 col-xs-offset-1 ex-htt">
+                    <iframe src="&{'WORD_PREVIEW_URL'}/admin/contract/showContract/${orderId}" marginheight="0" marginwidth="0" frameborder="0" scrolling="no" width="960" height=100% id="iframepage" name="iframepage" onLoad="iFrameHeight()" ></iframe>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+    <script type="text/javascript" language="javascript">
+
+        function iFrameHeight() {
+            var ifm= document.getElementById("iframepage");
+            var subWeb = document.frames ? document.frames["iframepage"].document :  ifm.contentDocument;
+            if(ifm != null && subWeb != null) {
+                ifm.height = subWeb.body.scrollHeight;
+            }
+        }
+
+    </script>
+
+
+
+
+

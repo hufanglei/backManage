@@ -1,0 +1,135 @@
+#{extends 'main.html' /}
+#{set title:'注册新账户' /}
+<link rel="stylesheet" href="@{'/public/stylesheets/toRegist.css'}"/>
+<body class="login">
+<!-- BEGIN LOGO -->
+<div class="logo">
+    <img src="" alt="">
+</div>
+<!-- END LOGO -->
+<!-- BEGIN LOGIN -->
+<div class="content">
+    <!-- BEGIN REGISTRATION FORM -->
+
+    <form id="contentModel" class="register-form" action="@{Application.reg}" method="POST" novalidate="novalidate">
+        <h3>注册新账户</h3>
+        <p>请输入个人信息：</p>
+        <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">姓名</label>
+            <div class="input-icon">
+                <i class="glyphicon glyphicon-font" id="aaa"></i>
+                <input id="name" name="account.name" placeholder="姓名" check-type="required" class="form-control placeholder-no-fix" type="text" value=""><br>
+            </div>
+        </div>
+        <div class="form-group margin_bottom">
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">邮箱</label>
+            <div class="input-icon">
+                <i class="glyphicon glyphicon-envelope" id="aaa"></i>
+                <input id="email" name="account.email" placeholder="邮箱" check-type="required email" class="form-control placeholder-no-fix" type="text" value="" autocomplete="off"><br>
+            </div>
+        </div>
+        <div class="margin_bottom">
+            <label class="control-label visible-ie8 visible-ie9">身份证号</label>
+            <div class="input-icon">
+                <i class="glyphicon glyphicon-th" id="aaa"></i>
+                <input id="ic" name="account.ic" placeholder="身份证号" class="form-control placeholder-no-fix" type="text" value="" autocomplete="off"><br>
+            </div>
+        </div>
+        <div class="">
+            <label class="control-label visible-ie8 visible-ie9">员工编号</label>
+            <div class="input-icon">
+                <i class="glyphicon glyphicon-th-list" id="aaa"></i>
+                <input id="codeno" name="account.codeno" placeholder="员工编号" class="form-control placeholder-no-fix" type="text" value="" autocomplete="off"><br>
+            </div>
+        </div>
+        <p>请输入账户信息：</p>
+        <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">用户名</label>
+            <div class="input-icon">
+                <i class="glyphicon glyphicon-user" id="aaa"></i>
+                <input id="username" name="account.username" placeholder="用户名" check-type="required" class="form-control placeholder-no-fix" type="text" value="" autocomplete="off"><br>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">密码</label>
+            <div class="input-icon">
+                <i class="glyphicon glyphicon-lock" id="aaa"></i>
+                <input id="password" name="account.password" placeholder="密码" check-type="required password" class="form-control placeholder-no-fix" type="password" value="" autocomplete="off"><br>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">确认密码</label>
+            <div class="controls">
+                <div class="input-icon">
+                    <i class=" glyphicon glyphicon-ok" id="aaa"></i>
+                    <input id="confirmPassword" name="confirmPassword" placeholder="确认密码" check-type="required password" class="form-control placeholder-no-fix" type="password" value="" autocomplete="off"><br>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>
+                <div class="checker" id="uniform-agreement1">
+                    <span><input id="agreement1" name="agreement" type="checkbox" value="true"></span>
+                </div>
+                <input type="hidden" name="_agreement" value="1"> 我同意 <a href="#">服务条款</a> 和 <a href="#">隐私政策</a>
+            </label>
+
+        </div>
+        <div class="form-actions">
+            <button id="register-back-btn" type="button" class="btn btn-default" onclick="history.back()">
+                <i class="m-icon-swapleft"></i>  返回
+            </button>
+            <button type="submit" id="register-submit-btn" class="button button-primary pull-right">
+                注册 <i class="m-icon-swapright m-icon-white"></i>
+            </button>
+        </div>
+    </form>
+    <!-- END REGISTRATION FORM -->
+</div>
+<!-- END LOGIN -->
+<!-- BEGIN COPYRIGHT -->
+<div class="copyright">
+    2016 © 山东日聚电子商务有限公司.
+</div>
+<!-- END COPYRIGHT -->
+<script src="@{'/public/javascripts/bootstrap3-validation.js'}" type="text/javascript"    charset="${_response_encoding}"></script>
+<script>
+    $("form").validation();
+    //确认密码
+    $("#confirmPassword").blur(function(){
+        //初始密码
+        var initPwd = $("#password").val();
+        var confirmPassword = $("#confirmPassword").val();
+        if(initPwd != confirmPassword){
+            messageTip.tip("两次密码输入不一致");
+            return false;
+        }
+
+    });
+
+    //表单提交验证
+    $("button[type='submit']").on('click', function (event) {
+        //初始密码
+        var initPwd = $("#password").val();
+        var confirmPassword = $("#confirmPassword").val();
+        if(initPwd != confirmPassword){
+            messageTip.tip("两次密码输入不一致");
+            return false;
+        }
+
+        //最后要调用 valid()方法。
+        if ($("form").valid() == false) {
+            return false;
+        }
+
+        //检查是否有被选中的选项
+        var list= $('input:checkbox[name="agreement"]:checked').val();
+        if(list==null){
+            messageTip.tip("请先同意服务条款和隐私政策");
+            return false;
+        }
+    });
+</script>
+<!-- END BODY -->
+</body>

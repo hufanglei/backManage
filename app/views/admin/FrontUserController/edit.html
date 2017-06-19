@@ -1,0 +1,334 @@
+#{extends 'backMain.html'/}
+#{set title:'前台用户新增' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/order/index.css'}">
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/company/style.css'}">
+
+<!--左侧栏-->
+#{personalCenter-L /}
+
+<style>
+    .page-breadcrumb.breadcrumb {
+        margin-bottom: 20px;
+        border: 0px !important;
+        -moz-box-shadow: none !important;
+        box-shadow: none !important;
+        background-color: #EFEFEF;
+        margin-left: -20px;
+        margin-right: -20px;
+    }
+</style>
+
+<div class="content-right">
+    <div class="container-fluid">
+
+        <!--编辑内容-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="glyphicon glyphicon-pencil"></i> 用户管理 > 编辑
+                    </div>
+                    <div class="portlet-body">
+                        <!-- BEGIN FORM-->
+                        <form action="@{admin.FrontUserController.update()}" class="form-horizontal" method="Post" novalidate="novalidate">
+                            <div class="form-body">
+                                <div class="row">
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">注册类型:</label>
+                                            <div class="col-md-6">
+                                                <select id="mod" name="frontuser.guestcode" class="chosen-select form-control"
+                                                        tabindex="2">
+                                                #{list items:registerTypes , as : 'type'}
+                                                    <option value="${type?.LEVELCODE}" ${type?.LEVELCODE == frontuser?.guestcode ? "selected" : ""}>${type?.NAME}</option>
+                                                #{/list}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">工号(可选):</label>
+                                            <div class="col-md-6">
+                                                <input name="frontuser.codeno" value="${frontuser?.codeno}"
+                                                       class="form-control placeholder-no-fix" autocomplete="off"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--/span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">登录名:</label>
+                                            <div class="col-md-6">
+                                                <input name="frontuser.login" value="${frontuser?.login}" check-type="required"
+                                                       class="form-control placeholder-no-fix" autocomplete="off"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">email:</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control " check-type="mail" name="frontuser.email"
+                                                       value="${frontuser?.email}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">用户名:</label>
+                                            <div class="col-md-6">
+                                                <input name="frontuser.name" value="${frontuser?.name}" check-type="required"
+                                                       class="form-control placeholder-no-fix" autocomplete="off"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">组织机构代码(可选):</label>
+                                            <div class="col-md-6">
+                                                <input name="frontuser.unitno" value="${frontuser?.unitno}" check-type=""
+                                                       class="form-control placeholder-no-fix" autocomplete="off"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">密码:</label>
+                                            <div class="col-md-6">
+                                                <input type="password" value="${frontuser?.password}" class="form-control" id ="pw1"
+                                                       check-type="password" name="password"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">业务员（可选):</label>
+                                            <div class="col-md-6">
+                                                <select id="mod" name="frontuser.backUser.id" class="chosen-select form-control"
+                                                        tabindex="2">
+                                                #{list items:accounts , as : 'account'}
+                                                    <option value="${account?.id}" ${account?.id == frontuser?.backUser?.id ? "selected" : ""}>${account?.name}</option>
+                                                #{/list}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">确认密码:</label>
+                                            <div class="col-md-6">
+                                                <input type="password" value="${frontuser?.password}" class="form-control" id ="pw2" onblur="pw()"
+                                                       check-type="password"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">代理经纪人(可选):</label>
+                                            <div class="col-md-6">
+                                                <input type="frontuser.agentid" value="${frontuser?.agentid}" class="form-control"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">公司名称:</label>
+                                            <div class="col-md-6">
+                                                <input value="${frontuser?.companyName}" class="form-control"
+                                                       check-type="require" name="frontuser.companyName"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">审核操作人(可选):</label>
+                                            <div class="col-md-6">
+                                                <select id="mod" name="frontuser?.operationid" class="chosen-select form-control"
+                                                        tabindex="2">
+                                                #{list items:accounts , as : 'account'}
+                                                    <option value="${account?.id}" ${account?.id == frontuser?.operationid ? "selected" : ""}>${account?.name}</option>
+                                                #{/list}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">公司地址:</label>
+                                            <div class="col-md-6">
+
+                                                <input type="text" value="${frontuser?.address}" class="form-control"
+                                                       check-type="required" name="frontuser.address"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">审核操作人ip(可选):</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control " name="frontuser.operationip"
+                                                       value="${frontuser?.operationip}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">固定电话:</label>
+                                            <div class="col-md-6">
+                                                <input type="text" value="${frontuser?.phone}" class="form-control"
+                                                       check-type="tel_phone" name="frontuser.phone"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">审核状态:</label>
+                                            <div class="col-md-6">
+                                                <select id="mod" name="frontuser.affirmregcode" class="chosen-select form-control" disabled
+                                                        tabindex="2">
+                                                #{list items:affirmRegTypes , as : 'type'}
+                                                    <option value="${type?.LEVELCODE}" ${type?.LEVELCODE == frontuser?.affirmregcode ? "selected" : ""} >${type?.NAME}</option>
+                                                #{/list}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden"  name="frontuser.affirmregcode"  value="${frontuser?.affirmregcode}"/>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">手机:</label>
+                                            <div class="col-md-6">
+                                                <input type="text" value="${frontuser?.mobphone}" class="form-control"
+                                                       check-type="phone" name="frontuser.mobphone"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">有效状态:</label>
+                                            <div class="col-md-6">
+                                                <select id="mod" name="frontuser.statuscode" class="chosen-select form-control"
+                                                        check-type="required" tabindex="2">
+                                                #{list items:statusTypes , as : 'type'}
+                                                    <option value="${type?.LEVELCODE}" ${type?.LEVELCODE == frontuser?.statuscode ? "selected" : ""}>${type?.NAME}</option>
+                                                #{/list}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">公司（可选):</label>
+                                            <div class="col-md-6">
+                                                <select id="mod" name="frontuser.comp.id" class="chosen-select form-control" tabindex="2" ${frontuser?.usertypecode=='002'?"disabled":""}>
+                                                #{list items:companies , as : 'company'}
+                                                    <option value="${company?.id}" ${company?.id == frontuser?.comp?.id ? "selected" : ""} >${company?.name}</option>
+                                                #{/list}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">备注(可选):</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control " name="frontuser.memo"
+                                                       value="${frontuser?.memo}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <input name="id" type="hidden" value="${frontuser?.id}"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="text-align:center" >
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">保存</button>
+                                        <button type="reset" class="btn cancel" onclick="history.back()">取消</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+            </div>
+            <!-- END PAGE CONTENT-->
+        </div>
+    </div>
+</div>
+<!--/右侧栏  -->
+<script src="@{'/public/javascripts/bootstrap3-validation.js'}" type="text/javascript"
+        charset="${_response_encoding}"></script>
+<script>
+    $("form").validation();
+
+    //表单提交验证
+    $("button[type='submit']").on('click', function (event) {
+        var pw1 = document.getElementById("pw1").value;
+        var pw2 = document.getElementById("pw2").value;
+        if(pw1 != pw2) {
+            messageTip.tip("两次输入密码不一致");
+            return false;
+        }else{
+            return true;
+        }
+        // 2.最后要调用 valid()方法。
+        if ($("form").valid() == false) {
+            return false;
+        }
+    });
+
+</script>
+<script>
+    function pw() {
+        var pw1 = document.getElementById("pw1").value;
+        var pw2 = document.getElementById("pw2").value;
+        if(pw1 != pw2) {
+            messageTip.tip("两次输入密码不一致");
+            document.getElementById("submit").disabled = true;
+        }else{
+            document.getElementById("submit").disabled = false;
+        }
+    }
+</script>

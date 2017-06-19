@@ -1,0 +1,237 @@
+#{extends 'backMain.html'/}
+#{set title:'资讯编辑' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/order/index.css'}">
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/company/style.css'}">
+<!--左侧栏-->
+#{informationCenter-L /}
+
+<div class="content-right">
+    <div class="container-fluid">
+        <!--编辑内容-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                <div class="panel panel-default">
+                    <!--面包屑-->
+                    <div class="panel-heading">
+                        <i class="glyphicon glyphicon-pencil"></i> 资讯管理 > 编辑
+                    </div>
+                    <!-- END EXAMPLE TABLE PORTLET-->
+                    <div class="portlet-body">
+                        <!-- BEGIN FORM-->
+                        <form action="@{admin.NewsController.update()}" method="post" class="form-horizontal" enctype="multipart/form-data" novalidate="novalidate">
+                            <div class="form-body">
+                                <div class="row">
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">标题:</label>
+                                            <div class="col-sm-6">
+                                                <input name="news.title" value="${news?.title}" check-type="required"
+                                                       class="form-control placeholder-no-fix" autocomplete="off" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-2">作者:</label>
+                                            <div class="col-sm-6">
+                                                <input name="news.author" value="${news?.author}" check-type="required"
+                                                       class="form-control placeholder-no-fix" autocomplete="off" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--/span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">资讯类型:</label>
+                                            <div class="col-sm-6">
+                                                <select id="newscode" name="news.newscode" class="chosen-select form-control"
+                                                        tabindex="2">
+                                                #{list items:newscodeList , as : 'newscode'}
+                                                    <option value="${newscode?.LEVELCODE}" ${newscode?.LEVELCODE == news?.newscode ? "selected" : ""}>${newscode?.NAME}</option>
+                                                #{/list}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-2">资讯概要:</label>
+                                            <div class="col-sm-6">
+                                                <textarea id="editor_id_s" class="form-control" name="news.summary">${news?.summary}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">概要图片(可选):</label>
+                                            <div class="col-sm-6">
+                                            #{if news?.titleimage != null &&  !news?.titleimage.equals("")}
+                                                <img id="image"  src="${news?.titleimage}" alt="${news?.titleimage}" width="150px" height="150px" />
+                                                <span class="help-inline"></span>
+                                                <span class="help-block"></span>
+                                            #{/if}
+                                                <div id="imagepreview"></div>
+                                                <input id="img" type="file"  alt="概要图片" name="fileText" class="form-control"/>
+                                                <span class="help-inline"></span>
+                                                <span class="help-block"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-2">资讯内容:</label>
+                                            <div class="col-sm-6">
+                                                <textarea name="news.content" id="editor_id" style="width:660px;height:300px;">${news?.content}</textarea>
+                                                <span class="help-inline"></span>
+                                                <span class="help-block"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">操作人:</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" name="news.operationid" disabled
+                                                       value="${name}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-2">操作人ip:</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" name="news.operationip" disabled
+                                                       value="${news?.operationip}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">创建时间:</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" name="news.createtime" disabled value="${news?.createtime?.format()}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <!--span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-2">备注:</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control "  name="news.memo"
+                                                       value="${news?.memo}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                </div>
+                            </div>
+                            <input name="id" type="hidden" value="${news?.id}"/>
+                            <div class="row">
+                                <div class="col-md-12" style="text-align:center" >
+                                    <div class="form-group">
+                                        <button id="submit" type="submit" class="btn btn-primary">保存</button>
+                                        <button id="cancel" type="reset" class="btn cancel" onclick="history.go(-1)">取消</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+            </div>
+            <!-- END PAGE CONTENT-->
+        </div>
+    </div>
+</div>
+<!--/右侧栏  -->
+<script src="@{'/public/javascripts/bootstrap3-validation.js'}" type="text/javascript"
+        charset="${_response_encoding}"></script>
+<link rel="stylesheet" media="screen" href="@{'/public/plugin/kindeditor-4.1.10/themes/default/default.css'}" />
+<link rel="stylesheet" media="screen" href="@{'/public/plugin/kindeditor-4.1.10/plugins/code/prettify.css'}" />
+<script charset="${_response_encoding}" type="text/javascript" src="@{'/public/plugin/kindeditor-4.1.10/kindeditor.js'}"></script>
+<script charset="${_response_encoding}" type="text/javascript" src="@{'/public/plugin/kindeditor-4.1.10/lang/zh_CN.js'}"></script>
+<script charset="${_response_encoding}" type="text/javascript" src="@{'/public/plugin/kindeditor-4.1.10/plugins/code/prettify.js'}"></script>
+<script>
+    $("form").validation();
+
+    //表单提交验证
+    $("button[type='submit']").on('click', function (event) {
+        // 2.最后要调用 valid()方法。
+        if ($("form").valid() == false) {
+            return false;
+        }
+    });
+
+</script>
+<script>
+    $(function () {
+        $(".nav > li > a").eq(8).css({
+            "text-decoration": "none",
+            "background-color": "#eee"
+        });
+
+        //上传图片预览方法
+        $('#img').change(function () {
+            var file = this.files[0]; //选择上传的文件
+            var r = new FileReader();
+            r.readAsDataURL(file); //Base64
+            $(r).load(function () {
+                $('#imagepreview').html('<img src="' + this.result + '" width="150px" height="150px" alt="概要图片" />');
+                $("#image").hide();
+            });
+        });
+    });
+
+    KindEditor.ready(function(K) {
+        window.editor = K.create('#editor_id_s');
+    });
+
+    KindEditor.ready(function(K) {
+        K.create('#editor_id', {
+            uploadJson : '/admin/kindEditor/uploadFile',
+//            fileManagerJson : '/admin/AttachedController/attached',
+            allowFileManager : true ,
+            afterBlur : function(){this.sync();},
+            afterCreate : function() {
+                var self = this;
+                K.ctrl(document, 13, function() {
+                    self.sync();
+                    document.forms['example'].submit();
+                });
+                K.ctrl(self.edit.doc, 13, function() {
+                    self.sync();
+                    document.forms['example'].submit();
+                });
+            },
+        });
+        prettyPrint();
+    });
+</script>
+<script>
+    $('#submit').click(function con() {
+        var value =$("#editor_id").val();
+        if(value.length == 0){
+            messageTip.tip("资讯内容不能为空。");
+            return false;
+        }
+    })
+</script>

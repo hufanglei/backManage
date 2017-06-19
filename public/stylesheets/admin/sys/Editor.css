@@ -1,0 +1,60 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    font-size: 16px;
+    font-family: Arial;
+}
+
+/*
+    标题：选项配置>客户关系维护>编辑
+*/
+.ex-htbt{
+    height: 50px;
+    line-height: 60px;
+    font-size: 16px;
+    color: #40516B;
+}
+.ex-htbt a{
+    color: #EB6100;
+}
+.ex-htbt a:hover{
+    color: #EB6100;
+    font-weight: bold;
+}
+
+/*
+    编辑内容
+*/
+.ex-bjnr{
+    border: 1px solid #FBD9C0;
+    /*color: #FFFDF0;*/
+    margin: 0px 15px;
+    border-top:2px solid #FBD9C0 ;
+}
+
+#ex-nrk{
+    margin: 0px 0px;
+    padding: 20px 0px;
+    background-color: #FFFDF0;
+}
+
+#ex-nrkh{
+    padding:0px 15px;
+}
+
+.ex-nrh{
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+    background-color: #FFFDF0;
+    /*border: 1px solid red;*/
+}
+
+#ex-xlk{
+    height: 28px;
+}
+
+#ex-nrbx{
+    border-bottom: 1px solid #FBD9C0;
+    margin: 20px 15px;
+}

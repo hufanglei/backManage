@@ -1,0 +1,76 @@
+#{extends 'main.html'/}
+#{set title:'列表页面'/}
+
+
+<div class="container">
+    <div class="row">
+
+        <br/>
+        <form class="form" action="@{admin.TestController.list()}" method="get">
+            <div class="col-sm-3">
+                <div class="input-group">
+                    <span class="input-group-addon">姓名</span>
+                    <input type="text" name="searchTest.name" class="form-control" value="${searchTest?.name}">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="input-group">
+                    <span class="input-group-addon">公司</span>
+                    <input type="text" name="searchTest.company" class="form-control" value="${searchTest?.company}">
+                </div>
+            </div>
+         <div class="col-sm-3">
+                <div class="input-group">
+                    <span class="input-group-addon">时间</span>
+                    <input type="text" name="createTime" class="form-control form_datetime" value="${createTime}">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-info" type="submit">查询</button>
+            </div>
+        </form>
+
+    </div>
+    <table class="table table-bordered table-striped table-hover">
+        <caption>测试表数据  共${page?.count}条记录,每页数据${page?.pageSize}条记录，共${page?.pages}页,起始记录${page?.beginIndex}</caption>
+         <p><a href="@{admin.TestController.list()}?curPage=${curPage-1}">上一页</a></p>
+         <p><a href="@{admin.TestController.list()}?curPage=${curPage+1}">下一页</a></p>
+        <p>共${page?.count} 条记录，当前第${page?.curPage} /${page?.pages} 页,每页 ${page?.pageSize}条记录</p>
+        <thead class="active">
+            <th>id</th>
+            <th>名字</th>
+            <th>公司</th>
+            <th>时间</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+        #{list items:testList ,as:'test'}
+            <tr>
+                <td>${test?.id}</td>
+                <td>${test?.name}</td>
+                <td>${test?.company}</td>
+                <td>${test?.createTime.format("yyyy-MM-dd HH:mm")}</td>
+                <td >
+                    <div class="row">
+                        <div></div>
+                    </div>
+                    <a href="@{admin.TestController.edit(test?.id)}" class="btn btn-primary">修改</a>
+                    <a href="@{admin.TestController.add()}" class="btn btn-success">新增</a>
+                    <a href="@{admin.TestController.delete(test?.id)}" class="btn btn-danger">删除</a>
+                </td>
+            </tr>
+        #{/list}
+        </tbody>
+    </table>
+
+</div>
+
+
+*{//测试页面的值 传递到js中}*
+*{
+<script>
+    $(function(){
+        var hh =  "${a}";
+        alert(hh);
+    })
+</script>}*

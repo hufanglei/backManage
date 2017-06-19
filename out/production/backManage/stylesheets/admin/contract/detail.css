@@ -1,0 +1,227 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    font-size: 16px;
+    font-family: Arial;
+    /*min-width: 980px;*/
+}
+a, a:hover{
+    text-decoration:none;
+}
+/*
+ 合同管理 > 买方合同 > 合同详情...
+ */
+.ex-bt, .ex-bt div{
+    height: 50px;
+    line-height: 50px;
+    /*border: 1px solid greenyellow;*/
+}
+
+.ex-zt{
+    font-size: 16px;
+    color: #40516B;
+}
+
+.ex-fh a, .ex-fh a:hover{
+    color: #EB6100;
+}
+
+/*
+ 订单流水号、合同号、下单时间等...
+ */
+.ex-htxx{
+    border: 1px solid #FBD9C0;
+    background-color: #FFFDF0;
+    height: 50px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.ex-htxx > tbody > tr > td{
+    border: 1px solid #FBD9C0;
+    height: 50px;
+    line-height: 50px;
+    font-size: 15px;
+    margin: 0px;
+    padding: 0px;
+}
+.ex-htxx td{
+    border: 1px solid #FBD9C0;
+}
+
+/*
+ 操作流程
+ */
+.ex-czbt{
+    height: 50px;
+    line-height: 58px;
+    font-size: 16px;
+}
+
+.ex-czlc{
+    height: 130px;
+    background-color: #F2F2F2;
+    margin: 0px 15px;
+}
+
+#ex-lc{
+    height: 130px;
+    margin: 0px;
+    /*border: 1px solid greenyellow;*/
+}
+
+.ex-lcs{
+    height: 130px;
+    padding-top: 21px;
+    /*border: 1px solid firebrick;*/
+}
+
+#ex-lcss{
+    height: 88px;
+    padding: 0px;
+    /*border: 1px solid firebrick;*/
+}
+
+#ex-lcssk{
+    padding-top: 40px;
+    /*border: 1px solid firebrick;*/
+}
+
+.ex-lct{
+    width: 58px;
+    height: 88px;
+    /*background-color: #419641;*/
+}
+.ex-lct-s1, .ex-lct-s2, .ex-lct-s3, .ex-lct-s4,.ex-lct-s4-1, .ex-lct-s5, .ex-lct-s6{
+    width: 56px;
+    height: 56px;
+    -moz-border-radius:30px;
+    -webkit-border-radius:30px;
+    border-radius:30px;
+    overflow:hidden;
+    padding-top: 13px;
+    text-align: center;
+    background-color: #00A2FF;
+}
+.ex-lct-s1{
+    background-color: #00A2FF;
+}
+.ex-lct-s2{
+    background-color: #00A2FF;
+}
+.ex-lct-s3{
+    background-color: #00A2FF;
+}
+.ex-lct-s4-1{
+    background-color: #00A2FF;
+}
+.ex-lct-s4{
+    background-color: #DCD4D1;
+}
+.ex-lct-s5{
+    background-color: #DCD4D1;
+}
+.ex-lct-s6{
+    background-color: #D9B060;
+}
+
+.ex-lct-x{
+    height: 32px;
+    line-height: 32px;
+    font-size: 14px;
+    color: #40516B;
+}
+
+.ex-arrow{
+    width: 80px;
+    height: 10px;
+    float: left;
+    margin-top: 39px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #419641;
+}
+.ex-arrow img{
+    width: 80px;
+    height: 10px;
+    float: left;
+}
+
+/*
+    联系方式
+*/
+.ex-lxh{
+    border: 1px solid #DBDCE0;
+    background-color: #F0F1F6;
+    height: 60px;
+    margin: 0px;
+    padding: 0px;
+}
+.ex-lxh > tbody > tr > td{
+    height: 60px;
+    line-height: 60px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.ex-lxh samp,.ex-lxh img{
+    color: #AEB1BA;
+    margin-right: 10px;
+}
+.ex-lxh td{
+    color: #08B8AB;
+    border-right: 1px solid #DBDCE0;
+}
+
+/*
+    商品信息
+*/
+#ex-spxx{
+    margin: 0px 15px;
+    /*min-width: 980px;*/
+}
+
+.thead{
+    background-color: #B5D8EE;
+}
+
+.table tr td ,.table tr th{
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+}
+.table-bordered{
+    border: 1px solid #B5D8EE;
+}
+.table-bordered > thead > tr > td, .table-bordered > thead > tr > th,.table-bordered > tbody > tr > td {
+    border-bottom-width: 0;
+    height: 50px;
+    line-height: 50px;
+    padding: 0px;
+    border:0px;
+}
+
+.table-bordered > tbody > tr{
+    border-top: 1px solid #B5D8EE;
+    font-size: 15px;
+}
+.table-bordered > tbody > tr > td a{
+    text-decoration:none;
+    color: #0E98D6;
+}
+.table-bordered > tbody > tr > td a:hover{
+    text-decoration:none;
+    color: #EB6100;
+}
+
+.yellow{
+    color: #FE812F;
+}
+.red{
+    color: #FB2D2D;
+}
+.ex-ls{
+    color: #15A0F5;
+    font-size: 18px;
+    font-weight: bold;
+}

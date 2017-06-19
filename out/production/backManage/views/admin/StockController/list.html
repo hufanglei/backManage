@@ -1,0 +1,238 @@
+#{extends 'backMain.html'/}
+#{set title:'买方合同列表' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/order/index.css'}">
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/contract/index.css'}">
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/contract/modalDialog.css'}">
+
+<!--左侧栏-->
+#{operationleft /}
+
+<!--右侧栏  -->
+<div class="content-right">
+    <div class="container-fluid">
+        <!--面包屑-->
+        <div class="row ordertitle">
+            <strong>仓储服务</strong>
+            <i class="glyphicon glyphicon-chevron-right"></i>
+            <strong class="yellow">库存审核</strong>
+        </div>
+        <!--/面包屑-->
+
+        <!--查询表单-->
+        <div class="container-fluid" id="querybox">
+            <div class="page-header"><span class="glyphicon glyphicon-search"></span>查询</div>
+            <form class="form" action="@{admin.StockController.list}" method="GET">
+
+                <div class="row margin-b-20">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">商品</label>
+
+                            <div class="col-md-7">
+                                <select name="searchStock.mark" id="login" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:markList,as:'mark'}
+                                    <option value="${mark?.MARK}"  ${mark?.MARK?.equals( searchStock?.mark ) ? "selected":"" }>${mark?.MARK}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">卖家公司</label>
+
+                            <div class="col-md-7">
+                                <select name="searchStock.companyName" id="login" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:sellerCompanyNames,as:'sellerCompany'}
+                                    <option value="${sellerCompany?.NAME}"  ${sellerCompany?.NAME?.equals( searchStock?.companyName ) ? "selected":"" }>${sellerCompany?.NAME}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">仓库</label>
+
+                            <div class="col-md-7">
+                                <select name="searchStock.storageName" id="login" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:storageNames,as:'storage'}
+                                    <option value="${storage?.NAME}"  ${storage?.NAME?.equals( searchStock?.storageName ) ? "selected":"" }>${storage?.NAME}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">审核状态</label>
+
+                            <div class="col-md-7">
+                                <select name="searchStock.affirmStockCode" id="login" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:affirmList,as:'affirm'}
+                                    <option value="${affirm?.LEVELCODE}"  ${affirm?.LEVELCODE?.equals( searchStock?.affirmStockCode ) ? "selected":"" }>${affirm?.NAME}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-header"></div>
+                <div class="row text-center">
+                    <button class="btn btn-query" type="submit">查询</button>
+                    <button class="btn btn-reset" type="reset">重置</button>
+                </div>
+            </form>
+        </div>
+        <!--/查询表单-->
+
+        <div class="row filler" style="padding: 5px 14px;"> 库存审核</div>
+        <!--列表区域-->
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>商品</th>
+                <th>用户名</th>
+                <th>卖家公司</th>
+                <th>仓库</th>
+                <th>库存类型</th>
+                <th>审核时间</th>
+                <th>审核状态</th>
+                <th>初始数量</th>
+                <th>确认数量</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            #{list items:pageBean.modelList,as:'stock'}
+                <tr>
+                    <td>${stock?.RN}</td>
+                    <td>${stock?.MARK}</td>
+                    <td>${stock?.USERNAME}</td>
+                    <td>${stock?.COMPANYNAME}</td>
+                    <td>${stock?.STORAGENAME}</td>
+                    <td>${stock?.STOCKCODE?.stockCodeFormat()?.get("NAME")}</td>
+                    <td>${stock?.CREATETIME}</td>
+                    <td>${stock?.AFFIRMSTOCKCODE?.affirmStockFormat()?.get("NAME")}</td>
+                    <td>${stock?.INITNUM}</td>
+                    *{<td>${stock?.AFFIRMNUM}</td>}*
+                    <td>
+                        <input id="affirmnum_${stock?.STOCKID}" type="number" name="affirmnum" value="${stock?.AFFIRMNUM}">
+                        <button class="btn btn-success btn-sm" id="${stock?.RN}" ${stock?.AFFIRMSTOCKCODE=='002'? 'disabled':''}>确认</button>
+                        /
+                        <button class="btn btn-danger btn-sm" id="${stock?.STOCKID}" ${stock?.AFFIRMSTOCKCODE=='003'? 'disabled':''}>驳回</button>
+                    </td>
+                </tr>
+            #{/list}
+
+            </tbody>
+        </table>
+        <!--表格-->
+        <!--/列表区域-->
+        <!--分页-->
+    #{include 'admin/common/page.html'/}
+    </div>
+</div>
+
+<!--/右侧栏  -->
+<script src="@{'/public/javascripts/common/pageCommon.js'}" type="text/javascript" ></script>
+<script>
+    $(function(){
+        //控制显示订单tab样式
+        $(".nav > li > a").eq(5).css({
+            "text-decoration": "none",
+            "background-color": "#eee"
+        });
+
+
+    #{list items:pageBean.modelList,as:'stock'}
+        //确认
+        $("#${stock?.RN}").click(function(){
+            //检查输入的确认数量
+            var input = $("#affirmnum_${stock?.STOCKID}").val();
+            var max = ${stock?.INITNUM};
+            if(input > max){
+                messageTip.tip("确认数量不能超过初始数量");
+                return;
+            }
+            if(input <= 0 || !input){
+                messageTip.tip("确认数量要大于0");
+                return;
+            }
+            var obj = {
+                stockId: '${stock?.STOCKID}',
+                stockCode:'${stock?.STOCKCODE}',
+                affirmNum: $("#affirmnum_${stock?.STOCKID}").val()
+            };
+            $.ajax({
+               type:"get",
+               url:'@{admin.StockController.affirmPass}',
+               data:obj,
+               success: function (data) {
+                   if(data && data.message == "ok"){
+                       messageTip.tip("库存审核完毕，确认数量:"+obj.affirmNum);
+                       $("#${stock?.RN}").parent().prev().prev().html('审核通过');
+                       $("#${stock?.RN}").attr("disabled", true);
+                       $("#${stock?.STOCKID}").attr("disabled", false);
+                   }else{
+                       messageTip.tip("操作失败");
+                   }
+               },
+               error:function(res){
+                   messageTip.tip("网络错误");
+               }
+            });
+        });
+        //驳回
+        $("#${stock?.STOCKID}").click(function(){
+            //检查输入的确认数量
+            var input = $("#affirmnum_${stock?.STOCKID}").val();
+            var max = ${stock?.INITNUM};
+            if(input > max){
+                messageTip.tip("确认数量不能超过初始数量");
+                return;
+            }
+            if(input <= 0 || !input){
+                messageTip.tip("确认数量要大于0");
+                return;
+            }
+            var obj = {
+                stockId: '${stock?.STOCKID}',
+                stockCode:'${stock?.STOCKCODE}',
+                affirmNum: $("#affirmnum_${stock?.STOCKID}").val()
+            };
+            $.ajax({
+                type:"get",
+                url:'@{admin.StockController.affirmFail}',
+                data:obj,
+                success: function (data) {
+                    if(data && data.message == "ok"){
+                        messageTip.tip("库存审核完毕，驳回数量:"+obj.affirmNum);
+                        $("#${stock?.STOCKID}").parent().prev().prev().html('审核失败');
+                        $("#${stock?.STOCKID}").attr("disabled", true);
+                        $("#${stock?.RN}").attr("disabled", false);
+                    }else{
+                        messageTip.tip("操作失败");
+                    }
+                },
+                error:function(res){
+                    messageTip.tip("网络错误");
+                }
+            });
+        });
+    #{/list}
+
+    });
+
+
+</script>

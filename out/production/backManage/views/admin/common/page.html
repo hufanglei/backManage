@@ -1,0 +1,25 @@
+<ul class="pager">
+#{if pageBean?.getHasPrePage(pageIndex)}
+    <li><a class="home" href="javascript:void(0)">首页</a></li>
+    <li><a class="prev" href="javascript:void(0)" data-pageIndex="${pageIndex}">上一页</a></li>
+#{/if}
+#{if !pageBean?.getHasPrePage(pageIndex)}
+    <li class="disabled"><a href="javascript:void(0)">首页</a></li>
+    <li class="disabled"><a   href="javascript:void(0)">上一页</a></li>
+#{/if}
+#{if pageBean?.getHasNextPage(pageIndex , pageBean?.totalPage)}
+    <li><a class="next" href="javascript:void(0)" data-pageIndex="${pageIndex}">下一页</a></li>
+    <li><a class="end" href="javascript:void(0)" data-pageIndex="${pageBean?.totalPage}">尾页</a></li>
+#{/if}
+#{if !pageBean?.getHasNextPage(pageIndex , pageBean?.totalPage)}
+    <li class="disabled"><a href="javascript:void(0)">下一页</a></li>
+    <li class="disabled"><a href="javascript:void(0)">尾页</a></li>
+#{/if}
+    <li class="paddingleft10">第<a href="javascript:void(0);" contenteditable="true"
+                                  id="currentPage">${pageIndex}</a>页
+    </li>
+    <li><a href="javascript:void(0);" class="confirm">确定</a></li>
+    <li class="pull-right">
+        当前第${pageBean?.pageNow} /${pageBean?.totalPage}页。每页${pageBean?.pageSize}条记录，共${pageBean?.totalcount}条记录
+    </li>
+</ul>

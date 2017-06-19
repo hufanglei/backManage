@@ -1,0 +1,42 @@
+#{extends 'main.html'/}
+#{set title:'测试 分页存储过程'/}
+
+<div  class="container">
+        <h2 class="text-danger">总记录数:${myrows} ==== 总页数:${myPageCount}</h2>
+
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="active">
+                <th>id</th>
+                <th>名字</th>
+                <th>公司</th>
+                <th>时间</th>
+                <th>操作</th>
+            </thead>
+        #{list items:testList ,as:'test'}
+            <tr>
+                <td>${test?.ID}</td>
+                <td>${test?.NAME}</td>
+                <td>${test?.COMPANY}</td>
+                <td>${test?.CREATETIME}</td>
+                <td >
+                    <div class="row">
+                        <div></div>
+                    </div>
+                    <a href="@{admin.TestController.edit(test?.id)}" class="btn btn-primary">修改</a>
+                    <a href="@{admin.TestController.add()}" class="btn btn-success">新增</a>
+                    <a href="@{admin.TestController.delete(test?.id)}" class="btn btn-danger">删除</a>
+                </td>
+            </tr>
+        #{/list}
+        </table>
+    <!--分页-->
+    <div id="page" class="m-pagination pull-right"></div>
+    <input type="hidden" id="totalcount" value="${totalcount}"/>
+    <input type="hidden" id="pageSize" value="${pageSize}"/>
+    <input type="hidden" id="urlpage" value="/BiGeZaiXian/news/toinformationcenter"/>
+    </div>
+
+</div>
+
+
+<script></script>

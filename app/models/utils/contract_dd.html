@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>购销合同</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        #contract {
+            margin: 5px auto;
+            width: 650px;
+            height: 1030px;
+            background: rgba(211, 211, 211, 0.2);
+        }
+
+        .title {
+            padding-top: 10px;
+            font-size: 25px;
+            text-align: center;
+            font-weight: bolder;
+            letter-spacing: 6px;
+        }
+
+        #header > p {
+            margin: 10px 15px;
+        }
+
+        #header > p:first-of-type {
+            text-align: right;
+        }
+
+        #header .contract-date, #header .address {
+            float: right;
+        }
+
+        .content {
+            width: 95%;
+            margin: 0 auto;
+        }
+
+        .content > p {
+            margin-top: 2px;
+            padding: 0;
+        }
+
+        .good-table, .pay-table {
+            width: 100%;
+            border: 2px solid #000000;
+            padding: 10px;
+            text-align: center;
+            margin: -10px auto 0;
+            border-collapse: collapse;
+        }
+
+        .good-table > tbody > tr > td, .pay-table > tbody > tr > td {
+            padding: 5px 8px;
+            border: 1px solid #000000;
+        }
+
+        .good-table > tbody > tr:first-child > td:not(:first-child) {
+            color: #FF0000;
+        }
+
+        .pay-table > tbody > tr:not(:first-child) > td:first-child {
+            border: none;
+        }
+
+        .border-botom-1 {
+            margin-top: -10px !important;
+            padding-bottom: 2px !important;
+            border-bottom: 1px solid #000000;
+        }
+
+        .border-botom-2 {
+            margin-top: -5px !important;
+            padding-bottom: 2px !important;
+            border-bottom: 2px solid #000000;
+        }
+
+        .red {
+            color: #FF0000;
+        }
+
+        .blue {
+            color: #0d26ca;
+        }
+
+        .underline {
+            margin-right: 50px;
+            padding-bottom: 1px;
+            border-bottom: 1px solid #000000;
+            color: #000000;
+        }
+
+        .other {
+            position: relative;
+            margin-top: -16px;
+        }
+
+        .other > div {
+            margin: 0px;
+            display: inline-block;
+            box-sizing: border-box;
+            width: 300px;
+            padding-left: 10px;
+            border-bottom: 2px solid #000000;
+        }
+
+        .other > div:nth-child(1), .other > div:nth-child(3) {
+            margin-left: 8px;
+            border-right: 2px solid #000000;
+        }
+
+        .other > div:nth-child(2), .other > div:nth-child(4) {
+            margin-left: -8px;
+        }
+
+        .other > div > p {
+            margin: 5px;
+        }
+
+        #echapter {
+            position: absolute;
+            top: -120px;
+            left: 20px;
+            width: 360px;
+            height: 360px;
+            color: #f21717;
+            transform: scale(0.4);
+        }
+
+        #echapter-border {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 280px;
+            height: 280px;
+            border: 8px solid #f21717;
+            border-radius: 50%;
+
+        }
+
+        #star-five {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            color: red;
+            width: 0px;
+            height: 0px;
+            border-right: 100px solid transparent;
+            border-bottom: 70px solid red;
+            border-left: 100px solid transparent;
+            -moz-transform: translate(-50%, -50%) scale(0.7);
+            -webkit-transform: translate(-50%, -50%) scale(0.7);
+            -ms-transform: translate(-50%, -50%) scale(0.7);
+            -o-transform: translate(-50%, -50%) scale(0.7);
+            transform: translate(-50%, -50%) scale(0.7);
+        }
+
+        #star-five:before {
+            border-bottom: 80px solid red;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            position: absolute;
+            height: 0;
+            width: 0;
+            top: -45px;
+            left: -65px;
+            display: block;
+            content: "";
+            -webkit-transform: rotate(-35deg);
+            -moz-transform: rotate(-35deg);
+            -ms-transform: rotate(-35deg);
+            -o-transform: rotate(-35deg);
+            transform: rotate(-35deg);
+
+        }
+
+        #star-five:after {
+            position: absolute;
+            display: block;
+            color: red;
+            top: 3px;
+            left: -105px;
+            width: 0px;
+            height: 0px;
+            border-right: 100px solid transparent;
+            border-bottom: 70px solid red;
+            border-left: 100px solid transparent;
+            -webkit-transform: rotate(-70deg);
+            -moz-transform: rotate(-70deg);
+            -ms-transform: rotate(-70deg);
+            -o-transform: rotate(-70deg);
+            transform: rotate(-70deg);
+            content: "";
+        }
+
+        #company {
+            font-size: 1.8rem;
+        }
+
+        #company span {
+            position: absolute;
+        }
+
+        #company span:nth-child(1) {
+            left: 100px;
+            bottom: 60px;
+            transform: rotate(-140deg);
+        }
+
+        #company span:nth-child(2) {
+            left: 70px;
+            bottom: 90px;
+            transform: rotate(-130deg);
+        }
+
+        #company span:nth-child(3) {
+            left: 48px;
+            bottom: 130px;
+            transform: rotate(-110deg);
+        }
+
+        #company span:nth-child(4) {
+            top: 150px;
+            left: 45px;
+            transform: rotate(-90deg);
+        }
+
+        #company span:nth-child(5) {
+            top: 105px;
+            left: 60px;
+            transform: rotate(-70deg);
+        }
+
+        #company span:nth-child(6) {
+            top: 68px;
+            left: 92px;
+            transform: rotate(-50deg);
+        }
+
+        #company span:nth-child(7) {
+            top: 45px;
+            left: 140px;
+            transform: rotate(-20deg);
+        }
+
+        #company span:nth-child(8) {
+            top: 45px;
+            left: 195px;
+            transform: rotate(20deg);
+        }
+
+        #company span:nth-child(9) {
+            top: 70px;
+            left: 240px;
+            transform: rotate(40deg);
+        }
+
+        #company span:nth-child(10) {
+            top: 105px;
+            left: 270px;
+            transform: rotate(60deg);
+        }
+
+        #company span:nth-child(11) {
+            top: 150px;
+            left: 285px;
+            transform: rotate(70deg);
+        }
+
+        #company span:nth-child(12) {
+            top: 195px;
+            left: 280px;
+            transform: rotate(100deg);
+        }
+
+        #contract-word {
+            position: absolute;
+            left: 50%;
+            font-size: 1.5rem;
+            font-weight: bolder;
+            letter-spacing: 0.2rem;
+            transform: translateX(-15%) rotate(-30deg);
+            bottom: 45px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="contract">
+    <header id="header">
+        <div class="title">购销合同</div>
+        <p><span class="number"> <strong class="red">编号：</strong>RJDZLSW-20160303008</span></p>
+
+        <p><span class="supplier"> <strong>供货方（甲方）：</strong> <strong>山东日聚电子商务有限公司</strong> </span>
+            <span class="contract-date"> <strong class="red">签订日期：</strong>2016年03月03日</span></p>
+
+        <p><span class="buyer"> <strong class="red">购货方（乙方）：</strong><strong>常州迪龙塑料有限公司 </strong> </span>
+            <span class="address"> <strong> 签订地点：</strong> 日照</span></p>
+
+        <p>甲、乙双方经充分协商，在平等互利的基础上自愿达成如下协议：</p>
+    </header>
+    <div class="content">
+        <p><strong>一、货物名称、规格、数量、金额</strong></p>
+        <table class="good-table">
+            <tbody>
+            <tr>
+                <td>商品名称</td>
+                <td>产地</td>
+                <td>牌号</td>
+                <td>数量(吨)</td>
+                <td>单价(元/吨)</td>
+                <td>总金额</td>
+            </tr>
+            <tr>
+                <td>聚乙烯</td>
+                <td>沙特</td>
+                <td>1925AS</td>
+                <td>49.5</td>
+                <td>9200.00</td>
+                <td>455400.00</td>
+            </tr>
+            <tr>
+                <td class="red" colspan="3">人民币金额合计（大写）</td>
+                <td colspan="3">肆拾伍万伍仟肆佰圆整</td>
+
+            </tr>
+            </tbody>
+        </table>
+
+        <p><strong>二、货物描述</strong></p>
+
+        <p>产品包装：<span class="underline">原厂原包装</span> 质量标准：<span class="underline">正品</span></p>
+
+        <p><strong>三、货款支付</strong></p>
+
+        <table class="pay-table">
+            <tbody>
+            <tr>
+                <td>付款方式</td>
+                <td colspan="2">汇款资料</td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td>单位名称</td>
+                <td>山东日聚电子商务有限公司</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>汇 入地</td>
+                <td>山东省日照</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>开户银行</td>
+                <td>华夏银行股份有限公司日照分行</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>银行账号</td>
+                <td>16250000000134593</td>
+            </tr>
+            </tbody>
+        </table>
+        <p><strong>四、交货方式及交货地点：</strong></p>
+
+        <p><strong>交货方式：<span class="underline">自提</span></strong> <strong class="red">交货地点：<span
+                class="underline">黄岛</span></strong></p>
+
+        <p><strong class="underline">仓库地址：淮河东路96号提货 18653289588</strong></p>
+
+        <p><strong>五、货款结算：</strong></p>
+
+        <p><strong>1、乙方需在<span class="red">2016年03月03日</span>前付全款，款到自提。</strong></p>
+
+        <p class="border-botom-2"><strong>六、违约及纠纷</strong></p>
+
+        <p class="border-botom-1">1、若乙方未按合同规定时间支付货款，乙方应按日<span class="blue">1%</span>向卖方支付违约金并赔偿卖方因此受到的其他损失。</p>
+
+        <p class="border-botom-1">2、在本合同项下，如乙方违约除依法承担违约责任外，还应承担守约方为实现权利而支付的费用，该费用包括但不限于律师费用、诉讼费用、差旅费、通讯费。</p>
+
+        <p class="border-botom-2"><strong>七、附则：</strong>本合同甲乙双方盖章后生效，<span class="blue">合同需在签订日回传有效，</span>即传真件有效。对本合同的任何单方面的改动均为非法和无效。本合同一式两份，甲乙双方各执一份。
+            未尽事宜由双方另行签订补充协议，补充协议为本合同不可分割的部分。
+        </p>
+
+        <p class="border-botom-2"><strong>八、其他约定事项：</strong></p>
+
+    </div>
+    <div class="other">
+        <div>
+            <p><strong>供货方：山东日聚电子商务有限公司</strong></p>
+
+            <p><strong>联系电话：</strong></p>
+
+            <p><strong>传真：0633-2178577</strong></p></div>
+
+    <div><p><strong>购货方：常州迪龙塑料有限公司</strong></p>
+
+        <p><strong>传真：0519-83712008</strong></p></div>
+    <div><p><strong>单位地址：山东省日照市经济开发区临沂路399号</strong></p></div>
+    <div><p><strong>单位地址：</strong></p></div>
+    <div id="echapter">
+        <div id="echapter-border"></div>
+        <p id="company">
+            <span>山</span><span>东</span><span>日</span><span>聚</span><span>电</span><span>子</span>
+            <span>商</span><span>务</span><span>有</span><span>限</span><span>公</span><span>司</span>
+        </p>
+
+        <div id="star-five">
+        </div>
+        <p id="contract-word">合同专用章</p>
+    </div>
+</div>
+
+</div>
+
+</body>
+</html>

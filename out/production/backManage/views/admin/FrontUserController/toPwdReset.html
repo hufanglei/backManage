@@ -1,0 +1,85 @@
+#{extends 'main.html' /}
+#{set title:'重置密码' /}
+<link rel="stylesheet" href="@{'/public/stylesheets/toRegist.css'}"/>
+    <style>
+        .login .logo {
+            margin: 0 auto;
+            padding-top: 200px;
+            text-align: center;
+        }
+        .mybt{
+            height: 50px;
+        }
+    </style>
+<body class="login">
+<div class="logo">
+    <img src="" alt="">
+</div>
+
+<div class="content">
+    <form id="contentModel" class="register-form" action="@{admin.FrontUserController.toPwdReset}" method="POST" novalidate="novalidate">
+        <div class="mybt">
+            <h3>重置密码</h3>
+        </div>
+        *{<div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">原密码</label>
+            <span id="autoreqmark" style="color:#FF9966"> *</span>
+            <div class="input-icon">
+                <i class="glyphicon glyphicon-font" id="aaa"></i>
+                <input id="name" name="name" placeholder="输入原密码" class="form-control placeholder-no-fix" type="password" value="" autocomplete="off"><br>
+            </div>
+        </div>}*
+        <div class="form-group">
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">新密码</label>
+            <span id="autoreqmark" style="color:#FF9966"> *</span>
+            <div class="input-icon">
+                <i class="glyphicon glyphicon-th" id="aaa"></i>
+                <input id="password" name="account.password" placeholder="输入新密码" check-type="required password" class="form-control placeholder-no-fix" type="password" value="" autocomplete="off"><br>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">确认新密码</label>
+            <span id="autoreqmark" style="color:#FF9966"> *</span>
+            <div class="input-icon">
+                <i class="glyphicon glyphicon-ok" id="aaa"></i>
+                <input id="confirmPassword" name="ic" placeholder="确认新密码" check-type="required password" class="form-control placeholder-no-fix" type="password" value="" autocomplete="off"><br>
+            </div>
+        </div>
+
+
+        <div class="form-actions">
+            <button id="register-back-btn" type="button" class="btn btn-default" onclick="history.back()">
+                <i class="m-icon-swapleft"></i>  返回
+            </button>
+            <button type="submit" id="register-submit-btn" class="button button-primary pull-right">
+                确认 <i class="m-icon-swapright m-icon-white"></i>
+            </button>
+        </div>
+    </form>
+</div>
+</body>
+<script src="@{'/public/javascripts/bootstrap3-validation.js'}" type="text/javascript"    charset="${_response_encoding}"></script>
+<script>
+    $("form").validation();
+    //确认密码
+    $("#confirmPassword").blur(function(){
+        //初始密码
+        var initPwd = $("#password").val();
+        var confirmPassword = $("#confirmPassword").val();
+        if(initPwd != confirmPassword){
+            messageTip.tip("两次密码输入不一致");
+            return;
+        }
+
+    });
+
+    //表单提交验证
+    $("button[type='submit']").on('click', function (event) {
+        //最后要调用 valid()方法。
+        if ($("form").valid() == false) {
+            return false;
+        }
+    });
+</script>
+

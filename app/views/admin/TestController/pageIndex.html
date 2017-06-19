@@ -1,0 +1,45 @@
+#{extends 'main.html'/}
+#{set title:'测试 分页存储过程'/}
+
+
+<div  class="container">
+    <h2 class="text-danger">总记录数:${pageBean.totalcount} ==== 总页数:${pageBean.totalPage}</h2>
+
+        <table class="table table-bordered table-striped table-hover">
+            <thead >
+            <tr>
+                <th>id</th>
+                <th>名字</th>
+                <th>公司</th>
+                <th>时间</th>
+                <th>操作</th>
+            </tr>
+
+            </thead>
+        #{list items:pageBean.modelList ,as:'test'}
+            <tr>
+                <td>${test?.ID}</td>
+                <td>${test?.NAME}</td>
+                <td>${test?.COMPANY}</td>
+                <td>${test?.CREATETIME}</td>
+                <td >
+                    <a href="@{admin.TestController.edit(test?.ID)}" class="btn btn-primary">修改</a>
+                    <a href="@{admin.TestController.add()}" class="btn btn-success">新增</a>
+                    <a href="@{admin.TestController.delete(test?.ID)}" class="btn btn-danger">删除</a>
+                </td>
+            </tr>
+        #{/list}
+        </table>
+    <!--分页-->
+    <div id="page" class="m-pagination pull-right"></div>
+    <input type="hidden" id="totalcount" value="${pageBean.totalcount}"/>
+    <input type="hidden" id="totalPage" value="${pageBean.totalPage}"/>
+    <input type="hidden" id="pageSize" value="${pageBean.pageSize}"/>
+    <input type="hidden" id="urlpage" value="@{admin.TestController.pageIndex()}" pagepoint="pagepoint"/>
+    </div>
+
+</div>
+
+
+
+<script src="@{'/public/javascripts/common/page.js'}" type="text/javascript" charset="${_response_encoding}"></script>

@@ -1,0 +1,312 @@
+#{extends 'backMain.html'/}
+#{set title:'合同详情' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/contract/detail.css'}">
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/contract/modalDialog.css'}">
+<div class="content" >
+#{operationleft /}
+    <div class="content-right" >
+        *{<div class="container">
+            <div class="row ordertitle">
+                <strong>订单管理</strong>
+                <i class="glyphicon glyphicon-chevron-right"></i>
+                <strong>订单跟踪</strong>
+                <i class="glyphicon glyphicon-chevron-right"></i>
+                <strong class="yellow">订单详情</strong>
+            </div>
+        </div>}*
+<!--/合同管理 > 买方合同 > 合同详情...-->
+            <div class="container-fluid">
+                <div class="row ex-bt">
+                    <div class="col-xs-10 text-left ex-zt">
+                        <strong>合同管理</strong>
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                        <strong class="yellow">买方合同</strong>
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                        <b>合同详情</b>
+                    </div>
+                    <div class="col-xs-2 text-right ex-fh"><a href="@{admin.ContractController.index()}">返回</a></div>
+                </div>
+            </div>
+
+<!--/订单流水号、合同号、下单时间等...-->
+            <div id="ex-spxx">
+                <table class="ex-htxx table">
+                    <tbody>
+                    <tr>
+                        <td><b>订单流水号：</b><samp class="ex-ls">${contract?.order?.orderno}</samp></td>
+                        <td><b>合同号：</b><samp class="ex-ls">${contract?.contractno}</samp></td>
+                        <td><b>支付状态：</b><samp class="yellow">线下-待提货</samp></td>
+                    </tr>
+                    <tr>
+                        <td><b>订单总金额：</b>￥${contract?.amount?.format('#,###,###,###.00')}</td>
+                        <td><b>下单时间：</b>${contract?.order?.createtime?.format()}</td>
+                        <td><b>付款截止时间：</b>>2016-06-14 11:14</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+*{<div class="ex-xq">
+    <div class="row">
+        <div class="col-md-2 text-right" id="ex-xqs"><b>订单流水号：</b></div>
+        <div class="col-md-2 text-left" id="ex-xqs"><a>${contract?.order?.orderno}</a></div>
+        <div class="col-md-2 text-right" id="ex-xqs"><b>合同号：</b></div>
+        <div class="col-md-2 text-left" id="ex-xqs"><a class="text-uppercase">${contract?.contractno}</a></div>
+        <div class="col-md-2 text-right" id="ex-xqs"><b>支付状态：</b></div>
+        <div class="col-md-2 text-left" id="ex-xqs"><a class="ex-sa1">线下-待提货</a></div>
+    </div>
+    <div class="row" id="ex-xd"></div>
+    <div class="row">
+        <div class="col-md-2 text-right" id="ex-xqs"><b>订单总金额：</b></div>
+        <div class="col-md-2 text-left" id="ex-xqs">￥${contract?.amount?.format('#,###,###,###.00')}<samp class="ex-sam1"></samp></div>
+        <div class="col-md-2 text-right" id="ex-xqs"><b>下单时间：</b></div>
+        <div class="col-md-2 text-left" id="ex-xqs"><samp class="ex-sam1">${contract?.order?.createtime?.format()}</samp></div>
+        <div class="col-md-2 text-right" id="ex-xqs"><b>付款截止时间：</b></div>
+        <div class="col-md-2 text-left" id="ex-xqs"><samp class="ex-sam1">2016-06-14 11:14</samp></div>
+    </div>
+</div>}*
+
+<!--/操作流程-->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12 text-left ex-czbt"><b>操作流程</b></div>
+                </div>
+            </div>
+<div class="ex-czlc">
+    <div class="row" id="ex-lc">
+        <div class="col-xs-2 ex-lcs" >
+            <a href="#">
+                <div class="col-xs-5" id="ex-lcss">
+                    <div class="ex-lct">
+                        <div class="ex-lct-s1">
+                            <a href="@{admin.ContractController.originalContract()}?orderId=${contract?.order?.id}&contractId=${contract?.id}"><img src="@{'/public/images/admin/contract/01.png'}"/>  </a>
+                        </div>
+                        <div class="ex-lct-x">
+                            原始合同
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <div class="col-xs-7" id="ex-lcssk">
+                <img src="@{'/public/images/admin/contract/07.png'}" class="img-responsive" />
+            </div>
+        </div>
+        <div class="col-xs-2 ex-lcs">
+            <a href="#">
+                <div class="col-xs-5" id="ex-lcss">
+                    <div class="ex-lct">
+                        <div class="ex-lct-s2"><img src="@{'/public/images/admin/contract/02.png'}"/></div>
+                        <div class="ex-lct-x">修订合同</div>
+                    </div>
+                </div>
+            </a>
+            <div class="col-xs-7" id="ex-lcssk">
+                <img src="@{'/public/images/admin/contract/07.png'}" class="img-responsive" />
+            </div>
+        </div>
+        <div class="col-xs-2 ex-lcs">
+            <a href="@{admin.ContractController.originalContract()}?orderId=${contract?.order?.id}&contractId=${contract?.id}">
+                <div class="col-xs-5" id="ex-lcss">
+                    <div class="ex-lct">
+                        <div class="ex-lct-s3"><img src="@{'/public/images/admin/contract/03.png'}"/></div>
+                        <div class="ex-lct-x">生成合同</div>
+                    </div>
+                </div>
+            </a>
+            <div class="col-xs-7" id="ex-lcssk">
+                <img src="@{'/public/images/admin/contract/07.png'}" class="img-responsive" />
+            </div>
+        </div>
+        <div class="col-xs-2 ex-lcs">
+            <a href="@{admin.ContractController.mforiginalContract()}?contractId=${contract?.id}">
+                <div class="col-xs-5" id="ex-lcss">
+                    <div class="ex-lct">
+                        <div class="ex-lct-s4"><img src="@{'/public/images/admin/contract/04.png'}"/></div>
+                        <div class="ex-lct-x">协助上传</div>
+                    </div>
+                </div>
+            </a>
+            <div class="col-xs-7" id="ex-lcssk">
+                <img src="@{'/public/images/admin/contract/07.png'}" class="img-responsive" />
+            </div>
+        </div>
+        <div class="col-xs-2 ex-lcs">
+            <a href="#">
+                <div class="col-xs-5" id="ex-lcss">
+                    <div class="ex-lct">
+                        <div class="ex-lct-s5">
+                            <a href="@{admin.ContractController.checkContract()}?orderId=${contract?.order?.id}&contractId=${contract?.id}"> <img src="@{'/public/images/admin/contract/05.png'}"/></a>
+                        </div>
+                        <div class="ex-lct-x">
+                           核对合同
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <div class="col-xs-7" id="ex-lcssk">
+                <img src="@{'/public/images/admin/contract/07.png'}" class="img-responsive" />
+            </div>
+        </div>
+        <div class="col-xs-2 ex-lcs" data-toggle="modal" data-target="#myModal">
+            <a href="#">
+                <div class="col-xs-5" id="ex-lcss">
+                    <div class="ex-lct">
+                        <div class="ex-lct-s6"><img src="@{'/public/images/admin/contract/06.png'}"/></div>
+                        <div class="ex-lct-x">取消合同</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        *{模态框}*
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" id="ex-tg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><b>取消合同</b></h4>
+                    </div>
+                    <div class="modal-body text-center">
+                        取消原因：
+                        <select id="ex-qxyy">
+                            <option value="0" selected="">---------选择取消原因---------</option>
+                            <option value="1">买方终止</option>
+                            <option value="2">卖方终止</option>
+                            <option value="3">平台终止</option>
+                            <option value="4">其他原因</option>
+                        </select>
+                        <br/>
+                        <textarea class="area" placeholder="请写明原因..."  ></textarea>
+                    </div>
+                    <div class="text-center ex-mtk">
+                        <button type="button" class="btn btn-primary">提交</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--/卖方合同-->
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12 text-left ex-czbt"><b>卖方合同</b></div>
+                </div>
+            </div>
+            <div id="ex-spxx">
+                <table class="table table-bordered table-striped ">
+                    <thead class="thead">
+                    <tr>
+                        <th>序号</th>
+                        <th>订单号</th>
+                        <th>合同号</th>
+                        <th>合同金额</th>
+                        <th>下单时间</th>
+                        <th>公司名称</th>
+                        <th>销售人员</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>${seller_constract?.id}</td>
+                        <td>${seller_constract?.order?.orderno}</td>
+                        <td>${seller_constract?.contractno}</td>
+                        <td>${seller_constract?.amount.format('#,###,###,###.00')}</td>
+                        <td>${seller_constract?.order?.createtime?.format()}</td>
+                        <td>${seller_constract?.frontuser?.companyName}</td>
+                        <td></td>
+                        <td><a href="@{admin.ContractController.mfContractDetails()}?id=${seller_constract?.id}">详情</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+
+
+<!--/联系方式-->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12 text-left ex-czbt"><b>联系方式</b></div>
+                </div>
+            </div>
+            <div id="ex-spxx">
+                <table class="ex-lxh table">
+                    <tbody>
+                    <tr>
+                        <td><samp class="glyphicon glyphicon-home"></samp>${contract?.frontuser?.companyName}</td>
+                        <td><samp class="glyphicon glyphicon-user"></samp>${contract?.frontuser?.name}</td>
+                        <td><samp class="glyphicon glyphicon-phone"></samp>${contract?.frontuser?.mobphone}</td>
+                        <td><img src="@{'/public/images/admin/contract/qe.png'}" width="16"/>${contract?.frontuser?.email}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+<!--/商品信息-->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12 text-left ex-czbt"><b>商品信息</b></div>
+                </div>
+            </div>
+            <div id="ex-spxx">
+                <table class="table table-bordered table-striped ">
+                    <thead class="thead">
+                    <tr>
+                        <th>序号</th>
+                        <th>货品名称</th>
+                        <th>生产商</th>
+                        <th>仓库</th>
+                        <th>单价/吨</th>
+                        <th>数量/吨</th>
+                        <th>总价</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>01</td>
+                        <td>${goodObject?.MARK}</td>
+                        <td>${goodObject?.PRODUCER}</td>
+                        <td>${goodObject?.ADDRESS}</td>
+                        <td class="yellow">￥${goodObject?.PRICEHASTAX.format('#,###,###,###.00')}</td>
+                        <td>${goodObject?.INITNUM}</td>
+                        <td class="red">￥${goodObject?.FINALMONEY.format('#,###,###,###.00')}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+</div>
+    </div>
+<script type="text/javascript">
+    /**
+     * 将数值四舍五入(保留2位小数)后格式化成金额形式
+     *
+     * @param num 数值(Number或者String)
+     * @return 金额格式的字符串,如'1,234,567.45'
+     * @type String
+     */
+    function formatCurrency(num) {
+        num = num.toString().replace(/\$|\,/g,'');
+        if(isNaN(num))
+            num = "0";
+        sign = (num == (num = Math.abs(num)));
+        num = Math.floor(num*100+0.50000000001);
+        cents = num%100;
+        num = Math.floor(num/100).toString();
+        if(cents<10)
+            cents = "0" + cents;
+        for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+            num = num.substring(0,num.length-(4*i+3))+','+
+                    num.substring(num.length-(4*i+3));
+        return (((sign)?'':'-') + num + '.' + cents);
+    }
+</script>

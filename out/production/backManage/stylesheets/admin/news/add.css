@@ -1,0 +1,10 @@
+.page-breadcrumb.breadcrumb {
+    margin-bottom: 20px;
+    border:0px !important;
+
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    background-color: #EFEFEF;
+    margin-left: -20px;
+    margin-right: -20px;
+}

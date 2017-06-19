@@ -1,0 +1,132 @@
+#{extends 'main.html' /}
+*{
+#{set title:'首页' /}
+}*
+*{顶部部分}*
+<nav class="top">
+    <div class="container-fluid">
+        <div class="navbar-header dis_right">
+            <img src="@{'/public/images/flsm.png'}" class="logo">
+            <span class="white top_font">后台管理系统</span>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+            <ul class="nav navbar-nav">
+                <li class="dropdown all-camera-dropdown ">
+                    <a class="dropdown-toggle a_noborder" data-toggle="dropdown" href="#">
+                        <img src="@{'/public/images/woman.png'}" class="top_icon">
+                        <span class="white user">${session.get("name")}(合同)</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li data-filter-camera-type="all"><a data-toggle="tab" href="#">我的账户</a></li>
+                        <li data-filter-camera-type="Alpha">
+                            <a href="@{Application.cancel}">注销登录</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-left" role="search" action="#">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="请输入搜索的内容">
+                    <span class="glyphicon glyphicon-search top_search">
+                    </span>
+                </div>
+                <button type="submit" class="btn btn-success">搜索</button>
+            </form>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" id="date"> </a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+*{导航部分}*
+<div>
+    <ul class="nav nav-pills nav_ul">
+        *{#{list items:authList,as:'auth'}}*
+        *{#{list items:play.cache.Cache.get("authList"),as:'auth'}
+            #{if auth.getParentId() == null}
+                <li class="nav_li">
+                    <a href="${auth.getUrl()}" class="nav_a">
+                        <i class="icon iconfont nav_icon">&#${auth.getItemIcon()};</i>
+                        <div class="nav_text">${auth.getName()}</div>
+                    </a>
+                </li>
+            #{/if}
+        #{/list}}*
+
+        <li class="nav_li">
+            <a href="@{Application.index()}" class="nav_a">
+                <i class="icon iconfont nav_icon">&#x3435;</i>
+                <div class="nav_text">首页</div>
+            </a>
+        </li>
+        <li class="nav_li">
+            <a href="@{admin.FrontUserController.pageIndex}" class="nav_a">
+                <i class="icon iconfont nav_icon">&#xe635;</i>
+                <div class="nav_text">用户管理</div>
+            </a>
+        </li>
+        <li class="nav_li">
+            <a href="@{admin.FindgoodController.pageIndex()}" class="nav_a">
+                <i class="icon iconfont nav_icon">&#xe675;</i>
+                <div class="nav_text">市场管理</div>
+            </a>
+        </li>
+        <li class="nav_li">
+            <a href="@{admin.OrderController.pageIndex()}" class="nav_a">
+                <i class="icon iconfont nav_icon">&#xe652;</i>
+                <div class="nav_text">运营管理</div>
+            </a>
+        </li>
+        <li class="nav_li">
+            <a href="@{admin.JuRongBaoController.pageIndex()}" class="nav_a">
+                <i class="icon iconfont nav_icon">&#xe664;</i>
+                <div class="nav_text">金融中心</div>
+            </a>
+        </li>
+        <li class="nav_li">
+            <a href="@{admin.ContractController.distributionManagement()}" class="nav_a">
+                <i class="icon iconfont nav_icon">&#xe60b;</i>
+                <div class="nav_text">配送管理</div>
+            </a>
+        </li>
+        <li class="nav_li">
+            <a href="@{admin.NewsController.pageIndex()}" class="nav_a">
+                <i class="icon iconfont nav_icon">&#xe609;</i>
+                <div class="nav_text">资讯中心</div>
+            </a>
+        </li>
+        <li class="nav_li">
+            <a href="@{admin.ContractController.dataCenter()}" class="nav_a">
+                <i class="icon iconfont nav_icon">&#xe60f;</i>
+                <div class="nav_text">数据中心</div>
+            </a>
+        </li>
+        <li class="nav_li">
+            <a href="@{admin.ContractController.serviceCenter()}" class="nav_a">
+                <i class="icon iconfont nav_icon">&#xe612;</i>
+                <div class="nav_text">客户服务</div>
+            </a>
+        </li>
+        <li class="nav_li">
+            <a href="@{admin.ContractController.systemConfiguration()}" class="nav_a">
+                <i class="icon iconfont nav_icon">&#xe7e0;</i>
+                <div class="nav_text">系统配置</div>
+            </a>
+        </li>
+    </ul>
+</div>
+
+*{分割线}*
+<div class="split_line"></div>
+
+*{内容区域}*
+<div>   #{doLayout /}</div>
+
+<script type="application/javascript">
+    $("#date").html(new Date().toLocaleString());
+</script>

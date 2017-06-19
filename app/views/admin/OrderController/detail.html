@@ -1,0 +1,179 @@
+#{extends 'backMain.html'/}
+#{set title:'订单详情' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/order/detail.css'}">
+
+*{内容区域}*
+<div class="content" >
+#{operationleft /}
+    <div class="content-right" >
+        <div class="container">
+            <div class="row ordertitle">
+                <strong>订单管理</strong>
+                <i class="glyphicon glyphicon-chevron-right"></i>
+                <strong>订单跟踪</strong>
+                <i class="glyphicon glyphicon-chevron-right"></i>
+                <strong class="yellow">订单详情</strong>
+            </div>
+        </div>
+        <table class="table top_table" style="background-color: #FFFBE4">
+            <tbody>
+            <tr>
+                <td><strong>订单流水号：</strong><span class="blue">${obj.ORDERNO}</span></td>
+                <td><strong>付款方式：</strong><span class="orange">线下支付</span></td>
+                <td>
+                    <strong>状态：</strong><span class="red">
+                        #{if obj.ORDERSTATUSCODE=='001001'}
+                            待确认
+                        #{/if}
+                        #{elseif obj.ORDERSTATUSCODE=='001002'}
+                            待支付
+                        #{/elseif}
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>订单总金额：</strong>￥${obj.TOTALPRICE?.format('#,###,###,###.00')}</td>
+                <td><strong>下单时间：</strong>${obj.CREATETIME}</td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+        <p><strong>联系方式</strong></p>
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td class="td_align green">
+                    <span class="glyphicon glyphicon-home icon_right" aria-hidden="true"></span>${obj.COMPANYNAME}
+                </td>
+                <td class="td_align green">
+                    <span class="glyphicon glyphicon-user icon_right" aria-hidden="true"></span>${obj.FRONTUSERNAME}
+                </td>
+                <td class="td_align green">
+                    <span class="glyphicon glyphicon-earphone icon_right icon_right" aria-hidden="true"></span>${obj.MOBPHONE}
+                </td>
+                <td class="td_align green">
+                    <span class="glyphicon glyphicon-qq icon_right" aria-hidden="true">
+                        <img src="@{'/public/images/admin/contract/qe.png'}" width="16"/>
+                    </span>${obj.EMAIL}
+                </td>
+                <td class="td_align">
+                    <a id="confirmOrder" href="@{admin.ContractController.click()}?orderNo=${obj.ORDERID}&&buyerId=${obj.GUESTID}&&sellerId=${obj_seller.SELLERID}&&totalMoney=">
+                        <button type="button" class="btn btn-primary td_margin" ${obj.ORDERSTATUSCODE == "001001" ? "" : "disabled"}>确认订单</button>
+                    </a>
+                    <a href="@{admin.OrderController.cancelOrder}?orderNo=${obj.ORDERID}">
+                        <button type="button" class="btn btn-warning" ${obj.ORDERSTATUSCODE == "001010" ? "disabled" : ""}>取消订单</button>
+                    </a>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+
+        <p><strong>商品信息</strong></p>
+        <div class="split_div"></div>
+        <p class="p_margintop">
+            <span class="span_text blue">
+                <span class="glyphicon glyphicon-user icon_right" aria-hidden="true"></span>
+                <strong>${obj_seller.SELLERCOMPANYNAME}</strong>
+            </span>
+
+            <span class="span_text">联系人：${obj_seller.LINKMAN}</span>
+            <span class="span_text">手机号：${obj_seller.MOBPHONE}</span>
+            <span class="span_text">QQ：${obj_seller.EMAIL}</span>
+        </p>
+
+        <table class="table margintop_table" style="border: 1px solid #bce6fa">
+            <thead>
+            <tr>
+                <th class="td_align">序号</th>
+                <th class="td_align">货品名称</th>
+                <th class="td_align">生产商</th>
+                <th class="td_align">仓库</th>
+                <th class="td_align">单价/吨</th>
+                <th class="td_align">数量(吨)</th>
+                <th class="td_align">总价</th>
+            </tr>
+            </thead>
+            <tbody>
+            #{list items:orderList, as:'item'}
+            <tr>
+                <td class="td_align">${item.ROWNUM}</td>
+                <td class="td_align">
+                    <p>${item.GOODKIND}/${item.MARK}</p>
+                    *{<p>木托1.375吨黑字</p>}*
+                    <p>${item.PACKAGE}${item.PACKTYPE}${item.PACKCONTENT}${item.MEA}</p>
+                </td>
+                <td class="td_align">${item.PRODUCER}</td>
+                <td class="td_align">${item.STORAGENAME}</td>
+                <td class="td_align orange">￥${item.PRICEHASTAX?.format('#,###,###,###.00')}</td>
+                <td class="td_align">${item.TOTALNUM}</td>
+                <td class="td_align red">￥${item.FINALMONEY?.format('#,###,###,###.00')}</td>
+            </tr>
+            #{/list}
+            <tr>
+                <td class="td_align">总计</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="td_align" id="numTotal"></td>
+                <td class="td_align red" id="moneyTotal"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+
+<script>
+    ///text-decoration: none;
+    //background-color: #eee*/
+    $(function(){
+        //控制显示订单tab样式
+        $(".nav > li > a").eq(5).css({
+            "text-decoration": "none",
+            "background-color":"#eee"});
+
+        //计算总数量个总金额
+        var num = 0;
+        var money = 0;
+        #{list items:orderList, as:'item'}
+            num = Number(num) + ${item.TOTALNUM};
+            money = Number(money) + ${item.FINALMONEY};
+        #{/list}
+        $("#numTotal").text(num);
+        $("#moneyTotal").html("￥"+formatCurrency(money));
+
+        //修改确认订单按钮链接
+        $("#confirmOrder").click(function(){
+            var href = $("#confirmOrder").attr("href");
+            $("#confirmOrder").attr('href',href+money);
+        });
+    })
+</script>
+<script type="text/javascript">
+    /**
+     * 将数值四舍五入(保留2位小数)后格式化成金额形式
+     *
+     * @param num 数值(Number或者String)
+     * @return 金额格式的字符串,如'1,234,567.45'
+     * @type String
+     */
+    function formatCurrency(num) {
+        num = num.toString().replace(/\$|\,/g,'');
+        if(isNaN(num))
+            num = "0";
+        sign = (num == (num = Math.abs(num)));
+        num = Math.floor(num*100+0.50000000001);
+        cents = num%100;
+        num = Math.floor(num/100).toString();
+        if(cents<10)
+            cents = "0" + cents;
+        for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+            num = num.substring(0,num.length-(4*i+3))+','+
+                    num.substring(num.length-(4*i+3));
+        return (((sign)?'':'-') + num + '.' + cents);
+    }
+</script>

@@ -1,0 +1,140 @@
+#{extends 'backMain.html'/}
+#{set title:'APP订单中心' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/order/index.css'}">
+
+<!--左侧栏-->
+#{operationleft/}
+
+<!--右侧栏  -->
+<div class="content-right">
+    <div class="container-fluid">
+        <!--面包屑-->
+        <div class="row ordertitle">
+            <strong>订单管理</strong>
+            <i class="glyphicon glyphicon-chevron-right"></i>
+            <strong class="yellow">订单跟踪</strong>
+        </div>
+        <!--/面包屑-->
+
+        <!--查询表单-->
+        <div class="container-fluid" id="querybox">
+            <div class="page-header"><span class="glyphicon glyphicon-search"></span>查询</div>
+            <form class="form" id="searchForm" action="@{admin.SeekBuyController.pageIndex()}" method="post">
+                <div class="row margin-b-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">订单号码</label>
+
+                            <div class="col-md-7">
+                                <select name="searchSeekBuy.orderno" id="orderno" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:pageBean.modelList,as:'seekBuy'}
+                                    <option value="${seekBuy?.CODENO}"  ${seekBuy?.CODENO?.equals( searchSeekBuy?.orderno ) ? "selected":"" }>${seekBuy?.CODENO}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">订单金额</label>
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control" name="searchSeekBuy.price" placeholder="起始金额" value="${searchSeekBuy?.price}" />
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control" name="searchSeekBuy.totalPrice" placeholder="截止金额" value="${searchSeekBuy?.totalPrice}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">公司名称</label>
+                            <div class="col-md-7">
+                                <select name="searchSeekBuy.companyName" id="companyName" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:companyList,as:'company'}
+                                    <option value="${company?.NAME}"  ${company?.NAME?.equals( searchSeekBuy?.companyName ) ? "selected":"" }>${company?.NAME}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">下单时间</label>
+                            <div class="col-md-6">
+                                <input type="text" name="searchSeekBuy.createtime" class="form-control form_date" value="${searchSeekBuy?.createtime}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-header"></div>
+                <div class="row text-center">
+                    <button class="btn btn-query" type="submit">查询</button>
+                    <button class="btn btn-reset" type="reset">重置</button>
+                </div>
+            </form>
+        </div>
+        <!--/查询表单-->
+        <!--列表区域-->
+        <div class="row filler">
+            <input type="checkbox"/> 有效订单
+        </div>
+        <!--表格-->
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>订单号</th>
+                <th>订单金额</th>
+                <th>下单时间</th>
+                <th>公司名称</th>
+                <th>业务员</th>
+                <th>订单状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            #{list items:pageBean.modelList , as : 'seekBuy'}
+
+            <tr class="tr-seekBuy">
+                <td>${seekBuy?.RN}</td>
+                <td>${seekBuy?.CODENO}</td>
+                <td>
+                    ￥ ${seekBuy?.TOTALPRICE?.format('#,###,###,###.00')}
+                </td>
+                <td>${seekBuy?.CREATETIME}</td>
+                <td>${seekBuy?.COMPANYNAME}</td>
+                <td>${seekBuy?.NAME} </td>
+                <td>${seekBuy?.ORDERSTATUSCODE.seekBuyStatusFormat()?.get("NAME")}</td>
+                <td><a href="@{admin.SeekBuyController.detail}?seekBuyNo=${seekBuy?.ID}">详情</a></td>
+            </tr>
+            #{/list}
+            </tbody>
+        </table>
+        <!--/列表区域-->
+        <!--分页-->
+    #{include 'admin/common/page.html' /}
+        <!--/分页-->
+    </div>
+</div>
+<!--/右侧栏  -->
+
+<script src="@{'/public/javascripts/commonUtil.js'}" type="text/javascript"    charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/common/pageCommon.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script>
+    $(function () {
+        $(".nav > li > a").eq(5).css({
+            "text-decoration": "none",
+            "background-color": "#eee"
+        });
+    })
+</script>

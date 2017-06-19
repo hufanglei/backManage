@@ -1,0 +1,93 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    font-size: 16px;
+    font-family: Arial;
+}
+/*
+    标题：选项配置>客户关系维护
+*/
+.ex-zjbt,.ex-lbgn{
+    height: 50px;
+    line-height: 50px;
+    padding: 0px 15px;
+}
+
+#ex-zt,#ex-fh{
+    padding: 0px;
+    border-bottom: 1px solid #EB6100;
+}
+
+#ex-zt{
+    font-size: 16px;
+    color: #40516B;
+}
+
+#ex-fh a{
+    color: #EB6100;
+}
+
+#ex-fh a:hover{
+    font-weight: bold;
+}
+
+/*
+    标题：待关联列表
+*/
+.ex-dgllb{
+    height: 40px;
+    line-height: 40px;
+    padding: 0px 15px;
+}
+
+#ex-glbt{
+    padding: 0px;
+}
+
+/*
+    列表功能栏
+*/
+#ex-xlk{
+    border: 0;
+    border: 1px solid #EB6100;
+    width: 50%;
+    height: 26px;
+    font-size: 14px;
+    -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px; overflow:hidden;
+}
+#ex-xlk:hover{
+    border: 1px solid red;
+}
+#ex-xlk:focus{
+    border: 2px solid #B5D8EE;
+}
+
+.kkg{
+    height: 5px;
+}
+
+/*
+    列表展示
+*/
+
+
+/*
+    分页
+*/
+.pager li > a, .pager li > span {
+    border-radius: 5px;
+}
+
+.pager .paddingleft10{
+    padding-left:3em;
+}
+
+.pager .confirm{
+    background-color: #337ab7;
+    color:#FFF;
+}
+
+.pager .confirm:hover{
+    background-color: #095379;
+    color:#FFF;
+}

@@ -1,0 +1,52 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    font-size: 16px;
+    font-family: Arial;
+}
+
+/*
+    标题：核对合同 > 原始合同
+*/
+.ex-htbt{
+    height: 50px;
+    line-height: 60px;
+    font-size: 16px;
+    color: #40516B;
+    border-bottom: 1px solid #EB6100;
+}
+.ex-htbt a{
+    color: #EB6100;
+}
+.ex-htbt a:hover{
+    color: #EB6100;
+    font-weight: bold;
+}
+
+/*
+    功能栏（上传、提交、编辑、预览、打印）
+*/
+.ex-gnl{
+    padding: 0px;
+    margin-bottom: 20px;
+}
+
+.ex-sc, .ex-bj{
+    font-size: 15px;
+    height: 40px;
+    line-height: 40px;
+}
+.ex-bj samp{
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+/*
+    合同图
+*/
+.ex-tht{
+    padding: 0px 15px;
+}
+.ex-htt{
+    /*border: 2px solid #86A3C1;*/
+}

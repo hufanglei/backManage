@@ -1,0 +1,7 @@
+#{extends 'main.html' /}
+#{set title:'查询' /}
+
+
+#{list items:tests ,as:'date'}
+<h1>${date.NAME}=====${date.COMPANY}====${date.CREATETIME}</h1>
+#{/list}

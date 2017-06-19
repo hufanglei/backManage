@@ -1,0 +1,204 @@
+#{extends 'backMain.html'/}
+#{set title:'买方合同列表' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/order/index.css'}">
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/contract/index.css'}">
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/contract/modalDialog.css'}">
+
+<!--左侧栏-->
+#{operationleft /}
+
+<!--右侧栏  -->
+<div class="content-right">
+    <div class="container-fluid">
+        <!--面包屑-->
+        <div class="row ordertitle">
+            <strong>合同管理</strong>
+            <i class="glyphicon glyphicon-chevron-right"></i>
+            <strong class="yellow">买方合同</strong>
+        </div>
+        <!--/面包屑-->
+
+        <!--查询表单-->
+        <div class="container-fluid" id="querybox">
+            <div class="page-header"><span class="glyphicon glyphicon-search"></span>查询</div>
+            <form class="form" id="searchForm" action="@{admin.ContractController.index()}" method="GET">
+
+                <div class="row margin-b-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">订单号码</label>
+
+                            <div class="col-md-7">
+                                <select name="searchContract.orderno" id="login" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:pageBean.modelList,as:'order'}
+                                    <option value="${order?.ORDERNO}"  ${order?.ORDERNO?.equals( searchContract?.orderno ) ? "selected":"" }>${order?.ORDERNO}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">合同金额</label>
+
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <input name="searchContract.moneyFrom" type="text" class="form-control" placeholder="起始金额"/>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input name="searchContract.moneyTo" type="text" class="form-control" placeholder="截止金额"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">公司名称</label>
+
+                            <div class="col-md-7">
+                                <select name="searchContract.companyName" id="login" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:companyList,as:'company'}
+                                    <option value="${company?.COMPANYNAME}"  ${company?.COMPANYNAME?.equals( searchContract?.companyName ) ? "selected":"" }>${company?.COMPANYNAME}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">下单时间</label>
+
+                            <div class="col-md-6">
+                                <input id="orderTime" type="text" name="searchContract.orderTime" class="form-control form_date"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-header"></div>
+                <div class="row text-center">
+                    <button class="btn btn-query" type="submit">查询</button>
+                    <button class="btn btn-reset" type="reset">重置</button>
+                </div>
+            </form>
+        </div>
+        <!--/查询表单-->
+
+        <!--列表区域-->
+        <div class="row filler">
+            <ul class="list-inline">
+                <li><input type="checkbox"/> 有效订单 </li>
+                <li><span class="glyphicon glyphicon-list-alt">原始合同</span></li>
+
+                <li id="editContract">
+                    *{<a id="editContract_a" href="">}*
+                    <span class="glyphicon glyphicon-pencil" >修订合同</span>
+                    *{</a>}*
+                </li>
+
+                <li><span class="glyphicon glyphicon-print">协助上传</span></li>
+                <li><span class="glyphicon glyphicon-search">核对合同</span></li>
+                <li> <span class="glyphicon glyphicon-ok-sign">完成签约</span></li>
+                <li  data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-remove-sign">取消合同</span></li>
+            </ul>
+            *{模态框}*
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" id="ex-tg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel"><b>取消合同</b></h4>
+                        </div>
+                        <div class="modal-body text-center">
+                            取消原因：
+                            <select id="ex-qxyy">
+                                <option value="0" selected="">---------选择取消原因---------</option>
+                                <option value="1">买方终止</option>
+                                <option value="2">卖方终止</option>
+                                <option value="3">平台终止</option>
+                                <option value="4">其他原因</option>
+                            </select>
+                            <br/>
+                            <textarea class="area ex-qc" placeholder="请写明原因..."  ></textarea>
+                        </div>
+                        <div class="text-center ex-mtk ex-ts">
+                            <button type="button" class="btn btn-primary">提交</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--表格-->
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr name = "includeCheckbox">
+                <th>序号</th>
+                <th>状态</th>
+                <th>订单号</th>
+                <th>合同号</th>
+                <th>合同金额(元)</th>
+                <th>下单时间</th>
+                <th>公司名称</th>
+                <th>销售人员</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            #{list items:pageBean.modelList , as : 'contract'}
+            <tr name = "includeCheckbox">
+                <td>${contract?.RN}</td>
+                <td>${contract?.CONTRACTSTATUS?.convertContractStatus()?.get("NAME")}</td>
+                <td>${contract?.ORDERNO}</td>
+                <td>${contract?.CONTRACTNO}</td>
+                <td>${contract?.AMOUNT?.format('#,###,###,###.00')}</td>
+                <td>${contract?.CREATETIME}</td>
+                <td>${contract?.COMPANY}</td>
+                <td>${contract?.NAME}</td>
+                <td>
+                    <a href="@{admin.ContractController.detail()}?id=${contract?.ID}">详情</a>    /
+                     <a href="${contract?.WORDURL}" download>下载</a>
+                </td>
+            </tr>
+            #{/list}
+            </tbody>
+        </table>
+        <!--/列表区域-->
+        <!--分页-->
+    #{include 'admin/common/page.html'/}
+    </div>
+</div>
+
+<!--/右侧栏  -->
+<script src="@{'/public/javascripts/common/pageCommon.js'}" type="text/javascript"
+        charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/common/TableCheckbox.js'}" type="text/javascript"
+        charset="${_response_encoding}"></script>
+<script>
+    $(function(){
+        $(".nav > li > a").eq(5).css({
+            "text-decoration": "none",
+            "background-color": "#eee"
+        });
+        //修订合同
+        /*$("#editContract").click(function(){
+            //检查是否有被选中的选项
+            var list= $('input:radio[name="rao"]:checked').val();
+            if(list==null){
+                alert("请选择一个合同!");
+                return false;
+            } else {
+                $("#editContract_a").attr("href","/admin/contract/editContract/"+list);
+            }
+        });*/
+
+    });
+</script>

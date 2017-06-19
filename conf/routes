@@ -1,0 +1,175 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Import Secure routes
+
+
+#登录
+GET     /                                           Application.toLogin
+GET    /toRegist                                    Application.toRegist
+POST    /login                                      Application.login
+#注销
+GET    /cancel                                      Application.cancel
+#注册
+POST   /reg                                         Application.reg
+
+# Home page
+GET     /admin/index                                      Application.index
+
+#订单管理
+GET   /admin/order/index                                 admin.OrderController.index
+GET   /admin/order/pageIndex                             admin.OrderController.pageIndex
+POST   /admin/order/pageIndex                             admin.OrderController.pageIndex
+#订单详情
+GET   /admin/order/detail                                admin.OrderController.detail
+#取消订单
+GET   /admin/order/cancelOrder                           admin.OrderController.cancelOrder
+
+#APP订单中心管理
+
+GET   /admin/seekBuy/pageIndex                             admin.SeekBuyController.pageIndex
+POST   /admin/seekBuy/pageIndex                             admin.SeekBuyController.pageIndex
+#APP订单详情
+GET   /admin/seekBuy/detail                                admin.SeekBuyController.detail
+
+#合同接口，不验证登录
+GET   /showMobileContract/{codeno}              InterfaceController.showMobileContract
+
+#合同管理
+GET   /admin/contract/index                               admin.ContractController.index
+GET   /admin/contract/detail                              admin.ContractController.detail
+GET   /admin/contract/click                               admin.ContractController.click
+GET   /admin/contract/word                                admin.ContractController.word
+GET   /admin/contract/showContract/{orderNo}              admin.ContractController.showContract
+GET   /admin/contract/checkContract                       admin.ContractController.checkContract
+GET   /admin/contract/originalContract                    admin.ContractController.originalContract
+GET   /admin/contract/sellerContract                      admin.ContractController.sellerContract
+GET   /admin/contract/mfContractDetails                   admin.ContractController.mfContractDetails
+GET   /admin/contract/financialCenter                   admin.ContractController.financialCenter
+GET   /admin/contract/distributionManagement                   admin.ContractController.distributionManagement
+GET   /admin/contract/dataCenter                   admin.ContractController.dataCenter
+GET   /admin/contract/serviceCenter                   admin.ContractController.serviceCenter
+GET   /admin/contract/systemConfiguration                   admin.ContractController.systemConfiguration
+
+#数据中心
+GET   /admin/dataCenter/feedback                  admin.DataCenterController.feedbackIndex
+GET   /admin/dataCenter/checkin                   admin.DataCenterController.checkinIndex
+GET   /admin/dataCenter/phoneversion              admin.DataCenterController.phoneversionIndex
+GET   /admin/dataCenter/deletePhoneversion              admin.DataCenterController.deletePhoneversion
+GET   /admin/dataCenter/editPhoneversion              admin.DataCenterController.editPhoneversion
+GET   /admin/dataCenter/enabledPhoneversion              admin.DataCenterController.enabledPhoneversion
+GET   /admin/dataCenter/disablePhoneversion              admin.DataCenterController.disablePhoneversion
+
+#库存审核
+GET   /admin/stock/list                                admin.StockController.list
+#上架审核_列表
+GET   /admin/stock/arrivalList                                admin.StockController.arrivalList
+#上架审核_通过
+GET   /admin/stock/affirmPass                                admin.StockController.affirmPass
+#上架审核_驳回
+GET   /admin/stock/affirmFail                                admin.StockController.affirmFail
+
+#前台用户管理
+GET   /admin/frontuser/pageIndex                             admin.FrontUserController.pageIndex
+GET   /admin/frontuser/add                             admin.FrontUserController.add
+GET   /admin/frontuser/detail                             admin.FrontUserController.detail
+GET   /admin/frontuser/enabled                         admin.FrontUserController.enabled
+GET   /admin/frontuser/disable                        admin.FrontUserController.disable
+GET   /admin/frontuser/edit                        admin.FrontUserController.edit
+GET   /admin/frontuser/toAddCompany                        admin.FrontUserController.toAddCompany
+POST   /admin/frontuser/addCompany                       admin.FrontUserController.addCompany
+#供应商资质申请列表
+GET   /admin/frontuser/applySeller                        admin.FrontUserController.applySeller
+#供应商资质申请-通过
+GET   /admin/frontuser/passApplySeller                        admin.FrontUserController.passApplySeller
+#供应商资质申请-驳回
+GET   /admin/frontuser/rejectApplySeller                        admin.FrontUserController.rejectApplySeller
+
+#前台公司管理-首页
+GET   /admin/company/index                             admin.CompanyController.index
+#前台公司管理-编辑-页面
+GET   /admin/company/toEditCompany                             admin.CompanyController.toEditCompany
+#前台公司管理-编辑-保存
+POST   /admin/company/editCompany                             admin.CompanyController.editCompany
+
+#前台用户注册审核
+GET   /admin/annex/index                                admin.AnnexController.pageIndex
+GET   /admin/annex/enabled                              admin.AnnexController.enabled
+GET   /admin/annex/disable                              admin.AnnexController.disable
+
+#资讯中心管理
+GET   /admin/news/index                                admin.NewsController.pageIndex
+GET   /admin/news/add                                  admin.NewsController.add
+GET   /admin/news/edit                                 admin.NewsController.edit
+GET   /admin/news/enabled                              admin.NewsController.enabled
+GET   /admin/news/disable                              admin.NewsController.disable
+GET   /admin/news/detail                               admin.NewsController.detail
+#控件上传图片
+POST /admin/kindEditor/uploadFile                      admin.KindEditorController.uploadFile
+
+#帮您找货
+GET   /admin/findgood/index                            admin.FindgoodController.pageIndex
+GET   /admin/findgood/edit                             admin.FindgoodController.edit
+
+#角色管理
+GET   /admin/role/index                                admin.RoleController.pageIndex
+GET   /admin/role/add                                  admin.RoleController.add
+GET   /admin/role/edit                                 admin.RoleController.edit
+GET   /admin/role/enabled                              admin.RoleController.enabled
+GET   /admin/role/disable                              admin.RoleController.disable
+GET   /admin/role/delete                               admin.RoleController.delete
+GET   /admin/role/bind                                 admin.RoleController.bind
+
+#后台用户管理
+GET   /admin/account/index                                admin.AccountController.pageIndex
+GET   /admin/account/add                                  admin.AccountController.add
+
+
+#聚融宝
+GET   /admin/jurongbao/index                           admin.JuRongBaoController.pageIndex
+GET   /admin/jurongbao/detail                          admin.JuRongBaoController.detail
+
+#测试
+GET   /admin/test/add                                admin.TestController.add
+GET   /admin/test/list                               admin.TestController.list
+GET   /admin/test/edit/{testId}                       admin.TestController.edit
+GET   /admin/test/delete/{testId}                    admin.TestController.delete
+GET   /admin/test/query                              admin.TestController.query
+GET   /admin/test/querySinggle                        admin.TestController.querySinggle
+GET   /admin/test/json                                admin.TestController.json
+GET   /admin/test/file                                admin.TestController.file
+#测试 JDBC方式: 带参数(输入参数 + 输出参数 )的 存储过程 的调用
+GET   /admin/test/procedureTest1                        admin.TestController.procedureTest1
+#测试  存储过程
+GET   /admin/test/procedureTest2                       admin.TestController.procedureTest2
+#测试  存储过程  终极版
+GET   /admin/test/procedureTest                       admin.TestController.procedureTest
+#分页
+GET   /admin/test/pageIndex                       admin.TestController.pageIndex
+GET   /admin/test/getIp                       admin.TestController.getIp
+
+#图片上传
+POST   /admin/test/uploadFile                       admin.TestController.uploadFile
+
+
+
+
+
+
+
+
+#测试静态化
+POST   /admin/htmlstatic/main                              admin.HtmlGenerator.stacicTest
+
+# Ignore favicon requests
+GET     /favicon.ico                            404
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/                                staticDir:public
+#分页js
+GET      /JqueryPagination                      staticFile:/public/plugin/JqueryPagination/jquery.pagination-1.2.7.min.js
+GET     /home                                   staticFile:/public/html/demo.html
+
+# Catch all
+*       /{controller}/{action}                  {controller}.{action}

@@ -1,0 +1,20 @@
+#{extends 'main.html'/}
+#{set title:'测试ajax异步处理'/}
+
+
+<h1></h1>
+
+<script>
+    $(function(){
+        $.ajax({
+           /* data:{"id":23},*/
+            data:{"id":81},
+            type:"post",
+            url:"@{admin.TestController.jsonTest()}",
+            success:function(data){
+                //alert(data.NAME);
+                alert(data.FINALMONEY);
+            }
+        });
+    });
+</script>

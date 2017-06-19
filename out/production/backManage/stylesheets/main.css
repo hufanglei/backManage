@@ -1,0 +1,34 @@
+.blue {
+    color: #00a1ff;
+}
+
+.orange {
+    color: #ff6600;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: #07b9aa;
+}
+
+.gray {
+    color: grey;
+}
+
+#messagetip {
+    background: radial-gradient(#fff7ee 50%, red 100%);
+    height: 50px;
+    width: 100%;
+    position: fixed;
+    top: -59px;
+    left: 0;
+    color: red;
+    text-align: center;
+    line-height: 50px;
+    font-size: 16px;
+    font-weight: bolder;
+    z-index: 20;
+}

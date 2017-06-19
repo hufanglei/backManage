@@ -1,0 +1,46 @@
+*{系统配置 > 左侧栏}*
+<div class="sidebar" id="sidebar"> <!-- #sidebar-shortcuts -->
+    <ul class="nav nav-list">
+        <li class="active">
+            <a href="#">
+                <span class="menu-text">基础数据</span>
+            </a>
+            <ul class="submenu" >
+                <li>
+                    <a href="@{admin.SysController.index()}"> 客户关系维护 </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="">
+                <span class="menu-text">选项配置</span>
+                <b class="arrow icon-angle-down"> </b>
+            </a>
+            <ul class="submenu" >
+                <li>
+                    <a href="@{admin.SysController.goodsKeepTime()}"> 货物保留时间 </a>
+                </li>
+                <li>
+                    <a href="@{admin.SysController.index()}"> 客户关系维护 </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="dropdown-toggle">
+                <span class="menu-text">仓库地址</span>
+                <b class="arrow icon-angle-down"> </b>
+            </a>
+        </li>
+        <li class="active">
+            <a href="#">
+                <span class="menu-text">发票模板</span>
+            </a>
+        </li>
+        <li class="active">
+            <a href="#">
+                <span class="menu-text">消息中心</span>
+            </a>
+        </li>
+    </ul>
+    <!-- /.nav-list -->
+</div>

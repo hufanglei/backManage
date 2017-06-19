@@ -1,0 +1,73 @@
+#{extends 'main.html' /}
+#{set title:'修改页面' /}
+
+<div class="panel">
+    <div class="panel-heading">
+        <strong><i class="icon-plus"></i>&nbsp;修改Test信息</strong>
+    </div>
+    <div class="panel-body">
+        <form action="@{admin.TestController.update()}" method="post" class="form-horizontal" enctype="multipart/form-data">
+            <fieldset>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="name">姓名</label>
+                    <div class="col-sm-3">
+                        <input type="hidden"  name="id" value="${test?.id}"  class="form-control "/>
+                        <input type="text"  name="test.name" value="${test?.name}"  class="form-control "/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="name">公司</label>
+                    <div class="col-sm-3">
+                        <input type="text" name="test.company"  value="${test?.company}"  class="form-control "/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="name">时间</label>
+                    <div class="col-sm-3">
+                        <input  class="form-control date  form_datetime"   type="text" name="test.createTime"  value="${test?.createTime?.format("yyyy-MM-dd HH:mm:ss")}"  />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="image">选择图片 尺寸:640*320</label>
+                    <div class="col-sm-3">
+                    #{if test?.imgurl != null &&  !test?.imgurl.equals("")}
+                        <img id="image"  src="${test?.imgurl}" alt="${test?.imgurl}" />
+                        <span class="help-inline"></span>
+                        <span class="help-block"></span>
+                    #{/if}
+                        <div id="imagepreview"></div>
+                        <input id="img" type="file"   alt="图片" name="fileText"  class="form-control"/>
+                        <span class="help-inline"></span>
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+                <div class="form-group" style="padding-top:30px">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button id="submit" type="submit"  class="btn btn-primary">修改</button>
+                        <button id="cancel" type="reset" class="btn cancel" onclick="history.go(-1)">取消</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+
+<script>
+
+    $(function () {
+        //上传图片预览方法
+        $('#img').change(function () {
+            var file = this.files[0]; //选择上传的文件
+            var r = new FileReader();
+            r.readAsDataURL(file); //Base64
+            $(r).load(function () {
+                $('#imagepreview').html('<img src="' + this.result + '" width="100px" height="100px" alt="商品图片" />');
+                $("#image").hide();
+            });
+        });
+    });
+
+</script>

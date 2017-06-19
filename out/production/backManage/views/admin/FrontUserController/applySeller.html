@@ -1,0 +1,207 @@
+#{extends 'backMain.html'/}
+#{set title:'供应商资质申请列表' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/order/index.css'}">
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/contract/index.css'}">
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/contract/modalDialog.css'}">
+
+<!--左侧栏-->
+#{operationleft /}
+
+<!--右侧栏  -->
+<div class="content-right">
+    <div class="container-fluid">
+        <!--面包屑-->
+        <div class="row ordertitle">
+            <strong>仓储服务</strong>
+            <i class="glyphicon glyphicon-chevron-right"></i>
+            <strong class="yellow">供应商资质审核</strong>
+        </div>
+        <!--/面包屑-->
+
+        <!--查询表单-->
+        <div class="container-fluid" id="querybox">
+            <div class="page-header"><span class="glyphicon glyphicon-search"></span>查询</div>
+            <form class="form" action="@{admin.FrontUserController.applySeller()}" method="GET">
+
+                <div class="row margin-b-20">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">姓名</label>
+
+                            <div class="col-md-7">
+                                <select name="searchFrontUser.name" id="login" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:applyUsers,as:'applyUser'}
+                                    <option value="${applyUser?.name}"  ${applyUser?.name?.equals( searchFrontUser?.name) ? "selected":"" }>${applyUser?.name}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">卖家公司</label>
+
+                            <div class="col-md-7">
+                                <select name="searchFrontUser.company" id="login" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:applyUsers,as:'applyUser'}
+                                    <option value="${applyUser?.companyName}"  ${applyUser?.companyName?.equals( searchFrontUser?.company ) ? "selected":"" }>${applyUser?.companyName}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">手机号</label>
+
+                            <div class="col-md-7">
+                                <select name="searchFrontUser.mobphone" id="login" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:applyUsers,as:'applyUser'}
+                                    <option value="${applyUser?.mobphone}"  ${applyUser?.mobphone?.equals( searchFrontUser?.mobphone ) ? "selected":"" }>${applyUser?.mobphone}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">审核状态</label>
+
+                            <div class="col-md-7">
+                                <select name="searchFrontUser.affirmregcode" id="login" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:applyUsers,as:'applyUser'}
+                                    <option value="${applyUser?.affirmregcode}"  ${applyUser?.affirmregcode?.equals( searchFrontUser?.affirmregcode ) ? "selected":"" }>${applyUser?.affirmregcode?.affirmRegFormat().get("NAME")}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="page-header"></div>
+                <div class="row text-center">
+                    <button class="btn btn-query" type="submit">查询</button>
+                    <button class="btn btn-reset" type="reset">重置</button>
+                </div>
+            </form>
+        </div>
+        <!--/查询表单-->
+
+        <div class="row filler" style="padding: 5px 14px;">供应商资质审核</div>
+        <!--列表区域-->
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>姓名</th>
+                <th>用户类型</th>
+                <th>卖家公司</th>
+                <th>手机号</th>
+                <th>邮箱</th>
+                <th>地址</th>
+                <th>审核状态</th>
+                <th>审核</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            #{list items:pageBean.modelList,as:'frontUser'}
+                <tr>
+                    <td>${frontUser?.RN}</td>
+                    <td>${frontUser?.NAME}</td>
+                    <td>${frontUser?.USERTYPECODE?.userTypeFormat()?.get("NAME")}</td>
+                    <td>${frontUser?.COMPANY}</td>
+                    <td>${frontUser?.MOBPHONE}</td>
+                    <td>${frontUser?.EMAIL}</td>
+                    <td>${frontUser?.ADDRESS}</td>
+                    <td>${frontUser?.AFFIRMREGCODE?.affirmRegFormat()?.get("NAME")}</td>
+                    <td>
+                        *{<input id="affirmnum_${frontUser?.STOCKID}" type="text" name="affirmnum" value="${frontUser?.AFFIRMNUM}">}*
+                        <a type="button" id="${frontUser?.RN}" ${frontUser?.AFFIRMREGCODE == '006' ? 'disabled':''}  class="btn btn-success btn-sm">通过</a>
+                          /
+                        <a type="button" id="${frontUser?.ID}" ${frontUser?.AFFIRMREGCODE == '007' ? 'disabled':''} class="btn btn-danger btn-sm">驳回</a>
+                    </td>
+                </tr>
+            #{/list}
+
+            </tbody>
+        </table>
+        <!--表格-->
+        <!--/列表区域-->
+        <!--分页-->
+    #{include 'admin/common/page.html'/}
+    </div>
+</div>
+
+<!--/右侧栏  -->
+<script src="@{'/public/javascripts/common/pageCommon.js'}" type="text/javascript" ></script>
+<script>
+    $(function(){
+        //控制显示订单tab样式
+        $(".nav > li > a").eq(5).css({
+            "text-decoration": "none",
+            "background-color": "#eee"
+        });
+
+    //确认
+    #{list items:pageBean.modelList,as:'frontUser'}
+        $("#${frontUser?.RN}").click(function(){
+
+            var obj = {frontUserId: '${frontUser?.ID}'};
+            $.ajax({
+                type:"get",
+                url:'@{admin.FrontUserController.passApplySeller}',
+                data:obj,
+                success: function (data) {
+                    if(data && data.message == "ok"){
+                        messageTip.tip("供应商审核通过");
+                        $("#${frontUser?.RN}").parent().prev().html('供应商审核通过');
+                        $("#${frontUser?.RN}").attr("disabled", true);
+                        $("#${frontUser?.ID}").attr("disabled", false);
+                    }else{
+                        messageTip.tip("操作失败");
+                    }
+                },
+                error:function(res){
+                    messageTip.tip("网络错误");
+                }
+            });
+        });
+
+        //驳回
+        $("#${frontUser?.ID}").click(function(){
+            var obj = {frontUserId: '${frontUser?.ID}'};
+            $.ajax({
+                type:"get",
+                url:'@{admin.FrontUserController.rejectApplySeller}',
+                data:obj,
+                success: function (data) {
+                    if(data && data.message == "ok"){
+                        messageTip.tip("供应商审核失败");
+                        $("#${frontUser?.RN}").parent().prev().html('供应商审核失败');
+                        $("#${frontUser?.ID}").attr("disabled", true);
+                        $("#${frontUser?.RN}").attr("disabled", false);
+                    }else{
+                        messageTip.tip("操作失败");
+                    }
+                },
+                error:function(res){
+                    messageTip.tip("网络错误");
+                }
+            });
+        });
+
+    #{/list}
+    });
+
+</script>

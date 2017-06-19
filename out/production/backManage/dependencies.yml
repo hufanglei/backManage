@@ -1,0 +1,24 @@
+# Application dependencies
+
+require:
+    - play
+    - com.jhw -> fastjson 1.2.2
+    - com.jhw -> freemarker 2.3.8
+    - com.jhw -> httpclient 4.5
+    - com.jhw -> httpcore 4.4.1
+    - com.jhw -> jodd-bean 3.4.5
+    - com.jhw -> jodd-core 3.4.5
+    - com.jhw -> jsoup 1.8.3
+    - com.jhw -> ojdbc14 14
+    - com.jhw -> play-weic_paginate_ext 1
+    - com.jhw -> poi 3.13
+    - com.jhw -> poi-scratchpad 3.13
+
+repositories:
+
+    - mavenRepository:
+        type:       iBiblio
+        root:       "http://58.58.180.104:8082/nexus/content/groups/public/"
+        contains:
+            - com.jhw -> *
+        m2compatible: true

@@ -1,0 +1,58 @@
+#{extends 'backMain.html'/}
+#{set title:'核对合同' /}
+<link rel="stylesheet" href="@{'/public/stylesheets/admin/contract/checkContract.css'}"/>
+
+<!--左侧栏-->
+#{operationleft /}
+<!--右侧栏  -->
+<div class="content-right">
+    <div class="container-fluid">
+        <!--/标题：核对合同 -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-9 text-left ex-htbt"><b>核对合同</b></div>
+                <div class="col-xs-3 text-right ex-htbt"><a href="javascript:void(0);" onclick="window.history.go(-1)">返回详情</a></div>
+            </div>
+        </div>
+
+        <!--/功能栏（放大、缩小、打印、确认） -->
+        <div class="container-fluid">
+            <div class="row text-center ex-geh">
+                <div class="col-xs-5 text-left ex-gen1">
+                    <button type="button" class="btn btn-xs btn-info"><samp class="glyphicon glyphicon-zoom-in"></samp>放大视图</button>
+                    <button type="button" class="btn btn-xs btn-warning"><samp class="glyphicon glyphicon-zoom-out"></samp>缩小视图</button>
+                </div>
+                <div class="col-xs-4 text-right col-xs-offset-3 ex-gen2">
+                    <button type="button" class="btn btn-sm btn-primary"><samp>打印</samp></button>
+                    <button type="button" class="btn btn-sm btn-success"><samp>确认合同</samp></button>
+                </div>
+            </div>
+        </div>
+
+        <!--/合同图 -->
+        <div class="row">
+            <div class="col-md-6">
+                <iframe src="&{'WORD_PREVIEW_URL'}/admin/contract/showContract/${orderId}" id="iframepage" name="iframepage" onLoad="iFrameHeight()">
+                </iframe>
+            </div>
+            <div class="col-md-6">
+                *{<img src="@{'/public/images/admin/contract/serller1.jpg'}" class="img-responsive"/>}*
+                *{<img src="http://192.168.0.36:8080/home/juhuawang/contracts/panweiji/2016.jpg" class="img-responsive"/>}*
+                <img src="${contract?.picurl2}" class="img-responsive"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    function iFrameHeight() {
+        var ifm = document.getElementById("iframepage");
+        var subWeb = document.frames ? document.frames["iframepage"].document : ifm.contentDocument;
+        if (ifm != null && subWeb != null) {
+            ifm.width = 600;
+            ifm.height = 900;
+        }
+    }
+
+</script>
+

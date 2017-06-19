@@ -1,0 +1,50 @@
+#{extends 'backMain.html'/}
+#{set title:'资讯中心' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/order/index.css'}">
+
+<!--左侧栏-->
+#{informationCenter-L /}
+
+<div class="content-right">
+    <div class="container-fluid">
+        <!--面包屑-->
+        <div class="row ordertitle">
+            <strong>资讯管理</strong>
+            <i class="glyphicon glyphicon-chevron-right"></i>
+            <strong class="yellow">资讯详情</strong>
+        </div>
+        <!--/面包屑-->
+        <form action="@{admin.NewsController.detail()}" method="get" class="form-horizontal" enctype="multipart/form-data">
+            <div class="hp">
+                <a class="btn btn-primary" onclick="history.go(-1)" style="margin-top:20px;margin-bottom:20px;">返回</a>
+                <p></p>
+                <div><strong>${news.title}</strong><p></p></div>
+                <div><strong>发布人：&nbsp;</strong>${news.author}<p></p></div>
+                <div><strong>创建时间：&nbsp;</strong>${news.createtime}<p></p></div>
+                <div><strong>类型:&nbsp;</strong>${news.newscode}<p></p></div>
+                <div>
+                    <p><strong>概要:&nbsp;</strong></p>
+                #{verbatim }  ${news.summary} #{/verbatim}
+                    <p>&nbsp;</p>
+                </div>
+                <div><p><strong>内容:&nbsp;</strong></p>
+                #{verbatim }   ${news.content}   #{/verbatim}
+
+                    <p>&nbsp;</p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="@{'/public/javascripts/common/pageCommon.js'}" type="text/javascript"
+        charset="${_response_encoding}"></script>
+<script>
+    $(function () {
+
+        $(".nav > li > a").eq(8).css({
+            "text-decoration": "none",
+            "background-color": "#eee"
+        });
+    })
+</script>

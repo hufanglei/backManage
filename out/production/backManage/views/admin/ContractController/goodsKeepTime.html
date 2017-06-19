@@ -1,0 +1,262 @@
+#{extends 'backMain.html'/}
+#{set title:'选项配置>货物保留时间' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/sys/goodsKeepTime.css'}">
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/contract/detail.css'}">
+<link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+<!--左侧栏-->
+#{systemConfiguration-L /}
+
+<!--右侧栏-->
+<div class="content-right">
+    <div class="container-fluid">
+
+
+        <!--/标题：选项配置>物流保留时间 -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-9 text-left ex-htbt"><b>选项配置>货物保留时间</b></div>
+                <div class="col-xs-3 text-right ex-htbt"></div>
+            </div>
+        </div>
+
+        <!--/
+            标题：合同签订
+        /-->
+        <div class="container-fluid">
+            <div class="row ex-htqd">
+                <div class="col-xs-12" id="ex-htqds" ><b>合同签订</b></div>
+            </div>
+        </div>
+
+        <!--/收索框：公式名称、时间 -->
+        <div class="container-fluid">
+            <div class="row" id="ex-ssk">
+                <div class="col-xs-5  text-center" id="ex-ssk1" >公司名称：
+                    <select id="ex-sskxl">
+                        <option value="0" selected=""></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                </div>
+                <div class="col-xs-5  text-center" id="ex-ssk2" >时间：
+                    <input type="text" placeholder="分钟" class="ex-ssksj" />
+                </div>
+                <div class="col-xs-2  text-right" id="ex-ssk3" ><a href="@{admin.ContractController.Increase()}"><button type="button" class="btn btn-sm btn-info">增加</button></a></div>
+            </div>
+        </div>
+
+        <!--/列表功能栏 -->
+        <div class="container-fluid">
+            <div class="row ex-khlb-gnl">
+                <div class="col-xs-8 text-left ex-khlb">
+                    时间统一设置：<input type="text" placeholder="分钟" class="ex-inp" />
+                    <button type="button" class="btn btn-xs btn-primary">编 辑</button>
+                *{ 输入框不可操作，当点击编辑之后，输入框可操作，编辑按钮隐藏，保存、取消按钮展现。
+                    <button type="button" class="btn btn-xs btn-success">保 存</button>
+                    <button type="button" class="btn btn-xs btn-info">取 消</button>
+                    }*
+                </div>
+                <div class="col-xs-4 text-right ex-khlb-s">
+                    <button type="button" class="btn btn-sm btn-warning"><small class="glyphicon glyphicon-chevron-left"></small><samp>上一页</samp></button>
+                    <button type="button" class="btn btn-sm btn-warning"><samp>下一页</samp><small class="glyphicon glyphicon-chevron-right"></small></button>
+                </div>
+            </div>
+        </div>
+
+        <!--/列表展示 -->
+        <div id="ex-spxx">
+            <table class="table table-bordered table-striped ">
+                <thead class="thead">
+                <tr>
+                    <th><input name="Fruit" type="checkbox" value="" />全选</th>
+                    <th>序号</th>
+                    <th>公司名称</th>
+                    <th>货物保留时间</th>
+                    <th>客户等级</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><input name="Fruit" type="checkbox" value="" /></td>
+                    <td>01</td>
+                    <td>常州市迪龙塑料有限公司</td>
+                    <td>30分钟</td>
+                    <td>
+                        <img src="../public/images/admin/contract/star.png"/>
+                        <img src="../public/images/admin/contract/star.png"/>
+                        <img src="../public/images/admin/contract/star.png"/>
+                    </td>
+                    <td>
+                        <a href="@{admin.ContractController.Editor()}"><button type="button" class="btn btn-xs btn-warning">编辑</button></a>
+                        <button type="button" class="btn btn-xs btn-info">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input name="Fruit" type="checkbox" value="" /></td>
+                    <td>02</td>
+                    <td>常州市迪龙塑料有限公司</td>
+                    <td>30分钟</td>
+                    <td>
+                        <img src="../public/images/admin/contract/star.png"/>
+                        <img src="../public/images/admin/contract/star.png"/>
+                    </td>
+                    <td>
+                        <a href="@{admin.ContractController.Editor()}"><button type="button" class="btn btn-xs btn-warning">编辑</button></a>
+                        <button type="button" class="btn btn-xs btn-info">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input name="Fruit" type="checkbox" value="" /></td>
+                    <td>03</td>
+                    <td>常州市迪龙塑料有限公司</td>
+                    <td>30分钟</td>
+                    <td>
+                        <img src="../public/images/admin/contract/star.png"/>
+                    </td>
+                    <td>
+                        <a href="@{admin.ContractController.Editor()}"><button type="button" class="btn btn-xs btn-warning">编辑</button></a>
+                        <button type="button" class="btn btn-xs btn-info">删除</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--/分页 -->
+        <ul class="pager">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">上一页</a></li>
+            <li><a href="#">下一页</a></li>
+            <li><a href="#">尾页</a></li>
+            <li class="paddingleft10">第<a href="#"contenteditable="true" id="currentPage">3</a>页</li>
+            <li><a href="#" class="confirm">确定</a></li>
+        </ul>
+
+
+
+        <!--/
+            标题：订单支付
+        /-->
+        <div class="container-fluid">
+            <div class="row ex-htqd">
+                <div class="col-xs-12" id="ex-htqds" ><b>订单支付</b></div>
+            </div>
+        </div>
+
+        <!--/收索框：公式名称、时间 -->
+        <div class="container-fluid">
+            <div class="row" id="ex-ssk">
+                <div class="col-xs-5  text-center" id="ex-ssk1" >公司名称：
+                    <select id="ex-sskxl">
+                        <option value="0" selected=""></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                </div>
+                <div class="col-xs-5 text-center" id="ex-ssk2" >时间：
+                    <input type="text" placeholder="分钟" class="ex-ssksj" />
+                </div>
+                <div class="col-xs-2 text-right" id="ex-ssk3" ><a href="@{admin.ContractController.Increase()}"><button type="button" class="btn btn-sm btn-info">增加</button></a></div>
+            </div>
+        </div>
+
+        <!--/列表功能栏 -->
+        <div class="container-fluid">
+            <div class="row ex-khlb-gnl">
+                <div class="col-xs-8 text-left ex-khlb">
+                    时间统一设置：<input type="text" placeholder="分钟" class="ex-inp" />
+                    <button type="button" class="btn btn-xs btn-primary">编 辑</button>
+                *{ 输入框不可操作，当点击编辑之后，输入框可操作，编辑按钮隐藏，保存、取消按钮展现。
+                    <button type="button" class="btn btn-xs btn-success">保 存</button>
+                    <button type="button" class="btn btn-xs btn-info">取 消</button>
+                    }*
+                </div>
+                <div class="col-xs-4 text-right ex-khlb-s">
+                    <button type="button" class="btn btn-sm btn-warning"><small class="glyphicon glyphicon-chevron-left"></small><samp>上一页</samp></button>
+                    <button type="button" class="btn btn-sm btn-warning"><samp>下一页</samp><small class="glyphicon glyphicon-chevron-right"></small></button>
+                </div>
+            </div>
+        </div>
+
+        <!--/列表展示 -->
+        <div id="ex-spxx">
+            <table class="table table-bordered table-striped ">
+                <thead class="thead">
+                <tr>
+                    <th><input name="Fruit" type="checkbox" value="" />全选</th>
+                    <th>序号</th>
+                    <th>公司名称</th>
+                    <th>货物保留时间</th>
+                    <th>客户等级</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><input name="Fruit" type="checkbox" value="" /></td>
+                    <td>01</td>
+                    <td>常州市迪龙塑料有限公司</td>
+                    <td>30分钟</td>
+                    <td>
+                        <img src="../public/images/admin/contract/star.png"/>
+                        <img src="../public/images/admin/contract/star.png"/>
+                        <img src="../public/images/admin/contract/star.png"/>
+                    </td>
+                    <td>
+                        <a href="@{admin.ContractController.Editor()}"><button type="button" class="btn btn-xs btn-warning">编辑</button></a>
+                        <button type="button" class="btn btn-xs btn-info">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input name="Fruit" type="checkbox" value="" /></td>
+                    <td>02</td>
+                    <td>常州市迪龙塑料有限公司</td>
+                    <td>30分钟</td>
+                    <td>
+                        <img src="../public/images/admin/contract/star.png"/>
+                        <img src="../public/images/admin/contract/star.png"/>
+                    </td>
+                    <td>
+                        <a href="@{admin.ContractController.Editor()}"><button type="button" class="btn btn-xs btn-warning">编辑</button></a>
+                        <button type="button" class="btn btn-xs btn-info">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input name="Fruit" type="checkbox" value="" /></td>
+                    <td>03</td>
+                    <td>常州市迪龙塑料有限公司</td>
+                    <td>30分钟</td>
+                    <td>
+                        <img src="../public/images/admin/contract/star.png"/>
+                    </td>
+                    <td>
+                        <a href="@{admin.ContractController.Editor()}"><button type="button" class="btn btn-xs btn-warning">编辑</button></a>
+                        <button type="button" class="btn btn-xs btn-info">删除</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--/分页 -->
+        <ul class="pager">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">上一页</a></li>
+            <li><a href="#">下一页</a></li>
+            <li><a href="#">尾页</a></li>
+            <li class="paddingleft10">第<a href="#"contenteditable="true" id="currentPage">5</a>页</li>
+            <li><a href="#" class="confirm">确定</a></li>
+        </ul>
+
+
+    </div>
+</div>

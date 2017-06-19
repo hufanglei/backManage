@@ -1,0 +1,53 @@
+.row {
+    margin-left: -295px !important;
+}
+.ordertitle {
+    padding: 0 20px 5px 20px;
+}
+.content-right  .row> .padding{
+    padding:10px;
+}
+/*标题颜色*/
+.yellow{color: #ff8e35;}
+/*查询框*/
+.content-right > .query{
+    border:1px solid #ff8e35;
+    border-radius:2px;
+    margin-top:5px;
+    margin-bottom:5px;
+    margin-right:5px;
+}
+
+.content-right > .query > .hr{
+    height: 1px;
+    background-color:#ff8e35;
+}
+
+.top_table{
+    margin-top: 15px;
+    border: 1px solid #ddd;
+}
+.td_align{
+    text-align: center !important;
+    vertical-align: middle !important;
+    background-color: #fffdf0;
+}
+.td_margin{
+    margin-right: 20px;
+}
+.icon_right{
+    padding-right: 10px;
+}
+.split_div{
+    border: 1px solid grey;
+}
+.p_margintop{
+    margin-top: 10px
+}
+.span_text{
+    float: left;
+    padding-right: 50px;
+}
+.margintop_table{
+    margin-top: 40px
+}

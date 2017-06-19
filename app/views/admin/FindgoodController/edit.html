@@ -1,0 +1,134 @@
+#{extends 'backMain.html'/}
+#{set title:'帮您找货编辑' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/order/index.css'}">
+<!--左侧栏-->
+#{marketManagement-L /}
+
+<div class="content-right">
+    <div class="container-fluid">
+        <!--编辑内容-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="glyphicon glyphicon-pencil"></i> 帮您找货 > 编辑
+            </div>
+            <div class="panel-body">
+                <form action="@{admin.FindgoodController.update()}" method="post" class="form-horizontal" novalidate="novalidate">
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">标题:</label>
+                            <div class="col-sm-3">
+                                <input name="findgood.title" value="${findgood?.title}" check-type="required"
+                                       class="form-control placeholder-no-fix" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="type">描述:</label>
+                            <div class="col-sm-3">
+                                <textarea name="findgood.content" class="form-control placeholder-no-fix" style="height: 100px;"
+                                          autocomplete="off" value="${findgood?.content}" check-type="required">${findgood?.content}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="type">联系人:</label>
+                            <div class="col-sm-3">
+                                <input name="findgood.linkman" value="${findgood?.linkman}" check-type="required"
+                                       class="form-control placeholder-no-fix" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="type">手机号:</label>
+                            <div class="col-sm-3">
+                                <input name="findgood.phone" value="${findgood?.phone}" check-type="phone"
+                                       class="form-control placeholder-no-fix" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="name">操作人:</label>
+                            <div class="col-sm-3">
+
+
+                                <input type="text" class="form-control" name="findgood.operationid" disabled value="${findgood?.operationid?.toString().userFormat()?.get("NAME")}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="type">操作人IP:</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="findgood.operationip" disabled
+                                       value="${findgood?.operationip}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="type">受理状态:</label>
+                            <div class="col-sm-3">
+                                <select name="findgood.dealcode" class="chosen-select form-control"
+                                        tabindex="2">
+                                #{list items:dealcodeList , as : 'deal'}
+                                    <option value="${deal?.LEVELCODE}" ${deal?.LEVELCODE == findgood?.dealcode ? "selected" : ""}>${deal?.NAME}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="type">发布时间:</label>
+                            <div class="col-sm-3">
+                                <input type="text" name="findgood.begintime" class="form-control form_datetime" check-type="required"
+                                       value="${findgood.begintime?.format()}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="type">截止时间:</label>
+                            <div class="col-sm-3">
+                                <input name="findgood.endtime"
+                                       class="form-control placeholder-no-fix form_datetime"
+                                       autocomplete="off"       check-type="required"
+                                       value="${findgood?.endtime?.format()}"/>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="type">备注:</label>
+                            <div class="col-sm-3">
+                                <textarea name="findgood.memo" class="form-control placeholder-no-fix"  autocomplete="off" style="height: 100px;" value="${findgood?.memo}">${findgood?.memo}</textarea>
+                            </div>
+                        </div>
+                        <input name="id" type="hidden" value="${findgood?.id}"/>
+                        <div class="form-group" style="padding-top:30px">
+                            <div class="col-sm-offset-3 col-sm-3">
+                                <button id="submit" type="submit" class="btn btn-primary">保存</button>
+                                <button id="cancel" type="reset" class="btn cancel" onclick="history.go(-1)">取消</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/右侧栏  -->
+<script src="@{'/public/javascripts/bootstrap3-validation.js'}" type="text/javascript"
+        charset="${_response_encoding}"></script>
+<script>
+    $(function () {
+        $(".nav > li > a").eq(4).css({
+            "text-decoration": "none",
+            "background-color": "#eee"
+        })
+    });
+    $("form").validation();
+
+    //表单提交验证
+    $("button[type='submit']").on('click', function (event) {
+        // 2.最后要调用 valid()方法。
+        if ($("form").valid() == false) {
+            return false;
+        }
+    });
+</script>
+<script type="text/javascript">
+    $(".form_datetime").datetimepicker({
+        format: "dd MM yyyy - hh:ii",
+        autoclose: true,
+        todayBtn: true,
+        pickerPosition: "bottom-left"
+    });
+</script>

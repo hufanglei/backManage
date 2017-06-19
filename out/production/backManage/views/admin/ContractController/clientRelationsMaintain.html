@@ -1,0 +1,107 @@
+#{extends 'backMain.html'/}
+#{set title:'系统配置' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/sys/clientRelationsMaintain.css'}">
+<link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+<!--左侧栏-->
+#{systemConfiguration-L /}
+
+<!--右侧栏-->
+<div class="content-right">
+    <div class="container-fluid">
+
+        <!--/标题：选项配置>客户关系维护 -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-8 text-left ex-whbt"><b>选项配置>客户关系维护</b></div>
+                <div class="col-xs-3 text-right ex-whbt"></div>
+            </div>
+        </div>
+
+        <!--/买方业务员标题 -->
+        <div class="container-fluid">
+            <div class="row ex-whbt-mf">
+                <div class="col-xs-12 ex-whbt-mfs"><b>买方业务员</b></div>
+            </div>
+        </div>
+
+        <!--/客户列表 -->
+        <div class="container-fluid">
+            <div class="row ex-khlb-gnl">
+                <div class="col-xs-1 text-left ex-khlb"><b>客户列表</b></div>
+                <div class="col-xs-2 text-left ex-khlb"><input name="Fruit" type="checkbox" value="" />只显示自己的客户</div>
+                <div class="col-xs-1 text-left ex-khlb"><button type="button" class="btn btn-sm btn-info"><samp>增加</samp></button></div>
+                <div class="col-xs-1 col-xs-offset-6 text-right ex-khlb-s">
+                    <button type="button" class="btn btn-sm btn-warning"><small class="glyphicon glyphicon-chevron-left"></small><samp>上一页</samp></button>
+                </div>
+                <div class="col-xs-1 text-right ex-khlb-x">
+                    <button type="button" class="btn btn-sm btn-warning"><samp>下一页</samp><small class="glyphicon glyphicon-chevron-right"></small></button>
+                </div>
+            </div>
+        </div>
+
+        <!--/全部客户列表 -->
+        <div class="ex-lb">
+            <div class="row" id="ex-lbh">
+                <div class="col-xs-1 text-center ex-lbhg"><b>序号</b></div>
+                <div class="col-xs-3 text-center ex-lbhg"><b>公司名称</b></div>
+                <div class="col-xs-2 text-center ex-lbhg"><b>联系人</b></div>
+                <div class="col-xs-2 text-center ex-lbhg"><b>联系电话</b></div>
+                <div class="col-xs-2 text-center ex-lbhg"><b>销售人员</b></div>
+                <div class="col-xs-2 text-center ex-lbhg"><b>操作</b></div>
+            </div>
+            <div class="row" id="ex-sj">
+                <div class="col-xs-1 text-center ex-sjg">001</div>
+                <div class="col-xs-3 text-center ex-sjg">常州市迪龙塑料有限公司</div>
+                <div class="col-xs-2 text-center ex-sjg">张三</div>
+                <div class="col-xs-2 text-center ex-sjg">15833660417</div>
+                <div class="col-xs-2 text-center ex-sjg">周伟</div>
+                <div class="col-xs-2 text-center ex-sjg">
+                    <div class="row">
+                        <div class="col-xs-6 text-right ex-sjgs"><button type="button" class="btn btn-xs btn-warning">编辑</button></div>
+                        <div class="col-xs-6 text-left ex-sjgs"><button type="button" class="btn btn-xs btn-info">删除</button></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="ex-lbbx"></div>
+            <div class="row" id="ex-sj">
+                <div class="col-xs-1 text-center ex-sjg">002</div>
+                <div class="col-xs-3 text-center ex-sjg">上海市新新塑料有限公司</div>
+                <div class="col-xs-2 text-center ex-sjg">李四</div>
+                <div class="col-xs-2 text-center ex-sjg">15833668765</div>
+                <div class="col-xs-2 text-center ex-sjg">李桂东</div>
+                <div class="col-xs-2 text-center ex-sjg">
+                    <div class="row">
+                        <div class="col-xs-6 text-right ex-sjgs"><button type="button" class="btn btn-xs btn-warning">编辑</button></div>
+                        <div class="col-xs-6 text-left ex-sjgs"><button type="button" class="btn btn-xs btn-info">删除</button></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="ex-lbbx"></div>
+            <div class="row" id="ex-sj">
+                <div class="col-xs-1 text-center ex-sjg">003</div>
+                <div class="col-xs-3 text-center ex-sjg">常州市迪龙塑料有限公司</div>
+                <div class="col-xs-2 text-center ex-sjg">王五</div>
+                <div class="col-xs-2 text-center ex-sjg">15833660417</div>
+                <div class="col-xs-2 text-center ex-sjg">周伟</div>
+                <div class="col-xs-2 text-center ex-sjg">
+                    <div class="row">
+                        <div class="col-xs-6 text-right ex-sjgs"><button type="button" class="btn btn-xs btn-warning">编辑</button></div>
+                        <div class="col-xs-6 text-left ex-sjgs"><button type="button" class="btn btn-xs btn-info">删除</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--/分页 -->
+        <ul class="pager">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">上一页</a></li>
+            <li><a href="#">下一页</a></li>
+            <li><a href="#">尾页</a></li>
+            <li class="paddingleft10">第<a href="#"contenteditable="true" id="currentPage">5</a>页</li>
+            <li><a href="#" class="confirm">确定</a></li>
+        </ul>
+
+
+    </div>
+</div>

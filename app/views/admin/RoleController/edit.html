@@ -1,0 +1,55 @@
+#{extends 'backMain.html'/}
+#{set title:'角色编辑' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/order/index.css'}">
+<!--左侧栏-->
+#{personalCenter-L /}
+
+<!--右侧栏  -->
+<div class="content-right">
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE HEADER-->
+
+        <!--表单区域-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="glyphicon glyphicon-pencil"></i> 角色管理 > 编辑
+            </div>
+            <div class="panel-body">
+                <form action="@{admin.RoleController.update()}" method="Post" class="form-horizontal" enctype="multipart/form-data">
+                    <fieldset>
+                        <br/>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="type">名称:</label>
+                            <div class="col-lg-8">
+                                <input name="role.name" value="${role?.name}" check-type="required"
+                                       class="form-control placeholder-no-fix" autocomplete="off" />
+                            </div>
+                        </div>
+                        <input name="id" type="hidden" value="${role?.id}"/>
+                        <div class="form-group" style="padding-top:30px">
+                            <div class="col-lg-offset-5 col-lg-5">
+                                <button id="submit" type="submit" class="btn btn-primary">保存</button>
+                                <button id="cancel" type="reset" class="btn cancel" onclick="history.go(-1)">取消</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--/右侧栏  -->
+<script src="@{'/public/javascripts/bootstrap3-validation.js'}" type="text/javascript"    charset="${_response_encoding}"></script>
+<script>
+    $("form").validation();
+    //表单提交验证
+    $("button[type='submit']").on('click', function (event) {
+        // 2.最后要调用 valid()方法。
+        if ($("form").valid() == false) {
+            return false;
+        }
+    });
+
+</script>

@@ -1,0 +1,103 @@
+#{extends 'backMain.html'/}
+#{set title:'角色管理' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/order/index.css'}">
+
+<!--左侧栏-->
+#{personalCenter-L /}
+
+<!--右侧栏  -->
+<div class="content-right">
+    <div class="container-fluid">
+
+        <!--面包屑-->
+        <div class="row ordertitle">
+            <strong>用户管理</strong>
+            <i class="glyphicon glyphicon-chevron-right"></i>
+            <strong class="yellow">角色管理</strong>
+        </div>
+        <!--/面包屑-->
+        <br/><br/><br/><br/>
+        <!--列表区域-->
+        <div class="row filler">
+            <span><a href="@{admin.RoleController.add()}"><i class="glyphicon glyphicon-plus"></i>新增</a></span>
+            <span><a href="javascript:void(0);" title="温馨提示" data-container="body" data-toggle="popover"
+                     data-placement="top"
+                     data-content="不能为空并且只能选择一条记录奥" data-action="enabled"><i
+                    class="glyphicon glyphicon-ok"></i>启用</a></span>
+            <span><a href="javascript:void(0);" title="温馨提示" data-container="body" data-toggle="popover"
+                     data-placement="top"
+                     data-content="不能为空并且只能选择一条记录奥" data-action="disable"><i
+                    class="glyphicon glyphicon-remove"></i>禁用</a></span>
+            <span><a href="javascript:void(0);" title="温馨提示" data-container="body" data-toggle="popover"
+                     data-placement="top"
+                     data-content="不能为空并且只能选择一条记录奥" data-action="bind"><i class="	glyphicon glyphicon-list"></i>权限绑定</a>
+            </span>
+            <span><a href="javascript:void(0);" title="温馨提示" data-container="body" data-toggle="popover"
+                     data-placement="top"
+                     data-content="不能为空并且只能选择一条记录奥" data-action="edit"><i class="glyphicon glyphicon-pencil"></i>编辑</a>
+            </span>
+            <span><a href="javascript:void(0);" title="温馨提示" data-container="body" data-toggle="popover"
+                     data-placement="top"
+                     data-content="不能为空并且只能选择一条记录奥" data-action="delete"><i class="glyphicon glyphicon-trash"></i>删除</a>
+            </span>
+        </div>
+        <!--表格-->
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr name = "includeCheckbox">
+                <th>序号</th>
+                <th>名称</th>
+                <th>是否可用</th>
+            </tr>
+            </thead>
+            <tbody>
+            #{list items:pageBean.modelList , as : 'account'}
+            <tr name = "includeCheckbox">
+                <td class="txtValue" style="display: none;">${account?.ID}</td>
+                <td>${account?.RN}</td>
+                <td>${account?.NAME}</td>
+                <td>
+                    #{if account?.ENABLE == Integer.valueOf(messages.get("ACCOUNT_ENABLE"))}
+                        true
+                    #{/if}
+                    #{else}
+                        <span style="color: red;">false</span>
+                    #{/else}
+
+                </td>
+            </tr>
+            #{/list}
+            </tbody>
+        </table>
+        <!--/列表区域-->
+        <!--分页-->
+    #{include 'admin/common/page.html' /}
+        <!--/分页-->
+    </div>
+</div>
+<!--/右侧栏  -->
+
+<script src="@{'/public/javascripts/common/pageCommon.js'}" type="text/javascript"
+        charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/common/TableCheckbox.js'}" type="text/javascript"
+        charset="${_response_encoding}"></script>
+<script>
+    $(function () {
+        //提示框控制+ 后台提交
+        $("[data-toggle='popover']").click(function () {
+            var $this = $(this);
+            commit($this.attr("data-action"), $this);
+        });
+
+        //根据 页面相应的方法名（enabled/disable/edit）提交后台
+        function commit(method, obj) {
+            var id = $(".txtValue").val();
+            var reg = /,/; //是否是多个id 根据，识别
+            if (reg.test(id) || id == "") {
+                obj.popover();
+            } else {
+                window.location.href = "/admin/account/" + method + "?accountId=" + id;
+            }
+        }
+    });
+</script>

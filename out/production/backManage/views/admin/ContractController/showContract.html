@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>销售合同</title><!--/ 合同模板（新修改）_自提现货 /-->
+    <style>
+        /*
+            章
+        */
+        #echapter {
+            position: absolute;
+            top: 900px;
+            left:auto;
+            width: 360px;
+            height: 360px;
+            color: #f21717;
+            transform: scale(0.4);
+        }
+
+        #echapter-border {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 280px;
+            height: 280px;
+            border: 8px solid #f21717;
+            border-radius: 50%;
+
+        }
+
+        #star-five {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            color: red;
+            width: 0px;
+            height: 0px;
+            border-right: 100px solid transparent;
+            border-bottom: 70px solid red;
+            border-left: 100px solid transparent;
+            -moz-transform: translate(-50%, -50%) scale(0.7);
+            -webkit-transform: translate(-50%, -50%) scale(0.7);
+            -ms-transform: translate(-50%, -50%) scale(0.7);
+            -o-transform: translate(-50%, -50%) scale(0.7);
+            transform: translate(-50%, -50%) scale(0.7);
+        }
+
+        #star-five:before {
+            border-bottom: 80px solid red;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            position: absolute;
+            height: 0;
+            width: 0;
+            top: -45px;
+            left: -65px;
+            display: block;
+            content: "";
+            -webkit-transform: rotate(-35deg);
+            -moz-transform: rotate(-35deg);
+            -ms-transform: rotate(-35deg);
+            -o-transform: rotate(-35deg);
+            transform: rotate(-35deg);
+
+        }
+
+        #star-five:after {
+            position: absolute;
+            display: block;
+            color: red;
+            top: 3px;
+            left: -105px;
+            width: 0px;
+            height: 0px;
+            border-right: 100px solid transparent;
+            border-bottom: 70px solid red;
+            border-left: 100px solid transparent;
+            -webkit-transform: rotate(-70deg);
+            -moz-transform: rotate(-70deg);
+            -ms-transform: rotate(-70deg);
+            -o-transform: rotate(-70deg);
+            transform: rotate(-70deg);
+            content: "";
+        }
+
+        #company {
+            font-size: 1.8rem;
+        }
+
+        #company span {
+            position: absolute;
+        }
+
+        #company span:nth-child(1) {
+            left: 100px;
+            bottom: 60px;
+            transform: rotate(-140deg);
+        }
+
+        #company span:nth-child(2) {
+            left: 70px;
+            bottom: 90px;
+            transform: rotate(-130deg);
+        }
+
+        #company span:nth-child(3) {
+            left: 48px;
+            bottom: 130px;
+            transform: rotate(-110deg);
+        }
+
+        #company span:nth-child(4) {
+            top: 150px;
+            left: 45px;
+            transform: rotate(-90deg);
+        }
+
+        #company span:nth-child(5) {
+            top: 105px;
+            left: 60px;
+            transform: rotate(-70deg);
+        }
+
+        #company span:nth-child(6) {
+            top: 68px;
+            left: 92px;
+            transform: rotate(-50deg);
+        }
+
+        #company span:nth-child(7) {
+            top: 45px;
+            left: 140px;
+            transform: rotate(-20deg);
+        }
+
+        #company span:nth-child(8) {
+            top: 45px;
+            left: 195px;
+            transform: rotate(20deg);
+        }
+
+        #company span:nth-child(9) {
+            top: 70px;
+            left: 240px;
+            transform: rotate(40deg);
+        }
+
+        #company span:nth-child(10) {
+            top: 105px;
+            left: 270px;
+            transform: rotate(60deg);
+        }
+
+        #company span:nth-child(11) {
+            top: 150px;
+            left: 285px;
+            transform: rotate(70deg);
+        }
+
+        #company span:nth-child(12) {
+            top: 195px;
+            left: 280px;
+            transform: rotate(100deg);
+        }
+
+        #contract-word {
+            position: absolute;
+            left: 50%;
+            font-size: 1.5rem;
+            font-weight: bolder;
+            letter-spacing: 0.2rem;
+            transform: translateX(-15%) rotate(-30deg);
+            bottom: 45px;
+        }
+
+        #contract {
+            margin: 5px auto;
+            padding-bottom: 10px;
+            width: 850px;
+            height: auto;
+            background: rgba(211, 211, 211, 0.2);
+        }
+
+        .title {
+            padding-top: 10px;
+            font-size: 25px;
+            text-align: center;
+            font-weight: bolder;
+            letter-spacing: 6px;
+        }
+
+        .ex-bh{
+            text-align: right;
+        }
+
+        .ex-qddd{
+            float: right;
+        }
+
+        .good-table{
+            width: 90%;
+            border: 1px solid #000000;
+            padding: 10px;
+            text-align: center;
+            margin: -10px auto 0;
+            border-collapse: collapse;
+        }
+
+        .good-table > tbody > tr > td{
+            padding: 5px 8px;
+            border: 1px solid #000000;
+        }
+
+        #ex-p{
+            padding-left: 30px;
+            margin-top: -10px;
+        }
+
+        .ex-td{
+            text-align: left;
+        }
+        .ex-td samp{
+            font-size: 16px;
+            height: 30px;
+        }
+    </style>
+
+</head>
+<body>
+<div id="contract">
+    <!--/ 合同头部 / -->
+    <header id="header">
+        <div class="title">购销合同</div>
+        <p class="ex-bh"><b>编号：</b><span>${obj.CONTRACTNO}</span></p>
+
+        <p>
+            <span><b>卖方：</b><span>山东日聚电子商务有限公司</span> </span>
+            <span class="ex-qddd"><b>签订地点：</b><span>日照</span></span>
+        </p>
+
+        <p>
+            <span><b>买方：</b><span>${obj.COMPANYNAME}</span> </span>
+            *{<span><b>买方：</b><span></span> </span>}*
+            <span class="ex-qddd"><b>时间：</b><span>${obj.CREATETIME}</span></span>
+            *{<span class="ex-qddd"><b>时间：</b><span></span></span>}*
+        </p>
+    </header>
+
+    <p><b>一、货物标的（货币单位：人民币）</b></p>
+    <table class="good-table">
+        <tbody>
+        <tr>
+            <td>产品名称</td>
+            <td>产地</td>
+            <td>单位</td>
+            <td>数量(吨)</td>
+            <td>含税单价</td>
+            <td>含税总价</td>
+        </tr>
+        #{list items:list,as:'item'}
+            <tr>
+                <td>${item.GOODKIND}</td>
+                <td >${item.PRODUCINGAREA}</td>
+                <td>${item.MARK}</td>
+                <td>${item.TOTALNUM}</td>
+                <td class="money_format">${item.PRICEHASTAX}</td>
+                <td class="money_format">${item.TOTALMONEY}</td>
+            </tr>
+        #{/list}
+        <tr>
+            <td class="red" colspan="3">含税人民币金额（大写）：</td>
+            <td colspan="3">${obj.get("totalMoney")}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p><b>二、质量要求和包装要求：</b></p>
+    <p id="ex-p">本合同项下货物的质量、数量以生产厂家标注（含出具的技术标准）的为准。包装为生产厂家原包装。</p>
+
+    <p><b>三、货物验收：</b></p>
+    <p id="ex-p">
+        买方应在收(提)货时对货物的数量、质量、包装进行验收，若有质量异议应在提(收)货当日装（缷）车前，以书面形式向卖方提出并提供相关证明，逾期产生的风险由买受人承担。对在约定时限内提出的异议商品，双方共同取样到双方认可的法定检测机构检测，检测费用及因检测给对方造成的损失由责任方承担。实际交付产品时，允许有0.1%的破包（碎）率。<br/>
+        数量与包装包装标注为准。
+    </p>
+
+    <p><b>四、交货方式、地点：</b></p>
+    <p id="ex-p">
+        买方自备符合国家、库区规定的运输工具到 <u><strong>${seller.STORAGE}</strong></u>仓库自提，运费等费用由买方承担。
+    </p>
+
+    <p><b>五、结算方式：</b></p>
+    *{$("#mon1").html((new Date()).Format("MM").substring(0,1));}*
+    <p id="ex-p">
+        买受人自合同签订之日起两日内向出卖人支付全额货款，先付款后提货。并在201_${obj.get("contractTime").format('yyyy').substring(3,4)}_年_${obj.get("contractTime").format('MM')}_月_${obj.get("contractTime").format('dd')}_日前提完全部货物；买方逾期提货产生的仓储、滞期等费用及其它风险由买方承担。按约定期限提货完毕后出卖人给买受人开具增值税发票。
+    </p>
+
+    <p><b>六、卖方所有权保留：</b></p>
+
+    <p id="ex-p">
+        买方未向卖方支付货款或未能支付全部货款的，即使买方已收到或提取货物，该未支付货款部分的货物的所有权仍归属卖方，卖方有权在本合同规定的支付日后，就买方未支付部分的货物主张权利，包括但不限于要求买方支付货款、立即停止使用和转售货物及返还原物等，但买方仍应对其收到或提取货物后的货物毁损、灭失承担责任。
+    </p>
+
+    <p><b>七、合同解除：</b></p>
+    <p id="ex-p">
+        买方若出现以下未按合同履行的情形卖方有权决定解除合同：<br/>
+        1、未按时支付预付款；2、未按时支付货款；3、其它违约行为。<br/>
+        合同解除后，买方无条件向卖方支付违约金并赔偿卖方损失。
+    </p>
+
+    <p><b>八、违约责任：</b></p>
+    <p id="ex-p">
+        任何一方违反合同约定，承担货款总额10%的违约金，受损方损失额超过违约金的，违约方还需按实际损失金额（包括但不限于直接损失、可得利益损失、诉讼或仲裁费、律师费等）赔偿给对方。
+    </p>
+
+    <p><b>九、争议解决：</b></p>
+    <p id="ex-p">
+        双方友好协商解决，若协商不成，向卖方所在地有管辖权的人民法院提起诉讼。
+    </p>
+
+    <p><b>附则：</b></p>
+    <p id="ex-p">
+        本合同当日回传有效，并加盖公章（或者公司合同专用章）后即生效。对本合同的修改及补充需另行签订书面协议作为本合同不可分割的组成部分，对本合同的任何单方面非印刷体的改动均为非法和无效。经卖方确认的传真或扫描件有效。
+    </p>
+
+    <p id="ex-p"><b>本合同一式两份，双方各执一份。合同传真件有效。</b></p>
+
+    <table class="good-table">
+        <tbody>
+        <tr>
+            <td colspan="3">卖方</td>
+            <td colspan="3">买方</td>
+        </tr>
+        <tr>
+            <td class="ex-td" colspan="3">
+                <samp>单位名称：${seller.COMPANYNAME}</samp><br/>
+                <samp>单位地址：${seller.ADDRESS}</samp><br/>
+                <samp>电话：${seller.PHONE}</samp><br/>
+                <samp>传真：</samp><br/>
+                <samp>开户行：</samp><br/>
+                <samp>账号：</samp><br/>
+            </td>
+
+            <td class="ex-td" colspan="3">
+                <samp>单位名称：${obj.COMPANYNAME}</samp><br/>
+                <samp>单位地址：${obj.ADDRESS}</samp><br/>
+                <samp>委托代理人：</samp><br/>
+                <samp>电话：${obj.PHONE}</samp><br/>
+                <samp>传真：</samp><br/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!--/ 章 /-->
+    <div id="echapter">
+        <div id="echapter-border"></div>
+        <p id="company">
+            <span>山</span><span>东</span><span>日</span><span>聚</span><span>电</span><span>子</span>
+            <span>商</span><span>务</span><span>有</span><span>限</span><span>公</span><span>司</span>
+        </p>
+
+        <div id="star-five">
+        </div>
+        <p id="contract-word">合同专用章</p>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    //js格式化货币方法
+    function formatCurrency(num) {
+        num = num.toString().replace(/\$|\,/g,'');
+        if(isNaN(num))
+            num = "0";
+        sign = (num == (num = Math.abs(num)));
+        num = Math.floor(num*100+0.50000000001);
+        cents = num%100;
+        num = Math.floor(num/100).toString();
+        if(cents<10)
+            cents = "0" + cents;
+        for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+            num = num.substring(0,num.length-(4*i+3))+','+
+            num.substring(num.length-(4*i+3));
+        return (((sign)?'':'-') + num + '.' + cents);
+    }
+    //找到需要格式化的项
+    var doms = document.getElementsByClassName("money_format");
+    //格式化
+    for(var i=0;i<doms.length;i++){
+        var htmlVal=   doms[i].innerHTML;
+        doms[i].innerHTML= htmlVal==null ? '0' :  ("￥" + formatCurrency(htmlVal));
+    }
+    //打印预览
+    window.print();
+
+</script>

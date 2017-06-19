@@ -1,0 +1,59 @@
+#{extends 'backMain.html'/}
+#{set title:'数据中心' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/order/index.css'}">
+
+<!--左侧栏-->
+#{dataCenter-L /}
+
+
+<!--右侧栏  -->
+<div class="content-right">
+    <div class="container-fluid">
+        <div class="row ordertitle">
+            <strong>数据中心</strong>
+            <i class="glyphicon glyphicon-chevron-right"></i>
+            <strong class="yellow">签到列表</strong>
+        </div>
+        <!--查询表单-->
+        <div class="container-fluid" id="querybox">
+            <br/>
+            <!--表格-->
+            <table class="table table-bordered table-striped" id="data-table">
+                <thead>
+                <tr name="includeCheckbox">
+                    <th>用户</th>
+                    <th>签到时间</th>
+                    <th>连续签到</th>
+                    <th>累计签到</th>
+                </tr>
+                </thead>
+                <tbody>
+                #{list items:pageBean.modelList,as:'checkin'}
+                <tr name="includeCheckbox">
+                    <td class="txtValue" style="display: none;">${checkin?.ID}</td>
+                    <td>${checkin?.FRONTUSERID?.toString()?.getFrontNameAndLoginByIdFormat()?.get("LOGIN")}</td>
+                    <td>${checkin?.CREATETIME}</td>
+                    <td>${checkin?.ATTENDANCEDAYS}</td>
+                    <td>${checkin?.GRANDTOTAL}</td>
+                </tr>
+                #{/list}
+                </tbody>
+            </table>
+    </div>
+    <!--分页-->
+    #{include 'admin/common/page.html'/}
+</div>
+<script src="@{'/public/javascripts/common/pageCommon.js'}" type="text/javascript" ></script>
+<script src="@{'/public/javascripts/common/TableCheckbox.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".nav > li > a").eq(9).css({
+            "text-decoration": "none",
+            "background-color": "#eee"
+        });
+    });
+    //提交搜索的from表单
+    function searchform(){
+        $("#searchForm").submit();
+    }
+</script>

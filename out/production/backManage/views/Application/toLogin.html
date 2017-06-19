@@ -1,0 +1,69 @@
+#{extends 'main.html' /}
+#{set title:'登录页面' /}
+#{stylesheet 'login.css'/}
+<body>
+<div class="box">
+    <div class="login-box">
+        <div class="border">
+            <div class="login-title text-center">
+                <h1><small>登录</small></h1>
+            </div>
+            <div class="login-content ">
+                <div class="form">
+                    <form action="@{Application.login()}" method="post">
+                        <div class="form-group">
+                            <div class="col-xs-12  ">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                    <input type="text" id="username" autofocus name="account.username" class="form-control" placeholder="用户名">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12  ">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                    <input type="password" id="password" name="account.password" class="form-control" placeholder="密码">
+                                </div>
+                            </div>
+                        </div>
+                        *{
+                            登录错误提示信息
+                        }*
+                        <div class="form-group">
+                            <div class="col-xs-12 text-center">
+                            #{ifErrors}
+                                <p class="text-danger">
+                                ${errors}
+                                </p>
+                            #{/ifErrors}
+                                <p class="text-danger">
+                                ${flash.get("message")}
+                                </p>
+                                </div>
+                        </div>
+
+                        <div class="form-group form-actions">
+                            <div class="col-xs-4 col-xs-offset-4 text-center ">
+                                <button type="submit" class="btn btn-sm btn-info"><span class="glyphicon glyphicon-off"></span> 登录</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-6 link ex-to">
+                                <p class="text-center remove-margin"><small>忘记密码？</small> <a href="#" ><small>找回</small></a>
+                                </p>
+                            </div>
+                            <div class="col-xs-6 link ex-to">
+                                <p class="text-center remove-margin"><small>还没注册?</small> <a href="@{Application.toRegist}" ><small>注册</small></a>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

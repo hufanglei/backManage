@@ -1,0 +1,203 @@
+#{extends 'backMain.html'/}
+#{set title:'前台用户新增' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/order/index.css'}">
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/frontuser/add.css'}">
+
+<!--左侧栏-->
+#{personalCenter-L /}
+
+
+
+<!--右侧栏  -->
+<div class="content-right">
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE HEADER-->
+
+         <!--表单区域-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="glyphicon glyphicon-plus"></i> 用户管理 > 新增
+            </div>
+            <div class="panel-body">
+                <form action="@{admin.FrontUserController.save()}" method="post" class="form-horizontal">
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="type">注册类型</label>
+                            <div class="col-sm-3">
+                                <select id="mod" name="frontuser.guestcode"  class="chosen-select form-control"  tabindex="2" >
+                                    <option value="001">买家</option>
+                                    <option value="002">卖家</option>
+                                    <option value="003">买卖一体</option>
+                                    <option value="004">经济人</option>
+                                </select>
+                            </div>
+
+                            *{<label class="col-sm-2 control-label" for="type">业务员id</label>
+                            <div class="col-sm-3">
+                                <select id="mod" name="plan.type"  class="chosen-select form-control"  tabindex="2" >
+                                    <option value="">--请选择--</option>
+
+                                    <option value="DAYPLAN">日计划</option>
+
+                                    <option value="WEEKPLAN">周计划</option>
+
+                                    <option value="MONTHPLAN">月计划</option>
+
+                                </select>
+                            </div>}*
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="type">登录名</label>
+                            <div class="col-sm-3">
+                                <input name="frontuser.login"  check-type="required" class="form-control placeholder-no-fix"  autocomplete="off" value="" style="color:grey"/>
+                            </div>
+                          *{  <label class="col-sm-2 control-label" for="type">专职经济人id</label>
+                            <div class="col-sm-3">
+                               <input type="text" class="form-control" name="frontuser.agentid" value="">
+
+                            </div>}*
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="name">用户名</label>
+                            <div class="col-sm-3">
+                                <input name="frontuser.name"  check-type="required" class="form-control placeholder-no-fix"  autocomplete="off" value="" style="color:grey"/>
+                            </div>
+                           *{ <label class="col-sm-2 control-label" for="name">组织结构代码</label>
+                            <div class="col-sm-3">
+                                <input name="frontuser.unitno"  check-type="required" class="form-control placeholder-no-fix"  autocomplete="off" value="" style="color:grey"/>
+                            </div>}*
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="name">密码</label>
+                            <div class="col-sm-3">
+                                <input type="password" class="form-control"  check-type="password" name="frontuser.password" value="" id="pw1">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="name">确认密码</label>
+                            <div class="col-sm-3">
+                                <input type="password" class="form-control" check-type="password" value="" id="pw2" onblur="pw()">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                        <label class="col-sm-2 control-label" for="name">公司名称:</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control"  check-type="required" name="frontuser.companyName" value="">
+                        </div>
+                        *{<label class="col-sm-2 control-label" for="name">操作人id:</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control form-date" name="plan.effectTime" value="">
+                        </div>}*
+                    </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="name">公司地址:</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control"  check-type="required"  name="frontuser.address" value="">
+                            </div>
+                           *{ <label class="col-sm-2 control-label" for="name">操作人ip:</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control form-date" name="plan.effectTime" value="">
+                            </div>}*
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="name">固定电话:</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" check-type="tel_phone" name="frontuser.phone" value="">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="name">手机:</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control"  check-type="phone" name="frontuser.mobphone" value="">
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="name">email:</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control "  check-type="mail"  name="frontuser.email" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="name">审核状态:</label>
+                            <div class="col-sm-3">
+                                <select name="frontuser.affirmregcode" class="chosen-select form-control" tabindex="2" check-type="required" >
+                                    <option value="001">待审核</option>
+                                    <option value="002">审核中</option>
+                                    <option value="003">审核通过</option>
+                                    <option value="004">审核失败</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="name">有效状态:</label>
+                            <div class="col-sm-3">
+                                <select name="frontuser.statuscode" class="chosen-select form-control" tabindex="2" check-type="required" >
+                                    <option value="001">有效</option>
+                                    <option value="002">无效</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="form-group" style="padding-top:30px">
+                            <div class="col-sm-offset-3 col-sm-3">
+                                <button id="submit" type="submit"  class="btn btn-primary">保存</button>
+                                <button id="cancel" type="reset" class="btn cancel" onclick="history.go(-1)">取消</button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+<!--/右侧栏  -->
+<script src="@{'/public/javascripts/bootstrap3-validation.js'}" type="text/javascript"    charset="${_response_encoding}"></script>
+
+<script>
+    $("form").validation();
+
+    //表单提交验证
+    $("button[type='submit']").on('click', function (event) {
+        // 2.最后要调用 valid()方法。
+        if ($("form").valid() == false) {
+            return false;
+        }
+    });
+
+</script>
+<script>
+    function pw() {
+        var pw1 = document.getElementById("pw1").value;
+        var pw2 = document.getElementById("pw2").value;
+        if(pw1 != pw2) {
+            messageTip.tip("两次输入密码不一致");
+            document.getElementById("submit").disabled = true;
+        }else{
+            document.getElementById("submit").disabled = false;
+        }
+    }
+</script>

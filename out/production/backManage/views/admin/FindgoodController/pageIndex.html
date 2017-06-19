@@ -1,0 +1,185 @@
+#{extends 'backMain.html'/}
+#{set title:'帮您找货页面' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/order/index.css'}">
+
+<!--左侧栏-->
+#{marketManagement-L /}
+
+<!--右侧栏  -->
+<div class="content-right">
+    <div class="container-fluid">
+        <!--面包屑-->
+        <div class="row ordertitle">
+            <strong>市场管理</strong>
+            <i class="glyphicon glyphicon-chevron-right"></i>
+            <strong class="yellow">帮您找货</strong>
+        </div>
+        <!--/面包屑-->
+        <!--查询表单-->
+        <div class="container-fluid" id="querybox">
+            <div class="page-header"><span class="glyphicon glyphicon-search"></span>查询</div>
+            <form class="form" id="searchForm" action="@{admin.FindgoodController.pageIndex()}" method="get">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">联系人</label>
+                            <div class="col-md-7">
+                                <select name="searchFindgood.linkman" id="linkman" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:linkmanList ,as:'findgood'}
+                                    <option value="${findgood?.LINKMAN}"  ${findgood?.LINKMAN?.equals( searchFindgood?.linkman ) ? "selected":"" }>${findgood?.LINKMAN}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">手机号</label>
+                            <div class="col-md-7">
+                                <select name="searchFindgood.phone" id="phone" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:phoneList ,as:'findgood'}
+                                    <option value="${findgood?.PHONE}"  ${findgood?.PHONE?.equals(searchFindgood?.phone) ? "selected":"" }>${findgood?.PHONE}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">受理状态</label>
+                            <div class="col-md-7">
+                                <select name="searchFindgood.dealcode" id="dealcode" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+
+                                    <option value="" >--请选择--</option>
+                                #{list items:dealcodeList,as:'deal'}
+                                    <option value="${deal?.LEVELCODE}"  ${deal?.LEVELCODE?.equals(searchFindgood?.dealcode)? "selected":"" }>${deal?.NAME}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <div class="row" style="margin-top: 5px;">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">成交供应商</label>
+                            <div class="col-md-7">
+                                <select name="searchFindgood.sup" class="form-control placeholder-no-fix chosen-select" autocomplete="off" id="mySelect">
+                                    <option value="">--请选择--</option>
+                                #{list items:supList ,as:'findgood'}
+                                    <option value="${findgood?.SUP}" ${findgood?.SUP?.equals(searchFindgood?.sup) ? "selected":"" }>${findgood?.SUP}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">开始时间</label>
+                            <div class="col-md-7">
+                                <input type="text" name="searchFindgood.begintime" class="form-control form_date" value="${searchFindgood?.begintime}" id="time"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">截止时间</label>
+                            <div class="col-md-7">
+                                <input type="text" name="searchFindgood.endtime" class="form-control form_date" value="${searchFindgood?.endtime}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <div class="page-header"></div>
+                <div class="row text-center">
+                    <button class="btn btn-query" type="submit">查询</button>
+                    <button class="btn btn-reset" type="reset">重置</button>
+                </div>
+            </form>
+        </div>
+        <!--/查询表单-->
+        <!--列表区域-->
+        <div class="row filler">
+            <span><a href="javascript:void(0);" title="温馨提示" data-container="body" data-toggle="popover"
+                     data-placement="top"
+                     data-content="不能为空并且只能选择一条记录奥" data-action="edit"><i class="glyphicon glyphicon-pencil"></i>编辑</a></span>
+        </div>
+        <!--表格-->
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr name="includeCheckbox">
+                <th>序号</th>
+                <th>标题</th>
+                <th>内容</th>
+                <th>联系人</th>
+                <th>手机号</th>
+                <th>成交供应商</th>
+                <th>受理状态</th>
+                <th>操作人</th>
+                <th>创建时间</th>
+                <th>备注</th>
+            </tr>
+            </thead>
+            <tbody>
+            #{list items:pageBean.modelList , as : 'findgood'}
+            <tr name="includeCheckbox">
+                <td class="txtValue" style="display: none;">${findgood?.ID}</td>
+                <td>${findgood?.RN}</td>
+                <td>${findgood?.TITLE}</td>
+                <td>${findgood?.CONTENT}</td>
+                <td>${findgood?.LINKMAN}</td>
+                <td>${findgood?.PHONE}</td>
+                <td>${findgood?.SUP}</td>
+                <td>${findgood?.DEALCODE?.findgoodFormat()?.get("NAME")}</td>
+                <td>${findgood?.OPERATIONID?.toString().userFormat()?.get("NAME")}</td>
+                <td>${findgood?.BEGINTIME}</td>
+                <td>${findgood?.MEMO}</td>
+            </tr>
+            #{/list}
+            </tbody>
+        </table>
+        <!--/列表区域-->
+        <!--分页-->
+    #{include 'admin/common/page.html' /}
+        <!--/分页-->
+    </div>
+</div>
+<!--/右侧栏  -->
+
+<script src="@{'/public/javascripts/common/pageCommon.js'}" type="text/javascript"
+        charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/common/TableCheckbox.js'}" type="text/javascript"
+        charset="${_response_encoding}"></script>
+<script>
+    $(function () {
+        $(".nav > li > a").eq(4).css({
+            "text-decoration": "none",
+            "background-color": "#eee"
+        });
+        //提示框控制+ 后台提交
+        $("[data-toggle='popover']").click(function () {
+            var $this = $(this);
+            commit($this.attr("data-action"), $this);
+        });
+
+        //根据 页面相应的方法名（enabled/disable/edit/details/addCompany）提交后台
+        function commit(method, obj) {
+            var id = $(".txtValue").val();
+            var reg = /,/; //是否是多个id 根据，识别
+            if (reg.test(id) || id == "") {
+                obj.popover();
+            } else {
+                window.location.href = "/admin/findgood/" + method + "?findgoodId=" + id;//本地
+            }
+        }
+    })
+</script>

@@ -1,0 +1,65 @@
+#{extends 'backMain.html'/}
+#{set title:'编辑页面' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/sys/Editor.css'}">
+
+<!--左侧栏-->
+#{systemConfiguration-L /}
+
+
+<!--右侧栏  -->
+<div class="content-right">
+    <div class="container-fluid">
+
+
+        <!--/标题：选项配置>客户关系维护>编辑 -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-9 text-left ex-htbt"><b>选项配置>客户关系维护>编辑</b></div>
+                <div class="col-xs-3 text-right ex-htbt"><a href="#">返回</a></div>
+            </div>
+        </div>
+
+        <!--/编辑内容 -->
+        <div class="ex-bjnr">
+            <div class="row" id="ex-nrk">
+                <div class="row" id="ex-nrkh">
+                    <div class="col-xs-3 text-right ex-nrh">销售人员：</div>
+                    <div class="col-xs-9 text-left ex-nrh">
+                        <select id="ex-xlk">
+                            <option value="0" selected="">请选择销售人员</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" id="ex-nrkh">
+                    <div class="col-xs-3 text-right ex-nrh">买方公司名称：</div>
+                    <div class="col-xs-9 text-left ex-nrh">常州市迪龙塑料有限公司</div>
+                </div>
+                <div class="row" id="ex-nrkh">
+                    <div class="col-xs-3 text-right ex-nrh">买方业务员：</div>
+                    <div class="col-xs-9 text-left ex-nrh">张三</div>
+                </div>
+                <div class="row" id="ex-nrkh">
+                    <div class="col-xs-3 text-right ex-nrh">联系电话：</div>
+                    <div class="col-xs-9 text-left ex-nrh">15864587716</div>
+                </div>
+                <div class="row" id="ex-nrbx"></div>
+                <div class="row" id="ex-nrkh">
+                    <div class="col-xs-6 text-right ex-nrh"><button type="button" class="btn btn-success">保存</button></div>
+                    <div class="col-xs-6 text-left ex-nrh"><button type="button" class="btn btn-info">取消</button></div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<!--/右侧栏  -->
+
+

@@ -1,0 +1,246 @@
+#{extends 'backMain.html'/}
+#{set title:'注册审核首页' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/order/index.css'}">
+
+<!--左侧栏-->
+#{personalCenter-L /}
+
+<!--右侧栏  -->
+<div class="content-right">
+    <div class="container-fluid">
+
+        <!--面包屑-->
+        <div class="row ordertitle">
+            <strong>三证审核</strong>
+            <i class="glyphicon glyphicon-chevron-right"></i>
+            <strong class="yellow">审核列表</strong>
+        </div>
+        <!--/面包屑-->
+
+        <!--查询表单-->
+        <div class="container-fluid" id="querybox">
+            <div class="page-header"><span class="glyphicon glyphicon-search"></span>查询</div>
+            <form class="form" id="searchForm" action="@{admin.AnnexController.pageIndex()}" method="get">
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">登录名</label>
+
+                            <div class="col-md-7">
+                                <select name="searchAnnex.login" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:frontuserList,as:'frontuser'}
+                                    <option value="${frontuser?.LOGIN}" ${frontuser?.LOGIN?.equals( searchAnnex?.login ) ? "selected":"" }>${frontuser?.LOGIN}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">姓名</label>
+
+                            <div class="col-md-7">
+                                <select name="searchAnnex.name" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:frontuserList,as:'frontuser'}
+                                    <option value="${frontuser?.NAME}" ${frontuser?.NAME?.equals( searchAnnex?.name ) ? "selected":"" }>${frontuser?.NAME}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">附件类型</label>
+
+                            <div class="col-md-7">
+                                <select name="searchAnnex.annexcode" id="annexcode" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:annexcodeList,as:'annex'}
+                                    <option value="${annex?.LEVELCODE}"  ${annex?.LEVELCODE?.equals(searchAnnex?.annexcode) ? "selected":"" }>${annex?.NAME}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <div class="row" style="margin-top: 5px;">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">操作人</label>
+                            <div class="col-md-7">
+                                <select name="searchAnnex.operationid" id="operationid" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:accountList,as:'account'}
+                                    <option value="${account?.ID}"  ${account?.ID?.equals(searchAnnex?.operationid) ? "selected":"" }>${account?.NAME}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">审核状态</label>
+                            <div class="col-md-7">
+                                <select name="searchAnnex.statuscode" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:affirmList,as:'affirm'}
+                                    <option value="${affirm?.LEVELCODE}" ${affirm?.LEVELCODE?.equals(searchAnnex?.statuscode) ? "selected":"" }>${affirm?.NAME}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">创建时间</label>
+                                <div class="col-md-7">
+                                    <input type="text" name="searchAnnex.createtime" class="form-control form_date" value="${searchAnnex?.createtime}"/>
+                                </div>
+                            </div>
+                        </div>
+                    <!--/span-->
+                </div>
+                <div class="page-header"></div>
+                <div class="row text-center">
+                    <button class="btn btn-query" type="submit">查询</button>
+                    <button class="btn btn-reset" type="reset">重置</button>
+                </div>
+            </form>
+        </div>
+        <!--/查询表单-->
+        <!--表格-->
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>图片</th>
+            *{<th>用户id</th>}*
+                <th>登录名</th>
+                <th>姓名</th>
+                <th>附件类型</th>
+                <th>操作人</th>
+            *{<th>操作人ip</th>}*
+                <th>审核状态</th>
+                <th>创建时间</th>
+                <th>审核</th>
+            </tr>
+            </thead>
+            <tbody>
+            #{list items:pageBean.modelList, as : 'annex' }
+
+            <tr>
+                <td style="display: none;" class="txtValue">${annex?.ID}</td>
+                <td>${annex?.RN}</td>
+                <td>
+                    #{if  annex?.CHARTERURL}
+                        <img src="${annex?.CHARTERURL}" width="100" height="100" onmouseover="toMagnifier(this)"/>
+                    #{/if}
+                    #{else }
+                        <img src="@{'/public/images/admin/annex/loading.gif'}" width="100" height="100"/>
+                    #{/else}
+                </td>
+            *{<td>${annex?.GUESTID}</td>}*
+                <td>${annex?.GUESTID?.toString()?.getFrontNameAndLoginByIdFormat()?.get("LOGIN")}</td>
+                <td>${annex?.GUESTID?.toString()?.getFrontNameAndLoginByIdFormat()?.get("NAME")}</td>
+                <td>${annex?.ANNEXCODE?.annexTypeFormat()?.get("NAME")}</td>
+                <td>${annex?.OPERATIONID?.toString()?.getAccountNameByIdFormat()?.get("NAME")}</td>
+            *{<td>${annex?.OPERATIONIP}</td>}*
+                <td>${annex?.AFFIRMREGCODE?.affirmRegTypeFormat()?.get("NAME")} </td>
+                <td>${annex?.CREATETIME} </td>
+                <td>
+                    <button type="button" id="${annex?.RN}" ${annex?.AFFIRMREGCODE == '003' ? 'disabled':''}  class="btn btn-success btn-sm">通过</button>
+                    /
+                    <a type="button" id="${annex?.ID}" ${annex?.AFFIRMREGCODE == '004' ? 'disabled':''} class="btn btn-danger btn-sm">拒绝</a>
+                </td>
+            </tr>
+            #{/list}
+            </tbody>
+        </table>
+        <!--/列表区域-->
+
+        <!--分页-->
+    #{include 'admin/common/page.html' /}
+        <!--/分页-->
+
+
+    </div>
+</div>
+
+<!--/右侧栏  -->
+
+
+<script>
+    $(function () {
+
+        //图像错误，显示默认图片
+        $("img").on("error" ,function(){
+            $(this).attr('src', "@{'/public/images/admin/annex/loading.gif'}" );
+        });
+
+        #{list items:pageBean.modelList,as:'annex'}
+            //通过
+            $("#${annex?.RN}").click(function(){
+                var obj = {annexId: '${annex?.ID}'};
+                $.ajax({
+                    type:"get",
+                    url:'@{admin.AnnexController.enabled}',
+                    data:obj,
+                    success: function (data) {
+                        if(data && data.message == "ok"){
+                            messageTip.tip("审核状态:审核通过");
+                            $("#${annex?.RN}").parent().prev().prev().html('审核通过');
+                            $("#${annex?.RN}").attr("disabled", true);
+                            $("#${annex?.ID}").attr("disabled", false);
+                        }else{
+                            messageTip.tip("操作失败");
+                        }
+                    },
+                    error:function(res){
+                        messageTip.tip("网络错误");
+                    }
+                });
+            });
+
+            //拒绝
+            $("#${annex?.ID}").click(function(){
+                var obj = {annexId: '${annex?.ID}'};
+                $.ajax({
+                    type:"get",
+                    url:'@{admin.AnnexController.disable}',
+                    data:obj,
+                    success: function (data) {
+                        if(data && data.message == "ok"){
+                            messageTip.tip("审核状态:审核失败");
+                            $("#${annex?.RN}").parent().prev().prev().html('审核失败');
+                            $("#${annex?.ID}").attr("disabled", true);
+                            $("#${annex?.RN}").attr("disabled", false);
+                        }else{
+                            messageTip.tip("操作失败");
+                        }
+                    },
+                    error:function(res){
+                        messageTip.tip("网络错误");
+                    }
+                });
+            });
+        #{/list}
+    });
+</script>
+
+<script src="@{'/public/javascripts/common/pageCommon.js'}" type="text/javascript"    charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/common/TableCheckbox.js'}" type="text/javascript"   charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/common/magnifier.js'}" type="text/javascript"  charset="${_response_encoding}"></script>

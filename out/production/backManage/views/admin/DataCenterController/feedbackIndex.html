@@ -1,0 +1,90 @@
+#{extends 'backMain.html'/}
+#{set title:'数据中心' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/order/index.css'}">
+
+<!--左侧栏-->
+#{dataCenter-L /}
+
+
+<!--右侧栏  -->
+<div class="content-right">
+    <div class="container-fluid">
+        <div class="row ordertitle">
+            <strong>数据中心</strong>
+            <i class="glyphicon glyphicon-chevron-right"></i>
+            <strong class="yellow">帮助反馈列表</strong>
+        </div>
+        <!--查询表单-->
+        <div class="container-fluid" id="querybox">
+            <div class="page-header"><span class="glyphicon glyphicon-search"></span>查询</div>
+                <!-- BEGIN FORM-->
+                <form action="@{admin.DataCenterController.feedbackIndex}" class="form-horizontal" id="searchForm" method="GET">
+                    <div class="form-body">
+                        <div class="row">
+                            <!-- span -->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label col-md-5" >标题</label>
+                                    <div class="col-md-7">
+                                        <select name="title" id="title" class="chosen-select form-control" tabindex="2">
+                                            <option value="">--请选择--</option>
+                                            #{list items:pageBean.modelList,as:'feedback'}
+                                                <option value="${feedback?.TITLE}" ${feedback?.TITLE == title ? 'selected':''}>${feedback?.TITLE}</option>
+                                            #{/list}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /span -->
+                        </div>
+                    </div>
+                    <div class="page-header"></div>
+                    <div class="row text-center">
+                        <input type="submit" class="btn btn-query" onclick="searchform()" value="查询">
+                        <button class="btn btn-reset" type="reset" value="">重置</button>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+            <!--表格-->
+            <table class="table table-bordered table-striped" id="data-table">
+                <thead>
+                <tr name="includeCheckbox">
+                    <th>标题</th>
+                    <th>问题描述</th>
+                    *{<th>类型</th>}*
+                    <th>提交人</th>
+                    <th>提交时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                #{list items:pageBean.modelList,as:'feedback'}
+                <tr name="includeCheckbox">
+                    <td class="txtValue" style="display: none;">${feedback?.ID}</td>
+                    <td>${feedback?.TITLE}</td>
+                    <td>${feedback?.CONTENT}</td>
+                    *{<td>${company?.TYPECODE}</td>}*
+                    <td>${feedback?.FRONTUSERID?.toString()?.getFrontNameAndLoginByIdFormat()?.get("LOGIN")}</td>
+                    <td>${feedback?.CREATETIME}</td>
+                </tr>
+                #{/list}
+                </tbody>
+            </table>
+    </div>
+    <!--分页-->
+    #{include 'admin/common/page.html'/}
+</div>
+<script src="@{'/public/javascripts/common/pageCommon.js'}" type="text/javascript" ></script>
+<script src="@{'/public/javascripts/common/TableCheckbox.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script type="text/javascript">
+    //提交搜索的from表单
+    function searchform(){
+        $("#searchForm").submit();
+    }
+    $(function () {
+        $(".nav > li > a").eq(9).css({
+            "text-decoration": "none",
+            "background-color": "#eee"
+        });
+    });
+</script>

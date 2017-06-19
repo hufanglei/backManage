@@ -1,0 +1,111 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    font-size: 16px;
+    font-family: Arial;
+}
+
+/*
+    标题：选项配置>货物保留时间
+*/
+.ex-htbt{
+    height: 50px;
+    line-height: 60px;
+    font-size: 16px;
+    color: #40516B;
+}
+
+/*
+    标题：合同签订
+*/
+.ex-htqd{
+    height: 40px;
+    line-height: 40px;
+    /*padding: 0px 15px;*/
+    margin: 10px 0px;
+}
+
+#ex-htqds{
+    padding: 0px;
+    border-bottom: 1px solid #FF6C04;
+}
+
+/*
+    收索框：公式名称、时间
+*/
+#ex-ssk{
+    height: 50px;
+    line-height: 50px;
+    margin: 0px 0px 10px 0px;
+    border: 1px solid #DBDCE0;
+}
+
+#ex-ssk1,#ex-ssk2,#ex-ssk3{
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+    /*border: 1px solid red;*/
+}
+
+#ex-sskxl{
+    width: 50%;
+    height: 28px;
+}
+
+.ex-ssksj{
+    width: 50%;
+    height: 28px;
+    line-height: 28px;
+    text-align: right;
+}
+
+/*
+    列表功能栏
+*/
+.ex-khlb-gnl{
+    padding: 0px;
+}
+.ex-khlb,.ex-khlb-s,.ex-khlb-x{
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    color: #080707;
+    /*border: 1px solid red;*/
+}
+.ex-inp{
+    width: 100px;
+    height: 22px;
+    line-height: 21px;
+    font-size: 14px;
+    text-align: center;
+}
+
+#ex-xlk{
+    height: 28px;
+}
+
+/*
+    列表展示
+*/
+
+
+/*
+    分页
+*/
+.pager li > a, .pager li > span {
+    border-radius: 5px;
+}
+
+.pager .paddingleft10{
+    padding-left:3em;
+}
+
+.pager .confirm{
+    background-color: #337ab7;
+    color:#FFF;
+}
+
+.pager .confirm:hover{
+    background-color: #095379;
+    color:#FFF;
+}

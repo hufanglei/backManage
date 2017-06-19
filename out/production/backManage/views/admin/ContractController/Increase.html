@@ -1,0 +1,121 @@
+#{extends 'backMain.html'/}
+#{set title:'增加' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/sys/Increase.css'}">
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/contract/detail.css'}">
+
+<!--左侧栏-->
+#{systemConfiguration-L /}
+
+
+<!--右侧栏  -->
+<div class="content-right">
+    <div class="container-fluid">
+
+
+        <!--/标题：选项配置>客户关系维护>增加 -->
+        <div class="container-fluid">
+            <div class="row ex-zjbt">
+                <div class="col-xs-10 text-left" id="ex-zt"><b>选项配置>客户关系维护>增加</b></div>
+                <div class="col-xs-2 text-right" id="ex-fh"><a href="#">返回</a></div>
+            </div>
+        </div>
+
+        <!--/标题：待关联列表 -->
+        <div class="container-fluid">
+            <div class="row ex-dgllb">
+                <div class="col-xs-10 text-left" id="ex-glbt"><b>待关联列表</b></div>
+            </div>
+        </div>
+
+        <!--/列表功能栏 -->
+        <div class="container-fluid">
+            <div class="row text-center ex-gnl">
+                <div class="col-xs-6 text-left ex-bj">
+                    <select id="ex-xlk" >
+                        <option value="0" selected="">选择销售人员</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                </div>
+                <div class="col-xs-6 text-right ex-sc">
+                    <button type="button" class="btn btn-sm btn-info">批量增加</button>
+                    <button type="button" class="btn btn-sm btn-warning"><small class="glyphicon glyphicon-chevron-left"></small><samp>上一页</samp></button>
+                    <button type="button" class="btn btn-sm btn-warning"><samp>下一页</samp><small class="glyphicon glyphicon-chevron-right"></small></button>
+                </div>
+            </div>
+        </div>
+        <div class="kkg"></div>
+
+        <!--/列表展示 -->
+        <div id="ex-spxx">
+            <table class="table table-bordered table-striped ">
+                <thead class="thead">
+                <tr>
+                    <th><input name="Fruit" type="checkbox" value="" />全选</th>
+                    <th>序号</th>
+                    <th>公司名称</th>
+                    <th>联系人</th>
+                    <th>联系电话</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><input name="Fruit" type="checkbox" value="" /></td>
+                    <td>01</td>
+                    <td>常州市迪龙塑料有限公司</td>
+                    <td>张三</td>
+                    <td>15833660417</td>
+                    <td>
+                        <a href="@{admin.ContractController.Editor()}"><button type="button" class="btn btn-xs btn-warning">编辑</button></a>
+                        <button type="button" class="btn btn-xs btn-info">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input name="Fruit" type="checkbox" value="" /></td>
+                    <td>02</td>
+                    <td>常州市迪龙塑料有限公司</td>
+                    <td>张三</td>
+                    <td>15833660417</td>
+                    <td>
+                        <a href="@{admin.ContractController.Editor()}"><button type="button" class="btn btn-xs btn-warning">编辑</button></a>
+                        <button type="button" class="btn btn-xs btn-info">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input name="Fruit" type="checkbox" value="" /></td>
+                    <td>03</td>
+                    <td>常州市迪龙塑料有限公司</td>
+                    <td>张三</td>
+                    <td>15833660417</td>
+                    <td>
+                        <a href="@{admin.ContractController.Editor()}"><button type="button" class="btn btn-xs btn-warning">编辑</button></a>
+                        <button type="button" class="btn btn-xs btn-info">删除</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--/分页 -->
+        <ul class="pager">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">上一页</a></li>
+            <li><a href="#">下一页</a></li>
+            <li><a href="#">尾页</a></li>
+            <li class="paddingleft10">第<a href="#"contenteditable="true" id="currentPage">5</a>页</li>
+            <li><a href="#" class="confirm">确定</a></li>
+        </ul>
+
+
+
+    </div>
+</div>
+
+<!--/右侧栏  -->
+
+

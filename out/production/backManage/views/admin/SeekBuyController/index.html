@@ -1,0 +1,183 @@
+#{extends 'backMain.html'/}
+#{set title:'APP订单中心' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/order/index.css'}">
+<!--左侧栏-->
+#{operationleft /}
+
+<!--右侧栏  -->
+<div class="content-right">
+    <div class="container-fluid">
+        <!--面包屑-->
+        <div class="row ordertitle">
+            <strong>订单管理</strong>
+            <i class="glyphicon glyphicon-chevron-right"></i>
+            <strong class="yellow">订单跟踪</strong>
+        </div>
+        <!--/面包屑-->
+
+        <!--查询表单-->
+        <div class="container-fluid" id="querybox">
+            <div class="page-header"><span class="glyphicon glyphicon-search"></span>查询</div>
+            <form class="form" action="@{admin.SeekBuyController.index()}" method="GET">
+
+                <div class="row margin-b-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">订单号码</label>
+
+                            <div class="col-md-7">
+                                <input type="text" name="searchSeekBuy.orderno" class="form-control"
+                                       value="${searchSeekBuy?.codeno}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">订单金额</label>
+
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <div class="col-md-5"><input type="text" class="form-control"
+                                                                 placeholder="起始金额"/>
+                                    </div>
+                                    <div class="col-md-5"><input type="text" class="form-control"
+                                                                 placeholder="截止金额"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">公司名称</label>
+
+                            <div class="col-md-7">  *{ name="searchSeekBuy.codeno"}*
+                                <input type="text" class="form-control" placeholder="请输入内容"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">下单时间</label>
+
+                            <div class="col-md-7">
+                                <input type="text" name="searchSeekBuy.createtime" class="form-control form_date" value="${searchSeekBuy?.createtime?.format("yyyy-MM-dd")}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-header"></div>
+                <div class="row text-center">
+                    <button class="btn btn-query" type="submit">查询</button>
+                    <button class="btn btn-reset" type="reset">重置</button>
+                </div>
+            </form>
+        </div>
+        <!--/查询表单-->
+
+
+        <!--列表区域-->
+        <div class="row filler">
+            <input type="checkbox"/> 有效订单
+        </div>
+        <!--表格-->
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>订单号</th>
+                <th>订单金额</th>
+                <th>下单时间</th>
+                <th>公司名称</th>
+                <th>业务员</th>
+                <th>销售人员</th>
+                <th>订单状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            #{list items:orderList , as : 'seekBuy'}
+
+            <tr>
+                <td>${seekBuy?.RN}</td>
+                <td>${seekBuy?.codeno}</td>
+                <td class="orderId" orderId="${seekBuy?.id}">
+                </td>
+                <td>${seekBuy?.createtime}</td>
+                <td>${seekBuy?.frontUser?.company?.name}</td>
+                <td>${seekBuy?.frontUser?.name}</td>
+                <td>
+                    #{list items:accountList,as:'account'}
+                            #{if account.id == seekBuy.operationid}
+                    ${account?.name}
+                    #{/if}
+                        #{/list}
+                </td>
+                <td ></td>
+                <td><a href="@{admin.SeekBuyController.detail}?seekBuyNo=${seekBuy?.id}">详情</a></td>
+            </tr>
+
+            #{/list}
+            </tbody>
+        </table>
+        <!--/列表区域-->
+
+        <!--分页-->
+        <ul class="pager">
+        #{if page?.getHasPrePage(curPage)}
+            <li><a href="@{admin.SeekBuyController.index()}?curPage=1">首页</a></li>
+            <li><a href="@{admin.SeekBuyController.index()}?curPage=${curPage-1}">上一页</a></li>
+        #{/if}
+        #{if !page?.getHasPrePage(curPage)}
+            <li class="disabled"><a href="javascript:void(0)">首页</a></li>
+            <li class="disabled"><a href="javascript:void(0)">上一页</a></li>
+        #{/if}
+        #{if page?.getHasNextPage(curPage , page?.pages)}
+            <li><a href="@{admin.SeekBuyController.index()}?curPage=${curPage+1}">下一页</a></li>
+            <li><a href="@{admin.SeekBuyController.index()}?curPage=${page?.pages}">尾页</a></li>
+        #{/if}
+        #{if !page?.getHasNextPage(curPage , page?.pages)}
+            <li class="disabled"><a href="javascript:void(0)">下一页</a></li>
+            <li class="disabled"><a href="javascript:void(0)">尾页</a></li>
+        #{/if}
+            <li class="paddingleft10">第<a href="javascript:void(0);" contenteditable="true"
+                                          id="currentPage">${curPage}</a>页
+            </li>
+            <li><a href="javascript:void(0);" class="confirm">确定</a></li>
+            <li class="pull-right">
+                当前第${page?.curPage} /${page?.pages}页。每页${page?.pageSize}条记录，共${page?.count}条记录
+            </li>
+        </ul>
+        <!--/分页-->
+
+    </div>
+</div>
+<!--/右侧栏  -->
+
+
+
+<!--显示导航栏选中状态的js-->
+<script src="@{'/public/javascripts/admin/order/index.js'}" type="text/javascript"
+        charset="${_response_encoding}"></script>
+<script>
+    $(function(){
+        //计算订单金额
+        $(".orderId").each(function(){
+            var $this = $(this);
+            $this.html($this.attr("orderId"));; //获取订单id
+            var id = $this.html();
+            $.ajax({
+                data:{"id":id},
+                type:"post",
+                url:"@{admin.OrderController.getFinalMoney()}",
+                success:function(data){
+                    $this.html("￥ "+data.finalMoney.FINALMONEY+".00");
+                    $this.parent().children().eq(7).html(data.statuscode.ORDERSTATUSCODE);
+                }
+            });
+        });
+    });
+</script>
+

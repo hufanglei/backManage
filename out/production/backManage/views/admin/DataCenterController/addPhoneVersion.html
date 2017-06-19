@@ -1,0 +1,82 @@
+#{extends 'backMain.html'/}
+#{set title:'数据中心' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/order/index.css'}">
+
+<!--左侧栏-->
+#{dataCenter-L /}
+
+<!--右侧栏  -->
+<div class="content-right">
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE HEADER-->
+
+         <!--表单区域-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="glyphicon glyphicon-plus"></i> 手机版本管理 > 新增
+            </div>
+            <div class="panel-body">
+                <form action="@{admin.DataCenterController.savePhoneversion()}" method="Post" class="form-horizontal" enctype="multipart/form-data">
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="type">版本名称</label>
+                            <div class="col-sm-3">
+                                <input name="phoneversion.name" check-type="required" class="form-control placeholder-no-fix" autocomplete="off" value=""/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="type">版本编号</label>
+                            <div class="col-sm-3">
+                                <input name="phoneversion.code" check-type="required" class="form-control placeholder-no-fix" autocomplete="off" value=""/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="name">手机app文件</label>
+                                <div class="col-sm-3">
+                                    <input id="img" type="file" check-type="required" alt="手机app文件" name="fileText"  class="form-control"/>
+                                    <span class="help-inline"></span>
+                                    <span class="help-block"></span>
+                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="type">升级内容</label>
+                            <div class="col-sm-3">
+                                <input name="phoneversion.content"  class="form-control placeholder-no-fix"  autocomplete="off" value=""/>
+                            </div>
+                        </div>
+                        <div class="form-group" style="padding-top:30px">
+                            <div class="col-sm-offset-3 col-sm-3">
+                                <button id="submit" type="submit" class="btn btn-primary">保存</button>
+                                <button id="cancel" type="reset" class="btn cancel" onclick="history.go(-1)">取消</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--/右侧栏  -->
+<script src="@{'/public/javascripts/bootstrap3-validation.js'}" type="text/javascript"    charset="${_response_encoding}"></script>
+<script>
+    $("form").validation();
+    //表单提交验证
+    $("button[type='submit']").on('click', function (event) {
+        // 2.最后要调用 valid()方法。
+        if ($("form").valid() == false) {
+            return false;
+        }
+    });
+
+</script>
+<script>
+    $(function () {
+        $(".nav > li > a").eq(9).css({
+            "text-decoration": "none",
+            "background-color": "#eee"
+        });
+    });
+
+</script>

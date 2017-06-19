@@ -1,0 +1,154 @@
+#{extends 'backMain.html'/}
+#{set title:'申请聚融宝资质' /}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/admin/order/index.css'}">
+
+<!--左侧栏-->
+#{financialCenter-L /}
+
+<!--右侧栏  -->
+<div class="content-right">
+    <div class="container-fluid">
+
+        <!--面包屑-->
+        <div class="row ordertitle">
+            <strong>聚融宝</strong>
+            <i class="glyphicon glyphicon-chevron-right"></i>
+            <strong class="yellow">申请聚融宝资质</strong>
+        </div>
+        <!--/面包屑-->
+        <!--查询表单-->
+        <div class="container-fluid" id="querybox">
+            <div class="page-header"><span class="glyphicon glyphicon-search"></span>查询</div>
+            <form class="form" id="searchForm" action="@{admin.JuRongBaoController.pageIndex()}" method="get">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">用户类型</label>
+                            <div class="col-md-7">
+                                <select name="searchApplyjurongbao.usertype" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:usertypeList,as:'usertype'}
+                                    <option value="${usertype?.LEVELCODE}"  ${usertype?.LEVELCODE?.equals(searchApplyjurongbao?.usertype) ? "selected":"" }>${usertype?.NAME}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">用户名</label>
+                            <div class="col-md-7">
+                                <select name="searchApplyjurongbao.name" class="form-control placeholder-no-fix chosen-select"
+                                        autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:pageBean.modelList,as:'jurongbao'}
+                                    <option value="${jurongbao?.NAME}"  ${jurongbao?.NAME?.equals( searchApplyjurongbao?.name ) ? "selected":"" }>${jurongbao?.NAME}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">加工机械</label>
+                            <div class="col-md-7">
+                                <select name="searchApplyjurongbao.procmach" class="form-control placeholder-no-fix chosen-select" autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:pageBean.modelList,as:'jurongbao'}
+                                    <option value="${jurongbao?.PROCMACH}"  ${jurongbao?.PROCMACH == searchApplyjurongbao?.procmach  ? "selected":"" }>${jurongbao?.PROCMACH}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <div class="row" style="margin-top: 5px;">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">产出产品</label>
+                            <div class="col-md-7">
+                                <select name="searchApplyjurongbao.product" class="form-control placeholder-no-fix chosen-select" autocomplete="off">
+                                    <option value="">--请选择--</option>
+                                #{list items:pageBean.modelList,as:'jurongbao'}
+                                    <option value="${jurongbao?.PRODUCT}"  ${jurongbao?.PRODUCT?.equals( searchApplyjurongbao?.product ) ? "selected":"" }>${jurongbao?.PRODUCT}</option>
+                                #{/list}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-5 text-right">创建时间</label>
+                            <div class="col-md-7">
+                                <input type="text" name="searchApplyjurongbao.createtime" class="form-control form_date" value="${searchApplyjurongbao?.createtime}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-header"></div>
+                <div class="row text-center">
+                    <button class="btn btn-query" type="submit">查询</button>
+                    <button class="btn btn-reset" type="reset" value="">重置</button>
+                </div>
+            </form>
+        </div>
+        <!--/查询表单-->
+        <!--表格-->
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>用户类型</th>
+                <th>用户名</th>
+                <th>加工机械</th>
+                <th>产出产品</th>
+                <th>手机号</th>
+                <th>创建时间</th>
+                <th>详情</th>
+                <th>审核</th>
+            </tr>
+            </thead>
+            <tbody>
+            #{list items:pageBean.modelList , as : 'jurongbao'}
+            <tr>
+                <td style="display: none;">${jurongbao?.ID}</td>
+                <td>${jurongbao?.RN}</td>
+                <td>${jurongbao?.USERTYPE?.usertypeFormat()?.get("NAME")}</td>
+                <td>${jurongbao?.NAME}</td>
+                <td>${jurongbao?.PROCMACH} 台/套</td>
+                <td>${jurongbao?.PRODUCT}</td>
+                <td>${jurongbao?.MOBPHONE}</td>
+                <td>${jurongbao?.CREATETIME}</td>
+                <td><a href="@{admin.JuRongBaoController.detail()}?id=${jurongbao?.ID}">详情</a></td>
+                <td>
+                    <button class="btn btn-success btn-sm" id="${jurongbao?.ID}">通过</button>
+                    /
+                    <button class="btn btn-danger btn-sm">拒绝</button>
+                </td>
+            </tr>
+            #{/list}
+            </tbody>
+        </table>
+        <!--/列表区域-->
+        <!--分页-->
+    #{include 'admin/common/page.html' /}
+        <!--/分页-->
+    </div>
+</div>
+<!--/右侧栏  -->
+
+<script src="@{'/public/javascripts/common/pageCommon.js'}" type="text/javascript"
+        charset="${_response_encoding}"></script>
+<script>
+    $(function () {
+        $(".nav > li > a").eq(6).css({
+            "text-decoration": "none",
+            "background-color": "#eee"
+        });
+
+    })
+</script>
